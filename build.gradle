@@ -1,0 +1,90 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.2.51'
+    ext.build_version = '3.1.1'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$build_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+ext{
+    minSdkVersion = 17
+    targetSdkVersion = 27
+    compileSdkVersion = 27
+}
+ext.deps = [
+        timber             : 'com.jakewharton.timber:timber:4.7.1',
+        gson               : 'com.google.code.gson:gson:2.8.4',
+        switchbutton       : 'com.kyleduo.switchbutton:library:2.0.0',
+]
+def versions = [:]
+versions.lifecycle = "1.1.1"
+versions.room = "1.1.1"
+versions.kotlin = kotlin_version
+versions.rx = "2.0.2"
+versions.support = '27.1.1'
+versions.android_plugin_version = build_version
+deps.versions = versions
+
+def rx = [:]
+rx.rxJava = "io.reactivex.rxjava2:rxjava:$versions.rx"
+rx.rxAndroid = "io.reactivex.rxjava2:rxandroid:$versions.rx"
+rx.rxKotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rx"
+deps.rx = rx
+
+def kotlin = [:]
+kotlin.jdk = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.ktx = 'androidx.core:core-ktx:0.3'
+kotlin.coroutines = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
+kotlin.gradle_plugin ="org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+deps.kotlin = kotlin
+
+def view = [:]
+view.constraintLayout = 'com.android.support.constraint:constraint-layout:1.1.0'
+deps.view = view
+
+def support = [:]
+support.appcompatV7 = "com.android.support:appcompat-v7:$versions.support"
+support.supportV4 = "com.android.support:support-v4:$versions.support"
+support.recyclerView = "com.android.support:recyclerview-v7:$versions.support"
+deps.support = support
+
+def databinding = [:]
+databinding.compiler = "com.android.databinding:compiler:$versions.android_plugin_version"
+deps.databinding = databinding
+
+def lifecycle = [:]
+lifecycle.runtime = "android.arch.lifecycle:runtime:$versions.lifecycle"
+lifecycle.extensions = "android.arch.lifecycle:extensions:$versions.lifecycle"
+lifecycle.java8 = "android.arch.lifecycle:common-java8:$versions.lifecycle"
+lifecycle.compiler = "android.arch.lifecycle:compiler:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+def room = [:]
+room.runtime = "android.arch.persistence.room:runtime:$versions.room"
+room.compiler = "android.arch.persistence.room:compiler:$versions.room"
+room.rxjava2 = "android.arch.persistence.room:rxjava2:$versions.room"
+room.testing = "android.arch.persistence.room:testing:$versions.room"
+deps.room = room
+
+def network = [:]
+network.okhttp = "com.squareup.okhttp3:okhttp:3.11.0"
+deps.network = network

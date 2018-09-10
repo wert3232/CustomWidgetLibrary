@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/diolag_bg">
+
+
+	<EditText
+		android:id="@+id/editText"
+		android:layout_width="0dp"
+		android:layout_height="50dp"
+		android:layout_marginTop="8dp"
+		android:background="@android:color/white"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:maxLength="8"
+		android:paddingEnd="4dp"
+		android:paddingStart="4dp"
+		android:text="Name"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textview_title"
+		app:layout_constraintVertical_bias="0.04000002"
+		app:layout_constraintWidth_default="percent"
+		app:layout_constraintWidth_percent="0.8" />
+
+	<TextView
+		android:id="@+id/textview_title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:gravity="center"
+		android:textColor="@android:color/white"
+		android:textSize="20sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:text="标题" />
+
+	<TextView
+		android:id="@+id/textview_confirm"
+		android:layout_width="120dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		android:background="@drawable/selector_control_btn_bg"
+		android:gravity="center"
+		android:text="@string/confirm"
+		android:textColor="@android:color/white"
+		android:textSize="14sp"
+		app:layout_constraintEnd_toStartOf="@+id/textview_cancel"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+	<TextView
+		android:id="@+id/textview_cancel"
+		android:layout_width="120dp"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginTop="16dp"
+		android:background="@drawable/selector_control_btn_bg"
+		android:gravity="center"
+		android:text="@string/cancel"
+		android:textColor="@android:color/white"
+		android:textSize="14sp"
+		android:visibility="visible"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/textview_confirm"
+		app:layout_constraintTop_toBottomOf="@+id/editText" />
+</android.support.constraint.ConstraintLayout>

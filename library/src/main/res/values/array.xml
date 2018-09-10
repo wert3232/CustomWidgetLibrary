@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="frequency_31">
+        <item>20</item>
+        <item>25</item>
+        <item>32</item>
+        <item>40</item>
+        <item>50</item>
+        <item>63</item>
+        <item>80</item>
+        <item>100</item>
+        <item>125</item>
+        <item>160</item>
+        <item>200</item>
+        <item>250</item>
+        <item>315</item>
+        <item>400</item>
+        <item>500</item>
+        <item>630</item>
+        <item>800</item>
+        <item>1000</item>
+        <item>1250</item>
+        <item>1600</item>
+        <item>2000</item>
+        <item>2500</item>
+        <item>3150</item>
+        <item>4000</item>
+        <item>5000</item>
+        <item>6300</item>
+        <item>8000</item>
+        <item>10000</item>
+        <item>12500</item>
+        <item>16000</item>
+        <item>20000</item>
+    </integer-array>
+    <integer-array name="frequency_15">
+        <item>25</item>
+        <item>40</item>
+        <item>63</item>
+        <item>100</item>
+        <item>160</item>
+        <item>250</item>
+        <item>400</item>
+        <item>630</item>
+        <item>1000</item>
+        <item>1600</item>
+        <item>2500</item>
+        <item>4000</item>
+        <item>6300</item>
+        <item>10000</item>
+        <item> 161000</item>
+    </integer-array>
+</resources>
