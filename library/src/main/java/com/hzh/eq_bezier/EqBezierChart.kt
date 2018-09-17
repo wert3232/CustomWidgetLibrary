@@ -95,8 +95,10 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
         style = Paint.Style.STROKE
     }
     private var canvas: Canvas ?= null
+    private var eqDataObservable: Disposable ?= null
+    private var eqFrequencyObservable: Disposable ?= null
     init {
-        Observable.create(ObservableOnSubscribe<EqData>{
+        eqDataObservable = Observable.create(ObservableOnSubscribe<EqData>{
             emitter ->
             e = emitter
         }).filter {
@@ -122,7 +124,7 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
                 it.printStackTrace()
             }
         )
-        Observable.create(ObservableOnSubscribe<Int>{
+        eqFrequencyObservable = Observable.create(ObservableOnSubscribe<Int>{
             emitter ->
             frequencyChangeEmitter = emitter
         }).filter {
@@ -199,6 +201,11 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
         return super.onTouchEvent(event)
     }
 
+    override fun onDetachedFromWindow() {
+        eqDataObservable?.dispose()
+        eqFrequencyObservable?.dispose()
+        super.onDetachedFromWindow()
+    }
     @Deprecated
     private fun createEqPath(px: Float, py: Float, q: Float = defaultQ) : Path{
         val zeroLineY = (measuredHeight / 2) .toFloat()

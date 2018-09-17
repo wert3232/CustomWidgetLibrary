@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources  xmlns:tools="http://schemas.android.com/tools">
     <declare-styleable name="eqBezierChart">
         <attr name="eqPointNum" format="integer"/>
         <attr name="frequencies"/>
@@ -84,10 +84,11 @@
     </declare-styleable>-->
     <declare-styleable name="commonAttr">
         <attr name="viewIndex" format="integer"/>
-        <attr name="selectIndex" format="integer"></attr>
+        <attr name="selectIndex" format="integer"/>
         <attr name="appContent" format="string"/>
         <attr name="appTextSize" format="dimension"/>
         <attr name="appTextColor" format="color"/>
+        <attr name="appChecked" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="NiceSpinner">
         <attr name="arrowTint" format="color" />
@@ -98,5 +99,29 @@
         <attr name="textTint" format="color"/>
         <attr name="selectedIndex" format="integer"/>
         <attr name="entries" />
+    </declare-styleable>
+    <declare-styleable name="SwitchButton" tools:ignore="ResourceName">
+        <attr name="kswThumbDrawable" format="reference"/>
+        <attr name="kswThumbColor" format="color|reference"/>
+        <attr name="kswThumbMargin" format="dimension|reference"/>
+        <attr name="kswThumbMarginTop" format="dimension|reference"/>
+        <attr name="kswThumbMarginBottom" format="dimension|reference"/>
+        <attr name="kswThumbMarginLeft" format="dimension|reference"/>
+        <attr name="kswThumbMarginRight" format="dimension|reference"/>
+        <attr name="kswThumbWidth" format="dimension|reference"/>
+        <attr name="kswThumbHeight" format="dimension|reference"/>
+        <attr name="kswThumbRadius" format="dimension|reference"/>
+        <attr name="kswBackRadius" format="dimension|reference"/>
+        <attr name="kswBackDrawable" format="reference"/>
+        <attr name="kswBackColor" format="color|reference"/>
+        <attr name="kswFadeBack" format="boolean"/>
+        <attr name="kswThumbRangeRatio" format="float"/>
+        <attr name="kswAnimationDuration" format="integer"/>
+        <attr name="kswTintColor" format="color|reference"/>
+        <attr name="kswTextOn" format="string"/>
+        <attr name="kswTextOff" format="string"/>
+        <attr name="kswTextThumbInset" format="dimension"/>
+        <attr name="kswTextExtra" format="dimension"/>
+        <attr name="kswTextAdjust" format="dimension"/>
     </declare-styleable>
 </resources>
