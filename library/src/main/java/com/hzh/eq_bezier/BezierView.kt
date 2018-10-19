@@ -96,8 +96,6 @@ class BezierView : View {
 
 
     override fun onDraw(canvas: Canvas) {
-        if (mPoints == null)
-            return
         val paint = Paint()
         paint.color = Color.RED
         paint.strokeWidth = 3f
@@ -126,7 +124,7 @@ class BezierView : View {
      * @param canvas
      * @param pos
      */
-    private fun drawPoint(canvas: Canvas, pos: FloatArray) {
+    private fun drawPoint(canvas: Canvas, @Suppress("UNUSED_PARAMETER") pos: FloatArray) {
         val redPaint = Paint()
         redPaint.color = Color.RED
         redPaint.strokeWidth = 1f

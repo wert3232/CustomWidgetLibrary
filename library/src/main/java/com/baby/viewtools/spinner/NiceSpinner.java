@@ -112,12 +112,10 @@ public class NiceSpinner extends AppCompatTextView {
         if (savedState instanceof Bundle) {
             Bundle bundle = (Bundle) savedState;
             selectedIndex = bundle.getInt(SELECTED_INDEX);
-
             if (adapter != null) {
                 setTextInternal(adapter.getItemInDataset(selectedIndex).toString());
                 adapter.setSelectedIndex(selectedIndex);
             }
-
             if (bundle.getBoolean(IS_POPUP_SHOWING)) {
                 if (popupWindow != null) {
                     // Post the show request into the looper to avoid bad token exception
@@ -129,7 +127,6 @@ public class NiceSpinner extends AppCompatTextView {
                     });
                 }
             }
-
             isArrowHidden = bundle.getBoolean(IS_ARROW_HIDDEN, false);
             arrowDrawableResId = bundle.getInt(ARROW_DRAWABLE_RES_ID);
             savedState = bundle.getParcelable(INSTANCE_STATE);

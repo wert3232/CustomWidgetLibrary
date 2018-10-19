@@ -20,23 +20,22 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     val commonAttr = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
     private var startIndex = a.getInt(R.styleable.HorizontalWheelView_startIndex, 0)
     private var endIndex = a.getInt(R.styleable.HorizontalWheelView_endIndex, 10) + 1
-    private val drawer: Drawer
+    private val drawer: Drawer = Drawer(this)
     private val touchHandler: TouchHandler
     private var angle: Double = 0.toDouble()
                     set(value) {
                         if(field == value){
-
                         }else{
                             field = value
                         }
                     }
-    private var onlyPositiveValues: Boolean = false
-    private var endLock: Boolean = false
+    var onlyPositiveValues: Boolean = false
+    var endLock: Boolean = false
     private var listener: onChangeListener ? = null
     //值越大越慢
     private var scaleSpeedUnit =  a.getInt(R.styleable.HorizontalWheelView_scaleSpeedUnit, 20)
     var inverseBindingListener: InverseBindingListener? = null
-    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_index, startIndex) ?: 0
+    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_index, startIndex)
         set(value) {
             if(field == value){
 
@@ -82,20 +81,39 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
             invalidate()
         }
     var isCursorShow = true
+        set(value) {
+            drawer.isCursorShow = value
+            field = value
+        }
     var scaleAction : (Int) -> Unit = {}
+    var normalMarkLengthRatio = 0.6f
+        set(value) {
+            drawer.normalMarkHeightRatio = value
+            field = value
+        }
+    var zeroMarkHeightRatio = 0.8f
+        set(value) {
+            drawer.zeroMarkHeightRatio = value
+            field = value
+        }
+    var zeroMarkColor = -1
+        set(value) {
+            drawer.zeroMarkColor = value
+            field = value
+        }
     init {
-        drawer = Drawer(this)
         touchHandler = TouchHandler(this)
         readAttrs(attrs)
     }
 
-    private fun readAttrs(attrs: AttributeSet) {
+    private fun readAttrs(@Suppress("UNUSED_PARAMETER") attrs: AttributeSet) {
         val marksCount = a.getInt(R.styleable.HorizontalWheelView_marksCount, DEFAULT_MARKS_COUNT)
         drawer.marksCount = marksCount
         val normalColor = a.getColor(R.styleable.HorizontalWheelView_normalColor, DEFAULT_NORMAL_COLOR)
         drawer.setNormalColor(normalColor)
         val activeColor = a.getColor(R.styleable.HorizontalWheelView_activeColor, DEFAULT_ACTIVE_COLOR)
         drawer.setActiveColor(activeColor)
+        zeroMarkColor = a.getColor(R.styleable.HorizontalWheelView_zeroMarkColor, -1)
         val showActiveRange = a.getBoolean(R.styleable.HorizontalWheelView_showActiveRange,
                 DEFAULT_SHOW_ACTIVE_RANGE)
         drawer.setShowActiveRange(showActiveRange)
@@ -105,8 +123,12 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         onlyPositiveValues = a.getBoolean(R.styleable.HorizontalWheelView_onlyPositiveValues,
                 DEFAULT_ONLY_POSITIVE_VALUES)
         isCursorShow = a.getBoolean(R.styleable.HorizontalWheelView_isCursorShow,true)
+        normalMarkLengthRatio = a.getFloat(R.styleable.HorizontalWheelView_normalMarkLengthRatio,0.6f)
+        zeroMarkHeightRatio = a.getFloat(R.styleable.HorizontalWheelView_zeroMarkLengthRatio,0.8f)
+
         drawer.setNormalMarkWidth(a.getInt(R.styleable.HorizontalWheelView_normalMarkWidth,1))
         a.recycle()
+        commonAttr.recycle()
     }
 
     fun setChangeListener(listener: onChangeListener) {
@@ -135,13 +157,6 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         return hit
     }
 
-    fun setOnlyPositiveValues(onlyPositiveValues: Boolean) {
-        this.onlyPositiveValues = onlyPositiveValues
-    }
-
-    fun setEndLock(lock: Boolean) {
-        this.endLock = lock
-    }
 
     fun setShowActiveRange(show: Boolean) {
         drawer.setShowActiveRange(show)
@@ -163,7 +178,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     }
 
     private var scale = 0f
-    fun onDistanceChange(distanceX: Float,distanceY: Float){
+    fun onDistanceChange(distanceX: Float, @Suppress("UNUSED_PARAMETER") distanceY: Float){
         if(Math.abs(distanceX) < scaleSpeedUnit){
             scale += distanceX
             if(Math.abs(scale) > scaleSpeedUnit){
@@ -174,12 +189,6 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
             scaleAction((distanceX / scaleSpeedUnit).toInt())
             scale = 0f
         }
-        /*val d = (distanceX / 5).toInt()
-       if(distanceX >= 1){
-            scaleAction(d + 1)
-       }else if(distanceX <= -1){
-            scaleAction(d - 1)
-       }*/
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if(event.getAction() == MotionEvent.ACTION_MOVE){
@@ -211,7 +220,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     }
 
     override fun onDraw(canvas: Canvas) {
-        drawer.onDraw(canvas,isCursorShow)
+        drawer.onDraw(canvas)
     }
 
     public override fun onSaveInstanceState(): Parcelable? {

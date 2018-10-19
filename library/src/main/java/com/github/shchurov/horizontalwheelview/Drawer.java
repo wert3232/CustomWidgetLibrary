@@ -16,8 +16,6 @@ class Drawer {
     private static final int DP_NORMAL_MARK_WIDTH = 1;
     private static final int DP_ZERO_MARK_WIDTH = 2;
     private static final int DP_CURSOR_WIDTH = 3;
-    private static final float NORMAL_MARK_RELATIVE_HEIGHT = 0.6f;
-    private static final float ZERO_MARK_RELATIVE_HEIGHT = 0.8f;
     private static final float CURSOR_RELATIVE_HEIGHT = 1f;
     private static final float SHADE_RANGE = 0.7f;
     private static final float SCALE_RANGE = 0.1f;
@@ -35,8 +33,11 @@ class Drawer {
     private int viewportHeight;
     private int normalMarkWidth;
     private int normalMarkHeight;
+    private float zeroMarkHeightRatio = 0.8f;
+    private float normalMarkHeightRatio = 0.6f;
     private int zeroMarkWidth;
     private int zeroMarkHeight;
+    private int zeroMarkColor = -1;
     private int cursorCornersRadius;
     private RectF cursorRect = new RectF();
     private int maxVisibleMarksCount;
@@ -59,6 +60,39 @@ class Drawer {
     public void setNormalMarkWidth(int dp){
         normalMarkWidth = convertToPx(dp);
     }
+
+    public float getZeroMarkHeightRatio() {
+        return zeroMarkHeightRatio;
+    }
+
+    public void setZeroMarkHeightRatio(float zeroMarkHeightRatio) {
+        this.zeroMarkHeightRatio = zeroMarkHeightRatio;
+    }
+
+    public float getNormalMarkHeightRatio() {
+        return normalMarkHeightRatio;
+    }
+
+    public void setNormalMarkHeightRatio(float normalMarkHeightRatio) {
+        this.normalMarkHeightRatio = normalMarkHeightRatio;
+    }
+
+    public boolean isCursorShow() {
+        return isCursorShow;
+    }
+
+    public void setCursorShow(boolean cursorShow) {
+        isCursorShow = cursorShow;
+    }
+
+    public int getZeroMarkColor() {
+        return zeroMarkColor;
+    }
+
+    public void setZeroMarkColor(int zeroMarkColor) {
+        this.zeroMarkColor = zeroMarkColor;
+    }
+
     void setMarksCount(int marksCount) {
         this.marksCount = marksCount;
         maxVisibleMarksCount = (marksCount / 2) + 1;
@@ -81,8 +115,8 @@ class Drawer {
 
     void onSizeChanged() {
         viewportHeight = view.getHeight() - view.getPaddingTop() - view.getPaddingBottom();
-        normalMarkHeight = (int) (viewportHeight * NORMAL_MARK_RELATIVE_HEIGHT);
-        zeroMarkHeight = (int) (viewportHeight * ZERO_MARK_RELATIVE_HEIGHT);
+        normalMarkHeight = (int) (viewportHeight * normalMarkHeightRatio);
+        zeroMarkHeight = (int) (viewportHeight * zeroMarkHeightRatio);
         setupCursorRect();
     }
 
@@ -99,8 +133,7 @@ class Drawer {
         return marksCount;
     }
 
-    void onDraw(Canvas canvas,boolean isCursorShow) {
-        this.isCursorShow = isCursorShow;
+    void onDraw(Canvas canvas) {
         this.isZeroShow = isCursorShow;
         double step = 2 * PI / marksCount;
         double offset = (PI / 2 - view.getRadiansAngle()) % step;
@@ -234,13 +267,13 @@ class Drawer {
         float top = view.getPaddingTop() + (viewportHeight - height) / 2;
         float bottom = top + height;
         paint.setStrokeWidth(zeroMarkWidth);
-        paint.setColor(applyShade(activeColor, shade));
+        paint.setColor(applyShade(zeroMarkColor == -1 ? activeColor : zeroMarkColor, shade));
         canvas.drawLine(x, top, x, bottom, paint);
     }
 
     private void drawCursor(Canvas canvas) {
         paint.setStrokeWidth(0);
-        paint.setColor(activeColor);
+        paint.setColor(zeroMarkColor == -1 ? activeColor : zeroMarkColor);
         canvas.drawRoundRect(cursorRect, cursorCornersRadius, cursorCornersRadius, paint);
     }
 

@@ -8,18 +8,23 @@
         <attr name="axisLength" format="integer"/>
         <attr name="axisX" format="integer"/>
         <attr name="axisY" format="integer"/>
-        <attr name="pointDrawable" format="reference"/>
+        <attr name="pointDrawable" format="reference" />
+        <attr name="poiSizePrecent" format="float" />
+
     </declare-styleable>
     <declare-styleable name="HorizontalWheelView">
         <attr name="marksCount" format="integer"/>
         <attr name="normalColor" format="color"/>
         <attr name="activeColor" format="color"/>
+        <attr name="zeroMarkColor" format="color"/>
         <attr name="showActiveRange" format="boolean"/>
         <attr name="endLock" format="boolean"/>
         <attr name="onlyPositiveValues" format="boolean"/>
         <attr name="snapToMarks" format="boolean"/>
         <attr name="isCursorShow" format="boolean"/>
         <attr name="normalMarkWidth" format="integer"/>
+        <attr name="normalMarkLengthRatio" format="float"/>
+        <attr name="zeroMarkLengthRatio" format="float"/>
         <attr name="startIndex" format="integer"/>
         <attr name="endIndex" format="integer"/>
         <attr name="scaleSpeedUnit" format="integer"/>
@@ -89,6 +94,8 @@
         <attr name="appTextSize" format="dimension"/>
         <attr name="appTextColor" format="color"/>
         <attr name="appChecked" format="boolean"/>
+        <attr name="zeroLineColor" format="color|reference"/>
+        <attr name="actionLineColor" format="color|reference"/>
     </declare-styleable>
     <declare-styleable name="NiceSpinner">
         <attr name="arrowTint" format="color" />

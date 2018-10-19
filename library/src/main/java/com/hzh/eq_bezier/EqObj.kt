@@ -3,14 +3,14 @@ package com.hzh.eq_bezier
 import android.graphics.Path
 import android.util.Log
 
-data class Point(var x: Int,var y: Float)
+class Point(var x: Int,var y: Float)
 
 data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,val maxY: Float ){
-    var startIndex: Int = 0
+    private var startIndex: Int = 0
         private set;
-    var endIndex: Int = 1
+    private var endIndex: Int = 1
         private set;
-    var points = ArrayList<Point>().apply {
+    private var points = ArrayList<Point>().apply {
         for(i in 0 until width){
             add(Point(i, 0f));
         }
@@ -34,11 +34,12 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
     private fun createEqPoint(){
         if(width <= 10) return
         val zeroLineY = 0f
-        var dx = x
-        var dy = y
+        val dx = x
+        val dy = y
+        @Suppress("UNUSED_VARIABLE")
         val y2Max = maxY
         /*val d = (q * y2Max * 1f).toInt()*/
-        var coe = if(q <= 0){
+        val coe = if(q <= 0){
             0.04f * 10
         }else{
             q * 10
@@ -65,7 +66,7 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
         }
 
         // -> 2
-        var bezierPoints = computeBezier(p3,p2,p1,p0).apply {
+        val bezierPoints = computeBezier(p3,p2,p1,p0).apply {
             addAll(computeBezier(p0,p11,p22,p33))
         }
         // -> 3
@@ -76,12 +77,11 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
 
     //2.计算贝塞尔曲线
     private fun computeBezier(p0: Point, p1: Point, p2: Point, p3: Point) : ArrayList<Point>{
-        val countNum = 20
-        var points = arrayListOf(p0,p1,p2,p3) //控制点
-        var rPoints = ArrayList<Point>() //途径点集合
-        var n = points.size
-        var xs = arrayOfNulls<Float>(n - 1)
-        var ys = arrayOfNulls<Float>(n - 1)
+        val points = arrayListOf(p0,p1,p2,p3) //控制点
+        val rPoints = ArrayList<Point>() //途径点集合
+        val n = points.size
+        val xs = arrayOfNulls<Float>(n - 1)
+        val ys = arrayOfNulls<Float>(n - 1)
         for(t in 0..20){
             var vt = t.toFloat() / 20
             for(i in 1 until n){
@@ -103,6 +103,7 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
     }
 
     //3 计算更多的点坐标
+    @Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
     private fun putPoint(points : ArrayList<Point>, p1: Point, p2: Point){
         var x1 = 0
         var y1 = 0f
@@ -164,31 +165,10 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
     }
     companion object {
         fun buildAndPath(arr : Array<EqObj>, width: Int, maxY: Float) : Path {
-            fun getY(y: Float) : Float{
-                if(y > maxY){
-                    return maxY
-                }else return y
-            }
-            var points = ArrayList<Point>().apply {
-                for(i in 0 until width){
-                    add(Point(i, 0f));
-                }
-            }
-
-            arr.forEach {mEqObj ->
-                for(i in mEqObj.startIndex .. mEqObj.endIndex){
-                    points[i].y = points[i].y + mEqObj.points[i].y
-                }
-            }
-            return Path().apply {
-                moveTo(points[0].x.toFloat(), getY(- points[0].y))
-                for(i in 1 until  points.size){
-                    lineTo(points[i].x.toFloat(), - points[i].y)
-                }
-            }
+            return buildAndPath(arr.toMutableList(), width, maxY)
         }
 
-        fun buildAndPath(arr : ArrayList<EqObj>, width: Int, maxY: Float) : Path {
+        fun buildAndPath(arr : List<EqObj>, width: Int, maxY: Float) : Path {
 //            Log.e(javaClass.simpleName,"width:${width}")
             fun getY(y: Float) : Float{
                 if(y > maxY){
@@ -198,7 +178,7 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
                 }
                 else return y
             }
-            var points = ArrayList<Point>().apply {
+            val points = arrayListOf<Point>().apply {
                 for(i in 0 until width){
                     add(Point(i, 0f));
                 }
@@ -218,6 +198,7 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
                 for(i in 1 until  points.size){
                     lineTo(points[i].x.toFloat(), getY(- points[i].y))
                 }
+                points.clear()
             }
         }
     }

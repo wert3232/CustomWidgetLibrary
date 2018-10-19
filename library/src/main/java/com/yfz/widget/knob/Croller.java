@@ -131,6 +131,22 @@ public class Croller extends View {
         init();
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if(mMainCircle != null && !mMainCircle.isRecycled()){
+            mMainCircle.recycle();
+        }
+        if(mBackCircle != null && !mBackCircle.isRecycled()){
+            mBackCircle.recycle();
+        }
+        super.onDetachedFromWindow();
+    }
+
     private void init() {
         textPaint = new Paint();
         textPaint.setAntiAlias(true);

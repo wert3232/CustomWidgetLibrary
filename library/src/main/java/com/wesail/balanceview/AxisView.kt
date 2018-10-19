@@ -1,10 +1,7 @@
 package com.wesail.balanceview
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Matrix
-import android.graphics.PixelFormat
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
@@ -16,7 +13,7 @@ import com.library.R
 open class AxisView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     private var xPercent = 0f
     private var yPercent = 0f
-    private var offsetX = 0f;
+    private var offsetX = 0f
     private var offsetY = 0f
     private val pointPositionByPrecentMap = mutableMapOf<String,Any>(
             "isEnable" to false,
@@ -28,22 +25,25 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
     var axisY = 0
     var point: Drawable? = null
     var poi: Bitmap ?= null
+    var poiSizePrecent = 0.2f
     private var onValueChangeListener: OnValueChangeListener? = null
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.axisView)
         axisLength = a.getInt(R.styleable.axisView_axisLength, 100)
         axisX = a.getInt(R.styleable.axisView_axisX,0)
         axisY = a.getInt(R.styleable.axisView_axisY, 0)
+        poiSizePrecent = a.getFloat(R.styleable.axisView_poiSizePrecent, 0.2f)
         point = a.getDrawable(R.styleable.axisView_pointDrawable) ?: ContextCompat.getDrawable(context,R.drawable.sound_point)
         a.recycle()
     }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         fun _A(){
-            offsetX = event.getX()
-            offsetY = event.getY()
+            offsetX = event.x
+            offsetY = event.y
             invalidate()
         }
-        when (event.getAction()) {
+        when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 _A()
                 onValueChangeListener?.onTouch()
@@ -79,7 +79,7 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
             val yLength = canvas.height - height
             var left = (offsetX -  this.width.toFloat() / 2)
             if(left < 0){
-                left = 0f;
+                left = 0f
             }else if (left > xLength){
                 left = xLength.toFloat()
             }
@@ -92,11 +92,12 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
             fun owo(){
                 var unitX = (canvas.width - width).toFloat() / (axisLength * 2)
                 var unitY = (canvas.height - height).toFloat() / (axisLength * 2)
-                val axisX = (left / unitX).toInt() - axisLength;
-                val axisY = (top / unitY).toInt() - axisLength;
+                val axisX = (left / unitX).toInt() - axisLength
+                val axisY = (top / unitY).toInt() - axisLength
                 setAxis(axisX,axisY)
             }
             owo()
+            canvas.drawFilter = PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
             canvas.drawBitmap(this, left , top,null)
         }
     }
@@ -104,7 +105,7 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         point?.apply {
-            poi = toBitmap(measuredWidth,measuredHeight,0.2f)
+            poi = toBitmap(measuredWidth,measuredHeight,poiSizePrecent)
         }
     }
     private fun setAxis(axisX: Int,axisY: Int){
@@ -149,7 +150,7 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
 
 
 //父宽度、父高度、缩放大小(以父长宽为基准) 、旋转角度
-fun Drawable.toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, deg: Float = 0f) : Bitmap {
+fun Drawable.toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, @Suppress("UNUSED_PARAMETER") deg: Float = 0f) : Bitmap {
     val config = if (this.opacity != PixelFormat.OPAQUE)
         Bitmap.Config.ARGB_8888
     else
@@ -169,8 +170,7 @@ fun Drawable.toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, deg: Flo
         val matrix = Matrix().apply {
             preScale(datumRatio * ratio, datumRatio * ratio)
         }
-        return@let Bitmap.createBitmap(it,0,0,it.width, it.height,matrix, false)
+        return@let Bitmap.createBitmap(it,0,0,it.width, it.height, matrix,false)
     }
-    //bitmap1.recycle()
     return bitmap2
 }

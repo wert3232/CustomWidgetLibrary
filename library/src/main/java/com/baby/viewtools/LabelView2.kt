@@ -1,6 +1,5 @@
 package com.baby.viewtools
 import android.content.Context
-import android.content.res.ColorStateList
 import android.databinding.BindingAdapter
 import android.databinding.InverseBindingAdapter
 import android.databinding.InverseBindingListener
@@ -9,13 +8,10 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.library.R
-import android.graphics.Paint.FontMetricsInt
-import android.text.TextUtils
-import android.util.Log
 import android.view.ViewGroup.LayoutParams.*
-import android.widget.TextView
 
 open class LabelView2 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     val textPaint by lazy {
@@ -56,11 +52,19 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
             textPaint.color = value
             field = value
         }
+    private var currentTextLength = 0
+        set(value) {
+            if(field < value){
+                field = value
+            }
+        }
+    private var isWidthWrapContent = false
     var appContent: String = ""
         set(value) {
             if(field != value) {
                 measureTxt(value)
-                if(field.length != value.length){
+                currentTextLength = field.length
+                if(value.length > currentTextLength && isWidthWrapContent){
                     requestLayout()
                 }
                 field = value
@@ -101,18 +105,23 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         var w = widthSpecSize   //定义测量宽，高(不包含测量模式),并设置默认值，查看View#getDefaultSize可知
         var h = heightSpecSize
+
         if(widthMode ==  MeasureSpec.AT_MOST && heightMode ==  MeasureSpec.AT_MOST
                 && layoutParams.width == WRAP_CONTENT && layoutParams.height == WRAP_CONTENT
         ){
+            isWidthWrapContent = true
             w = txtWidth
             h = txtHeight
         }else if(widthMode ==  MeasureSpec.AT_MOST && layoutParams.width == WRAP_CONTENT){
+            isWidthWrapContent = true
             w = txtWidth
             h =  getDefaultSize(suggestedMinimumHeight, heightMeasureSpec)
         }else if(heightMode ==  MeasureSpec.AT_MOST && layoutParams.height == WRAP_CONTENT){
+            isWidthWrapContent = false
             w =  getDefaultSize(suggestedMinimumWidth, widthMeasureSpec)
             h = txtHeight
         }else{
+            isWidthWrapContent = false
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return
         }
@@ -134,19 +143,19 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
     }
     companion object {
         @InverseBindingAdapter(attribute = "selectIndex", event = "indexAttrChanged")
-        @JvmStatic fun getSelectIndex(view: LabelView): Int {
+        @JvmStatic fun getSelectIndex(view: LabelView2): Int {
             return view.selectIndex
         }
 
         @BindingAdapter(value = arrayOf("selectIndex"))
-        @JvmStatic	fun setSelectIndex(view: LabelView, selectIndex: Int) {
+        @JvmStatic	fun setSelectIndex(view: LabelView2, selectIndex: Int) {
             if (view.selectIndex != selectIndex) {
                 view.selectIndex = selectIndex
             }
         }
 
         @BindingAdapter(value = arrayOf("selectIndexAttrChanged"), requireAll = false)
-        fun setIndexAttrChanged(view: LabelView, inverseBindingListener: InverseBindingListener?) {
+        fun setIndexAttrChanged(view: LabelView2, inverseBindingListener: InverseBindingListener?) {
             if (inverseBindingListener == null) {
                 view.inverseBindingListener = null
             } else {
@@ -155,7 +164,7 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
         @BindingAdapter(value = arrayOf("appContent"))
-        @JvmStatic	fun setAppContent(view: LabelView, appContent: String) {
+        @JvmStatic	fun setAppContent(view: LabelView2, appContent: String) {
             if (view.appContent != appContent) {
                 view.appContent = appContent
             }

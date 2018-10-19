@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -38,17 +39,20 @@ public abstract class NiceSpinnerBaseAdapter<T> extends BaseAdapter {
 
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.spinner_list_item, null);
-            textView = (TextView) convertView.findViewById(R.id.text_view_spinner);
+            textView = convertView.findViewById(R.id.text_view_spinner);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(itemWidth, itemHeight);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                textView.setBackground(ContextCompat.getDrawable(context, backgroundSelector));
+                convertView.setBackground(ContextCompat.getDrawable(context, backgroundSelector));
+            }
+            if( Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT){
+                layoutParams = new AbsListView.LayoutParams(itemWidth, itemHeight);
             }
             convertView.setTag(new ViewHolder(textView));
+            convertView.setLayoutParams(layoutParams);
+            //Log.e("hello","spinnerTextFormatter:" + spinnerTextFormatter.format(getItem(position).toString()));
         } else {
             textView = ((ViewHolder) convertView.getTag()).textView;
         }
-        /*AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(itemWidth, itemHeight);
-        convertView.setLayoutParams(layoutParams);
-        Log.e("hello","spinnerTextFormatter:" + spinnerTextFormatter.format(getItem(position).toString()));*/
         textView.setText(spinnerTextFormatter.format(getItem(position).toString()));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         textView.setTextColor(textColor);

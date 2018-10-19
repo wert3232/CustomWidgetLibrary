@@ -11,5 +11,6 @@ open class SelectTextView @JvmOverloads constructor(
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.selectTextView)
         mSelected = a.getBoolean(R.styleable.selectTextView_selected, false);
+        a.recycle()
     }
 }

@@ -26,14 +26,16 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
 		this(context,0);
 	}
 
-	public void setCallBack(Callback callback){
+	public ConfirmDialog setCallBack(Callback callback){
 		this.callback = callback;
+		return this;
 	}
 
-	public void setContent(String content){
+	public ConfirmDialog setContent(String content){
 		if(title != null) {
 			title.setText(content);
 		}
+		return this;
 	}
 
 	private void setListener() {
@@ -58,7 +60,7 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
 	}
 	public interface Callback{
 		public void onConfirm(Dialog dialog, TextView confirm, TextView cancel);
-		public void onCanncel(Dialog dialog, TextView confirm, TextView cancel);
+		public void onCancel(Dialog dialog, TextView confirm, TextView cancel);
 	}
 	@Override
 	public void onClick(View v) {
@@ -70,7 +72,7 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
 		}else if(v.getId() == R.id.textview_cancel){
 			this.dismiss();
 			if (callback != null) {
-				callback.onCanncel(this, confirm, cancel);
+				callback.onCancel(this, confirm, cancel);
 			}
 		}
 	}

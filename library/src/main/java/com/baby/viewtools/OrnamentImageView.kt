@@ -28,6 +28,7 @@ open class OrnamentImageView @JvmOverloads constructor(context: Context, attrs: 
         isClickable = false
         viewIndex =  a.getInt(R.styleable.commonAttr_viewIndex,-2)
         selectIndex = a.getInt(R.styleable.commonAttr_selectIndex,-1)
+        a.recycle()
     }
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
         return false
