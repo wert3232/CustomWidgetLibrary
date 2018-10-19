@@ -150,7 +150,7 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
 
 
 //父宽度、父高度、缩放大小(以父长宽为基准) 、旋转角度
-fun Drawable.toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, @Suppress("UNUSED_PARAMETER") deg: Float = 0f) : Bitmap {
+fun Drawable.toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, deg: Float = 0f) : Bitmap {
     val config = if (this.opacity != PixelFormat.OPAQUE)
         Bitmap.Config.ARGB_8888
     else
@@ -173,4 +173,8 @@ fun Drawable.toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, @Suppres
         return@let Bitmap.createBitmap(it,0,0,it.width, it.height, matrix,false)
     }
     return bitmap2
+}
+
+fun Drawable._toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, deg: Float = 0f) : Bitmap {
+    return this.toBitmap()
 }

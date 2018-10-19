@@ -20,7 +20,7 @@ object ReflectionUtils {
      */
 
     fun getDeclaredMethod(`object`: Any, methodName: String, vararg parameterTypes: Class<*>): Method? {
-        var method: Method?
+        var method: Method? = null
 
         var clazz: Class<*> = `object`.javaClass
         while (clazz != Any::class.java) {
@@ -54,11 +54,14 @@ object ReflectionUtils {
         val method = getDeclaredMethod(`object`, methodName, *parameterTypes)
 
         //抑制Java对方法进行检查,主要是针对私有方法而言
-        method?.isAccessible = true
+        method!!.isAccessible = true
 
         try {
-            //调用object 的 method 所代表的方法，其方法的参数是 parameters
-            method?.invoke(`object`, *parameters)
+            if (null != method) {
+
+                //调用object 的 method 所代表的方法，其方法的参数是 parameters
+                return method.invoke(`object`, *parameters)
+            }
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()
         } catch (e: IllegalAccessException) {
@@ -78,7 +81,7 @@ object ReflectionUtils {
      */
 
     fun getDeclaredField(`object`: Any, fieldName: String): Field? {
-        var field: Field?
+        var field: Field? = null
 
         var clazz: Class<*> = `object`.javaClass
 

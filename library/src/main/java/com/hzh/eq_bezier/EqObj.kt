@@ -36,7 +36,6 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
         val zeroLineY = 0f
         val dx = x
         val dy = y
-        @Suppress("UNUSED_VARIABLE")
         val y2Max = maxY
         /*val d = (q * y2Max * 1f).toInt()*/
         val coe = if(q <= 0){
@@ -103,7 +102,6 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
     }
 
     //3 计算更多的点坐标
-    @Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
     private fun putPoint(points : ArrayList<Point>, p1: Point, p2: Point){
         var x1 = 0
         var y1 = 0f

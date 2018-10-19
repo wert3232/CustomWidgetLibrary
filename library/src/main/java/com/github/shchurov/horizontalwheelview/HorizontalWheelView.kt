@@ -35,7 +35,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     //值越大越慢
     private var scaleSpeedUnit =  a.getInt(R.styleable.HorizontalWheelView_scaleSpeedUnit, 20)
     var inverseBindingListener: InverseBindingListener? = null
-    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_index, startIndex)
+    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_index, startIndex) ?: 0
         set(value) {
             if(field == value){
 
@@ -106,7 +106,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         readAttrs(attrs)
     }
 
-    private fun readAttrs(@Suppress("UNUSED_PARAMETER") attrs: AttributeSet) {
+    private fun readAttrs(attrs: AttributeSet) {
         val marksCount = a.getInt(R.styleable.HorizontalWheelView_marksCount, DEFAULT_MARKS_COUNT)
         drawer.marksCount = marksCount
         val normalColor = a.getColor(R.styleable.HorizontalWheelView_normalColor, DEFAULT_NORMAL_COLOR)
@@ -178,7 +178,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     }
 
     private var scale = 0f
-    fun onDistanceChange(distanceX: Float, @Suppress("UNUSED_PARAMETER") distanceY: Float){
+    fun onDistanceChange(distanceX: Float,distanceY: Float){
         if(Math.abs(distanceX) < scaleSpeedUnit){
             scale += distanceX
             if(Math.abs(scale) > scaleSpeedUnit){
