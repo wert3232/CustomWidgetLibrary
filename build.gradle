@@ -40,7 +40,7 @@ versions.lifecycle = "1.1.1"
 versions.room = "1.1.1"
 versions.kotlin = kotlin_version
 versions.rx = "2.0.2"
-versions.support = '28.0.0'
+versions.support = '27.1.1'
 versions.android_plugin_version = build_version
 deps.versions = versions
 
