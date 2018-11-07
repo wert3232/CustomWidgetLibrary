@@ -15,14 +15,16 @@ import android.graphics.SweepGradient;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.common.ConvertKt;
 import com.library.R;
+
 public class Croller extends View {
-    /*private static final int[] SWEEP_GRADIENT_COLORS = new int[]{Color.WHITE, Color.GREEN, Color.YELLOW, Color.RED};
-    private static final float[] SWEEP_GRADIENT_POSITION = new float[]{0.25f,0.50f,0.75f,1f};*/
-    private static final int[] SWEEP_GRADIENT_COLORS = new int[]{
+    /*private static final int[] sweepGradientColors = new int[]{Color.WHITE, Color.GREEN, Color.YELLOW, Color.RED};
+    private static final float[] sweepGradientPosition = new float[]{0.25f,0.50f,0.75f,1f};*/
+    private int[] sweepGradientColors = new int[]{
             Color.YELLOW,
             Color.RED,
             Color.RED,
@@ -33,7 +35,7 @@ public class Croller extends View {
             Color.YELLOW,
             Color.YELLOW
     };
-    private static final float[] SWEEP_GRADIENT_POSITION = new float[]{
+    private float[] sweepGradientPosition = new float[]{
             0f,
             30f / 360f,
             60f / 360f,
@@ -65,8 +67,8 @@ public class Croller extends View {
     private float mainCircleRadius = -1;
     private float backCircleRadius = -1;
     private float progressRadius = -1;
-    private float mainCircleRadiusRatio = (float) 11 / (float)15;
-    private float backCircleRadiusRatio = (float) 13 / (float)15;
+    private float mainCircleRadiusRatio = (float) 11 / (float) 15;
+    private float backCircleRadiusRatio = (float) 13 / (float) 15;
     private float progressRadiusRatio = 1;
 
     private int max = 25;
@@ -81,7 +83,7 @@ public class Croller extends View {
     private String mMinLabel = "min";
     private String mMaxLabel = "max";
     private float minBottomRatio = 0, maxBottomRatio = 0, minCenterRatio = -0.1f, maxCenterRatio = 0.1f;
-    private int mValColor =  Color.TRANSPARENT;
+    private int mValColor = Color.TRANSPARENT;
     private float mValSize = 16;
 
     private int startOffset = 30;
@@ -97,8 +99,8 @@ public class Croller extends View {
     private onProgressChangedListener mProgressChangeListener;
     private OnCrollerChangeListener mCrollerChangeListener;
 
-    private Bitmap mBackCircle,mMainCircle;
-    private Drawable mBackDrawable,mMainDrawable;
+    private Bitmap mBackCircle, mMainCircle;
+    private Drawable mBackDrawable, mMainDrawable;
     private int mReviseDegree = 0;
 
     //dataBinding
@@ -117,11 +119,11 @@ public class Croller extends View {
     }
 
     public Croller(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public Croller(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public Croller(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -138,10 +140,10 @@ public class Croller extends View {
 
     @Override
     protected void onDetachedFromWindow() {
-        if(mMainCircle != null && !mMainCircle.isRecycled()){
+        if (mMainCircle != null && !mMainCircle.isRecycled()) {
             mMainCircle.recycle();
         }
-        if(mBackCircle != null && !mBackCircle.isRecycled()){
+        if (mBackCircle != null && !mBackCircle.isRecycled()) {
             mBackCircle.recycle();
         }
         super.onDetachedFromWindow();
@@ -209,22 +211,22 @@ public class Croller extends View {
                 setLabelSize(a.getInteger(attr, 40));
             } else if (attr == R.styleable.Croller_label_color) {
                 setLabelColor(a.getColor(attr, Color.TRANSPARENT));
-            } else if (attr == R.styleable.Croller_min_val_label){
+            } else if (attr == R.styleable.Croller_min_val_label) {
                 setMinLabel(a.getString(attr));
-            } else if (attr == R.styleable.Croller_max_val_label){
+            } else if (attr == R.styleable.Croller_max_val_label) {
                 setMaxLabel(a.getString(attr));
-            } else if (attr == R.styleable.Croller_val_label_color){
-                setValColor(a.getColor(attr,Color.TRANSPARENT));
-            } else if (attr == R.styleable.Croller_val_label_size){
-                setValSize(a.getDimension(attr,16));
-            } else if (attr == R.styleable.Croller_max_val_margin_bottom_by_radiusRatio){
-                maxBottomRatio = a.getFloat(attr,0);
-            } else if (attr == R.styleable.Croller_max_val_margin_HorizontalCenter_by_radiusRatio){
-                maxCenterRatio = a.getFloat(attr,0);
-            } else if (attr == R.styleable.Croller_min_val_margin_bottom_by_radiusRatio){
-                minBottomRatio = a.getFloat(attr,0);
-            } else if (attr == R.styleable.Croller_min_val_margin_HorizontalCenter_by_radiusRatio){
-                minCenterRatio = a.getFloat(attr,0);
+            } else if (attr == R.styleable.Croller_val_label_color) {
+                setValColor(a.getColor(attr, Color.TRANSPARENT));
+            } else if (attr == R.styleable.Croller_val_label_size) {
+                setValSize(a.getDimension(attr, 16));
+            } else if (attr == R.styleable.Croller_max_val_margin_bottom_by_radiusRatio) {
+                maxBottomRatio = a.getFloat(attr, 0);
+            } else if (attr == R.styleable.Croller_max_val_margin_HorizontalCenter_by_radiusRatio) {
+                maxCenterRatio = a.getFloat(attr, 0);
+            } else if (attr == R.styleable.Croller_min_val_margin_bottom_by_radiusRatio) {
+                minBottomRatio = a.getFloat(attr, 0);
+            } else if (attr == R.styleable.Croller_min_val_margin_HorizontalCenter_by_radiusRatio) {
+                minCenterRatio = a.getFloat(attr, 0);
             } else if (attr == R.styleable.Croller_indicator_width) {
                 setIndicatorWidth(a.getFloat(attr, 7));
             } else if (attr == R.styleable.Croller_is_continuous) {
@@ -239,6 +241,20 @@ public class Croller extends View {
                 setProgressSecondaryStrokeWidth(a.getFloat(attr, 10));
             } else if (attr == R.styleable.Croller_sweep_angle) {
                 setSweepAngle(a.getInt(attr, -1));
+            } else if (attr == R.styleable.Croller_sweep_gradient_positions) {
+               /* CharSequence[] array = a.getTextArray(attr);
+                if(array != null){
+                    sweepGradientPosition = ConvertKt.toFloat(array);
+                }*/
+                int ResId = a.getResourceId(attr,-1);
+                if(ResId != -1){
+                    sweepGradientPosition = ConvertKt.toFloat(getResources().getStringArray(ResId));
+                }
+            } else if (attr == R.styleable.Croller_sweep_gradient_colors) {
+                int ResId = a.getResourceId(attr,-1);
+                if(ResId != -1){
+                    sweepGradientColors = getResources().getIntArray(ResId);
+                }
             } else if (attr == R.styleable.Croller_start_offset) {
                 setStartOffset(a.getInt(attr, 30));
             } else if (attr == R.styleable.Croller_max) {
@@ -248,38 +264,38 @@ public class Croller extends View {
                 setDeg(min + 2);
             } else if (attr == R.styleable.Croller_main_circle_radius) {
                 float val = a.getFloat(attr, -1);
-                if(val > 0 && val <= 1){
+                if (val > 0 && val <= 1) {
                     mainCircleRadiusRatio = val;
                     setMainCircleRadius(-1);
-                }else {
+                } else {
                     setMainCircleRadius(val);
                 }
             } else if (attr == R.styleable.Croller_back_circle_radius) {
                 float val = a.getFloat(attr, -1);
-                if(val > 0 && val <= 1){
+                if (val > 0 && val <= 1) {
                     backCircleRadiusRatio = val;
                     setBackCircleRadius(-1);
-                }else {
+                } else {
                     setBackCircleRadius(val);
                 }
             } else if (attr == R.styleable.Croller_progress_radius) {
                 float val = a.getFloat(attr, -1);
-                if(val > 0 && val <= 2){
+                if (val > 0 && val <= 2) {
                     progressRadiusRatio = val;
                     setProgressRadius(-1);
-                }else {
+                } else {
                     setProgressRadius(val);
                 }
             } else if (attr == R.styleable.Croller_anticlockwise) {
                 setAntiClockwise(a.getBoolean(attr, false));
-            } else if (attr == R.styleable.Croller_back_circle_drawable){
+            } else if (attr == R.styleable.Croller_back_circle_drawable) {
                 mBackDrawable = a.getDrawable(attr);
                 mBackCircle = DrawableUtil.drawableToBitmap(mBackDrawable);
-            } else if (attr == R.styleable.Croller_main_circle_drawable){
+            } else if (attr == R.styleable.Croller_main_circle_drawable) {
                 mMainDrawable = a.getDrawable(attr);
                 mMainCircle = DrawableUtil.drawableToBitmap(mMainDrawable);
-            } else if(attr == R.styleable.Croller_main_circle_drawable_revise_degree){
-                mReviseDegree = a.getInteger(attr,0);
+            } else if (attr == R.styleable.Croller_main_circle_drawable_revise_degree) {
+                mReviseDegree = a.getInteger(attr, 0);
             }
         }
         a.recycle();
@@ -383,8 +399,7 @@ public class Croller extends View {
                 circlePaint.setColor(progressSecondaryColor);
                 if (progressSecondaryCircleSize == -1) {
                     canvas.drawCircle(x, y, ((float) radius / 30 * ((float) 20 / max) * ((float) sweepAngle / 270)), circlePaint);
-                }
-                else {
+                } else {
                     canvas.drawCircle(x, y, progressSecondaryCircleSize, circlePaint);
                 }
             }
@@ -422,20 +437,20 @@ public class Croller extends View {
             canvas.drawText(label, midx, midy + (float) (radius * 1.1), textPaint);
             canvas.drawLine(x1, y1, x2, y2, linePaint);
 
-            if(mBackCircle != null){
+            if (mBackCircle != null) {
                 int temp = mBackCircle.getWidth() > mBackCircle.getHeight() ? mBackCircle.getWidth() : mBackCircle.getHeight();
                 float ratio = backCircleRadius * 2 / temp;
                 mBackCircle = DrawableUtil.scaleBitmap(mBackCircle, ratio);
-                canvas.drawBitmap(mBackCircle, (canvas.getWidth() - mBackCircle.getWidth()) / 2, (canvas.getHeight() - mBackCircle.getHeight()) / 2,null);
+                canvas.drawBitmap(mBackCircle, (canvas.getWidth() - mBackCircle.getWidth()) / 2, (canvas.getHeight() - mBackCircle.getHeight()) / 2, null);
             }
-            if(mMainCircle != null){
+            if (mMainCircle != null) {
                 int temp = mMainCircle.getWidth() > mMainCircle.getHeight() ? mMainCircle.getWidth() : mMainCircle.getHeight();
                 float ratio = mainCircleRadius * 2 / temp;
                 mMainCircle = DrawableUtil.scaleBitmap(mMainCircle, ratio);
                 Matrix matrix = new Matrix();
-                matrix.setRotate(360 * tmp2  - mReviseDegree,mMainCircle.getWidth() / 2, mMainCircle.getHeight() / 2);
-                matrix.postTranslate((canvas.getWidth() - mMainCircle.getWidth()) / 2,(canvas.getHeight() - mMainCircle.getHeight()) / 2);
-                canvas.drawBitmap(mMainCircle, matrix,null);
+                matrix.setRotate(360 * tmp2 - mReviseDegree, mMainCircle.getWidth() / 2, mMainCircle.getHeight() / 2);
+                matrix.postTranslate((canvas.getWidth() - mMainCircle.getWidth()) / 2, (canvas.getHeight() - mMainCircle.getHeight()) / 2);
+                canvas.drawBitmap(mMainCircle, matrix, null);
             }
 
         } else {
@@ -471,7 +486,7 @@ public class Croller extends View {
             oval.set(midx - progressRadius, midy - progressRadius, midx + progressRadius, midy + progressRadius);
 
             //
-            SweepGradient sweepGradient = new SweepGradient(midx,midy,SWEEP_GRADIENT_COLORS,SWEEP_GRADIENT_POSITION);
+            SweepGradient sweepGradient = new SweepGradient(midx, midy, sweepGradientColors, sweepGradientPosition);
             circlePaint2.setShader(sweepGradient);
             //
 
@@ -503,20 +518,20 @@ public class Croller extends View {
 
             canvas.drawText(mMinLabel, midx + radius * minCenterRatio, midy + (float) (radius * (1.1 - minBottomRatio)), valPaint);
             canvas.drawText(mMaxLabel, midx + radius * maxCenterRatio, midy + (float) (radius * (1.1 - maxBottomRatio)), valPaint);
-            if(mBackCircle != null){
+            if (mBackCircle != null) {
                 int temp = mBackCircle.getWidth() > mBackCircle.getHeight() ? mBackCircle.getWidth() : mBackCircle.getHeight();
                 float ratio = backCircleRadius * 2 / temp;
                 mBackCircle = DrawableUtil.scaleBitmap(mBackCircle, ratio);
-                canvas.drawBitmap(mBackCircle, (canvas.getWidth() - mBackCircle.getWidth()) / 2, (canvas.getHeight() - mBackCircle.getHeight()) / 2,null);
+                canvas.drawBitmap(mBackCircle, (canvas.getWidth() - mBackCircle.getWidth()) / 2, (canvas.getHeight() - mBackCircle.getHeight()) / 2, null);
             }
-            if(mMainCircle != null){
+            if (mMainCircle != null) {
                 int temp = mMainCircle.getWidth() > mMainCircle.getHeight() ? mMainCircle.getWidth() : mMainCircle.getHeight();
                 float ratio = mainCircleRadius * 2 / temp;
                 mMainCircle = DrawableUtil.scaleBitmap(mMainCircle, ratio);
                 Matrix matrix = new Matrix();
                 matrix.setRotate(360 * tmp2 - mReviseDegree, mMainCircle.getWidth() / 2, mMainCircle.getHeight() / 2);
-                matrix.postTranslate((canvas.getWidth() - mMainCircle.getWidth()) / 2,(canvas.getHeight() - mMainCircle.getHeight()) / 2);
-                canvas.drawBitmap(mMainCircle, matrix,null);
+                matrix.postTranslate((canvas.getWidth() - mMainCircle.getWidth()) / 2, (canvas.getHeight() - mMainCircle.getHeight()) / 2);
+                canvas.drawBitmap(mMainCircle, matrix, null);
             }
         }
     }
@@ -607,30 +622,32 @@ public class Croller extends View {
     public int getProgress() {
         return (int) (deg - 2);
     }
+
     @InverseBindingAdapter(attribute = "progress", event = "progressAttrChanged")
     public static int getProgress(Croller croller) {
         return croller.getProgress();
     }
 
     public void setProgress(int x) {
-        if(deg == x + 2){
+        if (deg == x + 2) {
 
-        }else{
+        } else {
             setDeg(x + 2);
         }
     }
 
     @BindingAdapter(value = {"progress"})
-    public static void setProgress(Croller croller,int progress){
-        if(croller.getProgress() != progress){
+    public static void setProgress(Croller croller, int progress) {
+        if (croller.getProgress() != progress) {
             croller.setProgress(progress);
         }
     }
+
     @BindingAdapter(value = {"progressAttrChanged"}, requireAll = false)
     public static void setProgressAttrChanged(Croller croller, InverseBindingListener inverseBindingListener) {
-        if(inverseBindingListener == null){
+        if (inverseBindingListener == null) {
             croller.mInverseBindingListener = null;
-        }else{
+        } else {
             croller.mInverseBindingListener = inverseBindingListener;
         }
     }
@@ -643,6 +660,7 @@ public class Croller extends View {
         label = txt;
         invalidate();
     }
+
     public void setMinLabel(String mMinLabel) {
         this.mMinLabel = mMinLabel;
         invalidate();
@@ -873,34 +891,35 @@ public class Croller extends View {
         super.drawableStateChanged();
 //        Log.d(this.getClass().getName(),"drawableStateChanged");
         boolean isChange = false;
-        if(mMainDrawable != null && mMainDrawable.isStateful()){
+        if (mMainDrawable != null && mMainDrawable.isStateful()) {
             StateListDrawable d = (StateListDrawable) mMainDrawable;
             int[] state = getDrawableState();
             d.setState(state);
             mMainCircle = DrawableUtil.drawableToBitmap(mMainDrawable);
             isChange = true;
         }
-        if(mBackDrawable != null && mBackDrawable.isStateful()){
+        if (mBackDrawable != null && mBackDrawable.isStateful()) {
             StateListDrawable d = (StateListDrawable) mBackDrawable;
             int[] state = getDrawableState();
             d.setState(state);
             mBackCircle = DrawableUtil.drawableToBitmap(mBackDrawable);
             isChange = true;
         }
-        if(isChange){
+        if (isChange) {
             invalidate();
         }
     }
-    private void setDeg(float newDeg){
+
+    private void setDeg(float newDeg) {
         if (newDeg > max + 2) {
             newDeg = max + 2;
         }
         if (newDeg < (min + 2)) {
-            newDeg  = min + 2;
+            newDeg = min + 2;
         }
-        if(this.deg != newDeg){
+        if (this.deg != newDeg) {
             deg = newDeg;
-            if(mInverseBindingListener != null){
+            if (mInverseBindingListener != null) {
                 mInverseBindingListener.onChange();
             }
             invalidate();

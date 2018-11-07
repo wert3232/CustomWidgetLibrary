@@ -76,16 +76,16 @@ class EditDialog @JvmOverloads constructor(context: Context, theme: Int = 0) : D
     }
 
     interface Callback {
-        fun onConfirm(dialog: Dialog, confirm: TextView?, cancel: TextView?, newName:String,tag: Int)
+        fun onConfirm(dialog: Dialog, confirm: TextView?, cancel: TextView?, newContent:String, tag: Int)
         fun onCancel(dialog: Dialog, confirm: TextView?, cancel: TextView?)
     }
 
     override fun onClick(v: View) {
         if (v.id == R.id.textview_confirm) {
-            val newName = edit.text.toString()
-            if(TextUtils.isEmpty(newName)) return
+            val newContent = edit.text.toString()
+            if(TextUtils.isEmpty(newContent)) return
             this.dismiss()
-            callback?.onConfirm(this, confirm, cancel,newName,tag)
+            callback?.onConfirm(this, confirm, cancel,newContent,tag)
         } else if (v.id == R.id.textview_cancel) {
             this.dismiss()
             callback?.onCancel(this, confirm, cancel)
