@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<resources>
+    <integer-array name="sweepGradientColors">
+        <item>@color/colorAccent</item>
+        <item>@color/colorPrimary</item>
+    </integer-array>
+    <string-array name="sweepGradientPositions">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+</resources>-->
+<resources>
+    <string-array name="sweepGradientPositions">
+        <item>0</item>
+        <item>.5</item>
+        <item>1</item>
+    </string-array>
+    <array name="sweepGradientColors">
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+        <item>@color/colorPrimary</item>
+    </array>
+    <string-array name="languages">
+        <item>C语言</item>
+        <item>Java </item>
+        <item>C#</item>
+        <item>PHP</item>
+        <item>HTML</item>
+    </string-array>
+
+    <integer-array name="reminder_methods_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
+
+</resources>

@@ -7,5 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="knob_style">
+        <item name="back_circle_radius">0.93</item>
+        <item name="main_circle_radius">0.86</item>
+        <item name="progress_primary_color">@android:color/holo_blue_bright</item>
+        <item name="progress_primary_stroke_width">10</item>
+        <item name="progress_secondary_color">#6200EA</item>
+        <item name="progress_secondary_stroke_width">10</item>
+        <item name="indicator_color">@android:color/transparent</item>
+        <item name="indicator_width">7</item>
+        <item name="is_continuous">true</item>
+      <!--  <item name="sweep_gradient_positions">@array/sweepGradientPositions</item>
+        <item name="sweep_gradient_colors">@array/sweepGradientColors</item>-->
+    </style>
 
 </resources>
