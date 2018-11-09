@@ -44,6 +44,10 @@ class Drawer {
     private boolean isCursorShow = true;
     private boolean isZeroShow = true;
     private float lineSpaceRatio = 0f;
+    private RectF cursorRect_top = null;
+    private RectF cursorRect_bottom = null;
+    private boolean isCursorSpace = true;
+    private boolean isZeroSpace = true;
     Drawer(HorizontalWheelView view) {
         this.view = view;
         initDpSizes();
@@ -80,6 +84,14 @@ class Drawer {
 
     public void setLineSpaceRatio(float lineSpaceRatio) {
         this.lineSpaceRatio = lineSpaceRatio;
+    }
+
+    public void setCursorSpace(boolean cursorSpace) {
+        isCursorSpace = cursorSpace;
+    }
+
+    public void setZeroSpace(boolean zeroSpace) {
+        isZeroSpace = zeroSpace;
     }
 
     public boolean isCursorShow() {
@@ -127,11 +139,34 @@ class Drawer {
 
     private void setupCursorRect() {
         int cursorHeight = (int) (viewportHeight * CURSOR_RELATIVE_HEIGHT);
-        cursorRect.top = view.getPaddingTop() + (viewportHeight - cursorHeight) / 2;
-        cursorRect.bottom = cursorRect.top + cursorHeight;
         int cursorWidth = convertToPx(DP_CURSOR_WIDTH);
-        cursorRect.left = (view.getWidth() - cursorWidth) / 2;
-        cursorRect.right = cursorRect.left + cursorWidth;
+        float top = view.getPaddingTop() + (viewportHeight - cursorHeight) / 2;
+        float bottom = top + cursorHeight;
+        float left = (view.getWidth() - cursorWidth) / 2;
+        float right = left + cursorWidth;
+        cursorRect.top = top;
+        cursorRect.bottom = bottom;
+        cursorRect.left = left;
+        cursorRect.right = right;
+        if(isCursorSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1){
+            if(cursorRect_top == null){
+                cursorRect_top = new RectF();
+            }
+            if(cursorRect_bottom == null){
+                cursorRect_bottom = new RectF();
+            }
+            float spaceLength = viewportHeight * lineSpaceRatio;
+
+            cursorRect_top.left = left;
+            cursorRect_top.right = right;
+            cursorRect_top.top = top;
+            cursorRect_top.bottom = (viewportHeight - spaceLength) / 2;
+
+            cursorRect_bottom.left = left;
+            cursorRect_bottom.right = right;
+            cursorRect_bottom.top = (viewportHeight + spaceLength) / 2;
+            cursorRect_bottom.bottom = bottom;
+        }
     }
 
     int getMarksCount() {
@@ -279,7 +314,7 @@ class Drawer {
         float bottom = top + height;
         paint.setStrokeWidth(zeroMarkWidth);
         paint.setColor(applyShade(zeroMarkColor == -1 ? activeColor : zeroMarkColor, shade));
-        if(lineSpaceRatio > 0 && lineSpaceRatio <= 1){
+        if(isZeroSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1){
             float spaceLength = viewportHeight * lineSpaceRatio;
             canvas.drawLine(x, top, x, (viewportHeight - spaceLength) / 2, paint);
             canvas.drawLine(x, (viewportHeight + spaceLength) / 2, x ,bottom,  paint);
@@ -291,7 +326,12 @@ class Drawer {
     private void drawCursor(Canvas canvas) {
         paint.setStrokeWidth(0);
         paint.setColor(zeroMarkColor == -1 ? activeColor : zeroMarkColor);
-        canvas.drawRoundRect(cursorRect, cursorCornersRadius, cursorCornersRadius, paint);
+        if(isCursorSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1){
+            canvas.drawRoundRect(cursorRect_top, cursorCornersRadius, cursorCornersRadius, paint);
+            canvas.drawRoundRect(cursorRect_bottom, cursorCornersRadius, cursorCornersRadius, paint);
+        }else {
+            canvas.drawRoundRect(cursorRect, cursorCornersRadius, cursorCornersRadius, paint);
+        }
     }
 
 }

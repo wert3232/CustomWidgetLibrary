@@ -106,6 +106,16 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
             drawer.setLineSpaceRatio(value)
             field = value
         }
+    private var isCursorSpace = true
+        set(value) {
+            drawer.setCursorSpace(value)
+            field = value
+        }
+    private var isZeroSpace = true
+        set(value) {
+            drawer.setZeroSpace(value)
+            field = value
+        }
     init {
         touchHandler = TouchHandler(this)
         readAttrs(attrs)
@@ -131,6 +141,8 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         normalMarkLengthRatio = a.getFloat(R.styleable.HorizontalWheelView_normalMarkLengthRatio,0.6f)
         zeroMarkHeightRatio = a.getFloat(R.styleable.HorizontalWheelView_zeroMarkLengthRatio,0.8f)
         lineSpaceRatio = a.getFloat(R.styleable.HorizontalWheelView_lineSpaceRatio,0f)
+        isCursorSpace = a.getBoolean(R.styleable.HorizontalWheelView_isCursorSpace,true)
+        isZeroSpace = a.getBoolean(R.styleable.HorizontalWheelView_isZeroSpace,true)
         drawer.setNormalMarkWidth(a.getInt(R.styleable.HorizontalWheelView_normalMarkWidth,1))
         a.recycle()
         commonAttr.recycle()
