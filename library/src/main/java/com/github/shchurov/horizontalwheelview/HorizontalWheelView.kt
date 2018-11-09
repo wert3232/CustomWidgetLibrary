@@ -35,7 +35,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     //值越大越慢
     private var scaleSpeedUnit =  a.getInt(R.styleable.HorizontalWheelView_scaleSpeedUnit, 20)
     var inverseBindingListener: InverseBindingListener? = null
-    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_index, startIndex) ?: 0
+    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_index, startIndex)
         set(value) {
             if(field == value){
 
@@ -101,6 +101,11 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
             drawer.zeroMarkColor = value
             field = value
         }
+    private var lineSpaceRatio = 0f
+        set(value) {
+            drawer.setLineSpaceRatio(value)
+            field = value
+        }
     init {
         touchHandler = TouchHandler(this)
         readAttrs(attrs)
@@ -125,7 +130,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         isCursorShow = a.getBoolean(R.styleable.HorizontalWheelView_isCursorShow,true)
         normalMarkLengthRatio = a.getFloat(R.styleable.HorizontalWheelView_normalMarkLengthRatio,0.6f)
         zeroMarkHeightRatio = a.getFloat(R.styleable.HorizontalWheelView_zeroMarkLengthRatio,0.8f)
-
+        lineSpaceRatio = a.getFloat(R.styleable.HorizontalWheelView_lineSpaceRatio,0f)
         drawer.setNormalMarkWidth(a.getInt(R.styleable.HorizontalWheelView_normalMarkWidth,1))
         a.recycle()
         commonAttr.recycle()
@@ -191,7 +196,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         }
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if(event.getAction() == MotionEvent.ACTION_MOVE){
+        if(event.action == MotionEvent.ACTION_MOVE){
             listener?.onTouch()
         }
         return touchHandler.onTouchEvent(event)

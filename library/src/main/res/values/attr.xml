@@ -25,6 +25,7 @@
         <attr name="normalMarkWidth" format="integer"/>
         <attr name="normalMarkLengthRatio" format="float"/>
         <attr name="zeroMarkLengthRatio" format="float"/>
+        <attr name="lineSpaceRatio" format="float"/>
         <attr name="startIndex" format="integer"/>
         <attr name="endIndex" format="integer"/>
         <attr name="scaleSpeedUnit" format="integer"/>

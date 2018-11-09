@@ -43,6 +43,7 @@ class Drawer {
     private int maxVisibleMarksCount;
     private boolean isCursorShow = true;
     private boolean isZeroShow = true;
+    private float lineSpaceRatio = 0f;
     Drawer(HorizontalWheelView view) {
         this.view = view;
         initDpSizes();
@@ -75,6 +76,10 @@ class Drawer {
 
     public void setNormalMarkHeightRatio(float normalMarkHeightRatio) {
         this.normalMarkHeightRatio = normalMarkHeightRatio;
+    }
+
+    public void setLineSpaceRatio(float lineSpaceRatio) {
+        this.lineSpaceRatio = lineSpaceRatio;
     }
 
     public boolean isCursorShow() {
@@ -252,7 +257,13 @@ class Drawer {
         float bottom = top + height;
         paint.setStrokeWidth(normalMarkWidth);
         paint.setColor(applyShade(color, shade));
-        canvas.drawLine(x, top, x, bottom, paint);
+        if(lineSpaceRatio > 0 && lineSpaceRatio <= 1){
+            float spaceLength = viewportHeight * lineSpaceRatio;
+            canvas.drawLine(x, top, x, (viewportHeight - spaceLength) / 2, paint);
+            canvas.drawLine(x, (viewportHeight + spaceLength) / 2, x ,bottom,  paint);
+        }else {
+            canvas.drawLine(x, top, x, bottom, paint);
+        }
     }
 
     private int applyShade(int color, float shade) {
@@ -268,7 +279,13 @@ class Drawer {
         float bottom = top + height;
         paint.setStrokeWidth(zeroMarkWidth);
         paint.setColor(applyShade(zeroMarkColor == -1 ? activeColor : zeroMarkColor, shade));
-        canvas.drawLine(x, top, x, bottom, paint);
+        if(lineSpaceRatio > 0 && lineSpaceRatio <= 1){
+            float spaceLength = viewportHeight * lineSpaceRatio;
+            canvas.drawLine(x, top, x, (viewportHeight - spaceLength) / 2, paint);
+            canvas.drawLine(x, (viewportHeight + spaceLength) / 2, x ,bottom,  paint);
+        }else {
+            canvas.drawLine(x, top, x, bottom, paint);
+        }
     }
 
     private void drawCursor(Canvas canvas) {
