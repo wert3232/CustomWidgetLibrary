@@ -2,19 +2,23 @@ package com.wesail.balanceview
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import androidx.core.graphics.drawable.toBitmap
 import com.library.R
+import android.graphics.Bitmap.Config
+import com.common.toBitmap
+
 open class AxisView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     private var xPercent = 0f
     private var yPercent = 0f
     private var offsetX = 0f
     private var offsetY = 0f
+    private val paintFilter = PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
     private val pointPositionByPrecentMap = mutableMapOf<String,Any>(
             "isEnable" to false,
             "xp" to 0f,
@@ -27,6 +31,7 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
     var poi: Bitmap ?= null
     var poiSizePrecent = 0.2f
     private var onValueChangeListener: OnValueChangeListener? = null
+
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.axisView)
         axisLength = a.getInt(R.styleable.axisView_axisLength, 100)
@@ -38,9 +43,14 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        fun _A(){
+        /*fun _A(){
             offsetX = event.x
             offsetY = event.y
+            invalidate()
+        }*/
+        fun _A(){
+            offsetX = event.x - measuredWidth / 2
+            offsetY = event.y - measuredHeight / 2
             invalidate()
         }
         when (event.action) {
@@ -57,15 +67,20 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
         return true
     }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        /*offsetX = measuredWidth.toFloat() / 2
-        offsetY = measuredHeight.toFloat() / 2*/
+        /*
         offsetX = (xPercent + 1) / 2f * measuredWidth.toFloat()
         offsetY = (yPercent + 1) / 2f * measuredHeight.toFloat()
+        */
+        poi?.also {point ->
+            offsetX = xPercent * (measuredWidth - width) / 2
+            offsetY = yPercent * (measuredHeight - height) / 2
+        }
     }
 
-    override fun onDraw(canvas: Canvas) {
+    /*override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         poi?.apply {
             if(pointPositionByPrecentMap["isEnable"] == true){
@@ -100,6 +115,47 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
             canvas.drawFilter = PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
             canvas.drawBitmap(this, left , top,null)
         }
+    }*/
+
+    override fun onDraw(canvas: Canvas) {
+        poi?.apply {
+            val xLength = measuredWidth - width
+            val yLength = measuredHeight  - height
+            if (pointPositionByPrecentMap["isEnable"] == true) {
+                val xp = pointPositionByPrecentMap["xp"] as Float
+                val yp = pointPositionByPrecentMap["yp"] as Float
+                offsetX = xp * (measuredWidth - width) / 2
+                offsetY = yp * (measuredHeight - height) / 2
+            }
+            Log.e("www","$offsetX  $offsetY")
+            when {
+                offsetX < -(measuredWidth - width) / 2 -> {
+                    offsetX = -(measuredWidth - width).toFloat() / 2
+                }
+                offsetX > (measuredWidth - width) / 2 -> {
+                    offsetX = (measuredWidth - width).toFloat() / 2
+                }
+            }
+            when {
+                offsetY < -(measuredHeight - height) / 2 -> {
+                    offsetY = -(measuredHeight - height).toFloat() / 2
+                }
+                offsetY > (measuredHeight - height) / 2 -> {
+                    offsetY = (measuredHeight - height).toFloat() / 2
+                }
+            }
+            val left = offsetX  - width / 2
+            val top = offsetY - height / 2
+
+            val axisX = offsetX / xLength * axisLength
+            val axisY = offsetY / yLength * axisLength
+
+            setAxis(axisX.toInt(), axisY.toInt())
+
+            canvas.translate(measuredWidth.toFloat() / 2,measuredWidth.toFloat() / 2)
+            canvas.drawFilter = paintFilter
+            canvas.drawBitmap(this, left , top,null)
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -108,16 +164,18 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
             poi = toBitmap(measuredWidth,measuredHeight,poiSizePrecent)
         }
     }
+
     private fun setAxis(axisX: Int,axisY: Int){
         if(this.axisX != axisX || this.axisY != axisY){
             this.axisX = axisX
             this.axisY = axisY
-            onValueChangeListener?.onChange(axisX,axisY,axisLength)
+            onValueChangeListener?.onChange(axisX,axisY,axisLength / 2)
             xPercent = axisX.toFloat() / axisLength
             yPercent = axisY.toFloat() / axisLength
 //            Log.e(javaClass.simpleName, "axisX: ${axisX}  axisY:${axisY}")
         }
     }
+
     // -1.0f ~ 1.0f, -1.0f ~ 1.0f
     fun setPointPosition(xp: Float = 0f , yp: Float = 0f,condition:() -> Boolean){
         if(condition.invoke()){
@@ -173,8 +231,4 @@ fun Drawable.toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, deg: Flo
         return@let Bitmap.createBitmap(it,0,0,it.width, it.height, matrix,false)
     }
     return bitmap2
-}
-
-fun Drawable._toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, deg: Float = 0f) : Bitmap {
-    return this.toBitmap()
 }

@@ -16,7 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
-    <com.github.shchurov.horizontalwheelview.HorizontalWheelView
+    <!--<com.github.shchurov.horizontalwheelview.HorizontalWheelView
         android:layout_width="200dp"
         android:layout_height="60dp"
         app:isCursorShow="true"
@@ -29,7 +29,7 @@
         app:lineSpaceRatio="0.2"
         app:normalMarkWidth="5"
         />
-    <!--<com.yfz.widget.knob.Croller
+    &lt;!&ndash;<com.yfz.widget.knob.Croller
         android:layout_width="300dp"
         android:layout_height="300dp"
         style="@style/knob_style"
@@ -39,6 +39,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:sweep_gradient_positions="@array/sweepGradientPositions"
         app:sweep_gradient_colors="@array/sweepGradientColors"
-        />-->
-
+        />&ndash;&gt;-->
+    <com.wesail.balanceview.AxisView
+        android:id="@+id/axis"
+        android:background="@color/colorAccent"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:poiSizePrecent="0.3"
+        />
 </android.support.constraint.ConstraintLayout>
