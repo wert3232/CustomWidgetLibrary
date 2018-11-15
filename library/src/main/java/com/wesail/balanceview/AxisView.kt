@@ -127,7 +127,6 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
                 offsetX = xp * (measuredWidth - width) / 2
                 offsetY = yp * (measuredHeight - height) / 2
             }
-            Log.e("www","$offsetX  $offsetY")
             when {
                 offsetX < -(measuredWidth - width) / 2 -> {
                     offsetX = -(measuredWidth - width).toFloat() / 2
