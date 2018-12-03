@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyLibrary</string>
+    <string name="app_name" translatable="false">MyLibrary</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
 

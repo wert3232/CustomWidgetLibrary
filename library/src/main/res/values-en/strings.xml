@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string name="recycler_swipe_data_empty">There is no data</string>
     <string name="recycler_swipe_more_not">No more data</string>
     <string name="recycler_swipe_click_load_more">Click to load more</string>

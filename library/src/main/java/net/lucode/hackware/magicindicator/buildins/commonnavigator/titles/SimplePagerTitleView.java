@@ -27,10 +27,10 @@ public class SimplePagerTitleView extends TextView implements IMeasurablePagerTi
 
     private void init(Context context) {
         setGravity(Gravity.CENTER);
-        int padding = UIUtil.dip2px(context, 10);
+        int padding = UIUtil.dip2px(context, 5);
         setPadding(padding, 0, padding, 0);
-        setSingleLine();
-        setEllipsize(TextUtils.TruncateAt.END);
+        //setSingleLine();
+        //setEllipsize(TextUtils.TruncateAt.END);
     }
 
     @Override

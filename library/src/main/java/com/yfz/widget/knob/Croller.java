@@ -15,6 +15,7 @@ import android.graphics.SweepGradient;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -354,8 +355,16 @@ public class Croller extends View {
             mCrollerChangeListener.onProgressChanged(this, (int) (deg - 2));
         }
 
-        midx = canvas.getWidth() / 2;
-        midy = canvas.getHeight() / 2;
+        midx = getWidth() / 2;
+        midy = getHeight() / 2;
+        if (progressPrimaryStrokeWidth < 1) {
+            progressPrimaryStrokeWidth = progressPrimaryStrokeWidth * Math.min(midx, midy);
+        }
+        if (progressSecondaryStrokeWidth < 1) {
+            progressSecondaryStrokeWidth = progressSecondaryStrokeWidth * Math.min(midx, midy);
+        }
+        circlePaint.setStrokeWidth(progressSecondaryStrokeWidth);
+        circlePaint2.setStrokeWidth(progressPrimaryStrokeWidth);
         if (!isContinuous) {
 
             startOffset2 = startOffset - 15;

@@ -101,6 +101,7 @@
         <attr name="appChecked" format="boolean"/>
         <attr name="zeroLineColor" format="color|reference"/>
         <attr name="actionLineColor" format="color|reference"/>
+        <attr name="isAnti" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="NiceSpinner">
         <attr name="arrowTint" format="color" />

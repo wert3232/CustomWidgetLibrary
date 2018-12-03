@@ -40,6 +40,12 @@ public class DrawableUtil {
         }
         int height = origin.getHeight();
         int width = origin.getWidth();
+        if(width == 0){
+            width = 100;
+        }
+        if(height == 0){
+            height = 100;
+        }
         float scaleWidth = ((float) newWidth) / width;
         float scaleHeight = ((float) newHeight) / height;
         Matrix matrix = new Matrix();
@@ -66,6 +72,12 @@ public class DrawableUtil {
         int height = origin.getHeight();
         Matrix matrix = new Matrix();
         matrix.preScale(ratio, ratio);
+        if(width == 0){
+            width = 100;
+        }
+        if(height == 0){
+            height = 100;
+        }
         Bitmap newBM = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, true);
         if (newBM.equals(origin)) {
             return newBM;

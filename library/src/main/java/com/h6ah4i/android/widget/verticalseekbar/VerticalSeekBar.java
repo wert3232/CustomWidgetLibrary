@@ -44,6 +44,7 @@ import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -118,7 +119,8 @@ public class VerticalSeekBar extends AppCompatSeekBar {
                 if(object instanceof Drawable){
                     Drawable thumb = (Drawable) object;
                     Rect rect = thumb.getBounds();
-                    if(WidgetExtensionsKt.isTouchIn(event,rect)){
+                    int offsetX = - getPaddingStart() + thumb.getIntrinsicWidth() / 2;
+                    if(WidgetExtensionsKt.isTouchIn(event,rect, offsetX ,0)){
                         //触点和thumb重合
                     }else{
                         return false;

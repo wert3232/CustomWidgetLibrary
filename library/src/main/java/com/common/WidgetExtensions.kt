@@ -5,10 +5,13 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.MotionEvent
 import com.baby.viewtools.ConfirmDialog
 
-fun MotionEvent.isTouchIn(rect: Rect) : Boolean{
+fun MotionEvent.isTouchIn(rect: Rect,offsetX: Int = 0,offsetY: Int = 0) : Boolean{
+    val x = x + offsetX
+    val y = y + offsetY
     return x in rect.left .. rect.right && y in rect.top .. rect.bottom
 }
 fun Drawable.toBitmap(

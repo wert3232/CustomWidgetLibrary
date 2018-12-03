@@ -8,6 +8,7 @@ import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -139,7 +140,8 @@ public class NiceSpinner extends AppCompatTextView {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NiceSpinner);
         int defaultPadding = resources.getDimensionPixelSize(R.dimen.one_and_a_half_grid_unit);
 
-        setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
+//        setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
+        setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
         setPadding(resources.getDimensionPixelSize(R.dimen.three_grid_unit), defaultPadding, defaultPadding,
                 defaultPadding);
         setClickable(true);
@@ -157,6 +159,7 @@ public class NiceSpinner extends AppCompatTextView {
         listView.setDivider(null);
         listView.setItemsCanFocus(true);
         listView.setBackgroundResource(android.R.color.transparent);
+        listView.setCacheColorHint(ContextCompat.getColor(context,android.R.color.transparent));
         //hide vertical and horizontal scrollbars
         listView.setVerticalScrollBarEnabled(false);
         listView.setHorizontalScrollBarEnabled(false);
@@ -404,6 +407,8 @@ public class NiceSpinner extends AppCompatTextView {
         listView.measure(widthSpec, heightSpec);
         popupWindow.setWidth(listView.getMeasuredWidth());
         popupWindow.setHeight(listView.getMeasuredHeight() - dropDownListPaddingBottom);
+//        popupWindow.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getContext(),R.color.ksw_md_solid_checked)));
+        popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),android.R.color.transparent));
     }
 
     public void setTintColor(@ColorRes int resId) {

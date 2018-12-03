@@ -20,6 +20,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     val commonAttr = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
     private var startIndex = a.getInt(R.styleable.HorizontalWheelView_startIndex, 0)
     private var endIndex = a.getInt(R.styleable.HorizontalWheelView_endIndex, 10) + 1
+    private var isAnti = commonAttr.getBoolean(R.styleable.commonAttr_isAnti,false)
     private val drawer: Drawer = Drawer(this)
     private val touchHandler: TouchHandler
     private var angle: Double = 0.toDouble()
@@ -41,7 +42,11 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
 
             }else{
                 field = value
-                angle = value * (2 * PI) / (endIndex - startIndex)
+                angle = if(isAnti){
+                    -(value * (2 * PI) / (endIndex - startIndex))
+                }else{
+                    value * (2 * PI) / (endIndex - startIndex)
+                }
                 invalidate()
                 listener?.onRotationChanged(this.angle, value)
                 inverseBindingListener?.onChange()
@@ -54,10 +59,17 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
             if (!checkEndLock(radians)) {
                 angle = radians % (2 * PI)
             }
-            if (onlyPositiveValues && angle < 0) {
-                angle += 2 * PI
+            if(isAnti){
+                if (onlyPositiveValues && angle > 0) {
+                    angle -= 2 * PI
+                }
+                viewIndex = -(this.angle * (endIndex - startIndex).toFloat() / (2 * PI)).toInt()
+            }else{
+                if (onlyPositiveValues && angle < 0) {
+                    angle += 2 * PI
+                }
+                viewIndex = (this.angle * (endIndex - startIndex).toFloat() / (2 * PI)).toInt()
             }
-            viewIndex = (this.angle * (endIndex - startIndex).toFloat() / (2 * PI)).toInt()
         }
 
     var degreesAngle: Double
@@ -152,6 +164,26 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         this.listener = listener
         touchHandler.setChangeListener(listener)
     }
+    fun setChangeListener(onRotationChanged:(radians: Double, index: Int) -> Unit,
+                                 onScrollStateChanged:(state: Int) -> Unit = {},
+                                 onTouch:() -> Unit ={}
+                          )
+    {
+        setChangeListener(
+                object : onChangeListener{
+                    override fun onRotationChanged(radians: Double, index: Int) {
+                        onRotationChanged(radians,index)
+                    }
+                    override fun onScrollStateChanged(state: Int) {
+                        onScrollStateChanged(state)
+                    }
+                    override fun onTouch() {
+                        onTouch()
+                    }
+                }
+        )
+    }
+
 
     private fun checkEndLock(radians: Double): Boolean {
         if (!endLock) {
@@ -161,10 +193,13 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         if (radians >= 2 * PI) {
             angle = Math.nextAfter(2 * PI, java.lang.Double.NEGATIVE_INFINITY)
             hit = true
-        } else if (onlyPositiveValues && radians < 0) {
+        } else if (onlyPositiveValues && !isAnti && radians < 0) {
             angle = 0.0
             hit = true
-        } else if (radians <= -2 * PI) {
+        } else if (onlyPositiveValues && isAnti && radians > 0) {
+            angle = 0.0
+            hit = true
+        }  else if (radians <= -2 * PI) {
             angle = Math.nextAfter(-2 * PI, java.lang.Double.POSITIVE_INFINITY)
             hit = true
         }
@@ -196,15 +231,28 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
 
     private var scale = 0f
     fun onDistanceChange(distanceX: Float,distanceY: Float){
-        if(Math.abs(distanceX) < scaleSpeedUnit){
-            scale += distanceX
-            if(Math.abs(scale) > scaleSpeedUnit){
-                scaleAction((scale / scaleSpeedUnit).toInt())
+        if(isAnti){
+            if(Math.abs(distanceX) < scaleSpeedUnit){
+                scale += distanceX
+                if(Math.abs(scale) > scaleSpeedUnit){
+                    scaleAction(-(scale / scaleSpeedUnit).toInt())
+                    scale = 0f
+                }
+            }else{
+                scaleAction(-(distanceX / scaleSpeedUnit).toInt())
                 scale = 0f
             }
         }else{
-            scaleAction((distanceX / scaleSpeedUnit).toInt())
-            scale = 0f
+            if(Math.abs(distanceX) < scaleSpeedUnit){
+                scale += distanceX
+                if(Math.abs(scale) > scaleSpeedUnit){
+                    scaleAction((scale / scaleSpeedUnit).toInt())
+                    scale = 0f
+                }
+            }else{
+                scaleAction((distanceX / scaleSpeedUnit).toInt())
+                scale = 0f
+            }
         }
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {

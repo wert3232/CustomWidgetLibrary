@@ -87,11 +87,11 @@ class BezierView : View {
         mWidth = measuredWidth - 2 * offsetX
         mHeight = 123//曲线的可滑动的高度的范围
 
-       /* Log.i(TAG, "initXY: offsetX=$offsetX")
-        Log.i(TAG, "initXY: offsetY=$offsetY")
-
-        Log.i(TAG, "initXY: mWidth=$mWidth")
-        Log.i(TAG, "initXY: mHeight=$mHeight")*/
+//        Log.i(TAG, "initXY: offsetX=$offsetX")
+//        Log.i(TAG, "initXY: offsetY=$offsetY")
+//
+//        Log.i(TAG, "initXY: mWidth=$mWidth")
+//        Log.i(TAG, "initXY: mHeight=$mHeight")
     }
 
 
@@ -273,7 +273,7 @@ class BezierView : View {
     //根据seekbar设置
     fun setPoints(index: Int, percent: Float) {
 
-        Log.d(TAG, "setPoints: index $index  percent   $percent")
+        //Log.d(TAG, "setPoints: index $index  percent   $percent")
 
         val currentPoint = mPoints[index]
         //        float y = getTop() + offsetY + (mHeight * (1 - percent));

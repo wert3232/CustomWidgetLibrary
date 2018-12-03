@@ -237,6 +237,10 @@ import razerdp.util.log.PopupLogUtil;
  * 抽象通用popupwindow的父类
  */
 public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismissListener, PopupTouchController {
+    public static final int POPUP_DOWN_LEFT = 1;
+    public static final int POPUP_DOWN_RIGHT = 2;
+    public static final int POPUP_TOP_LEFT = 3;
+    public static final int POPUP_TOP_RIGHT = 4;
     private static final String TAG = "BasePopupWindow";
     private static final int MAX_RETRY_SHOW_TIME = 3;
     private BasePopupHelper mHelper;
@@ -246,6 +250,8 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     //popup视图
     private View mPopupView;
     private WeakReference<Context> mContext;
+    private int mWidth;
+    private int mHeight;
     protected View mAnimateApplyView;
     protected View mDismissView;
 
@@ -256,6 +262,11 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
 
     private InnerPopupWindowStateListener mStateListener;
 
+    public BasePopupWindow(View view, Context context, int w, int h) {
+        mWidth = w;
+        mHeight = h;
+        mContext = new WeakReference<>(context);
+    }
     public BasePopupWindow(Context context) {
         initView(context, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
@@ -265,6 +276,8 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     }
 
     private void initView(Context context, int w, int h) {
+        mWidth = w;
+        mHeight = h;
         mContext = new WeakReference<Context>(context);
         mHelper = new BasePopupHelper();
         mPopupView = onCreatePopupView();
@@ -312,7 +325,12 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
                 .setExitAnimation(initExitAnimation())
                 .setExitAnimator(initExitAnimator());
     }
-
+    protected BasePopupWindow build(){
+        if(getContext() != null){
+            initView(getContext(), mWidth, mHeight);
+        }
+        return this;
+    }
     private void checkPopupAnimaView() {
         //处理popupview与animateview相同的情况
         //当popupView与animateView相同的时候，处理位置信息会出问题，因此这里需要对mAnimaView再包裹一层
@@ -454,6 +472,24 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
      * @param v
      */
     public void showPopupWindow(View v) {
+        if (checkPerformShow(v)) {
+            mHelper.setShowAtDown(true);
+            tryToShowPopup(v);
+        }
+    }
+    public void showPopupWindow(View v,int popupType) {
+        switch (popupType){
+            case POPUP_DOWN_LEFT :
+
+                break;
+            case POPUP_DOWN_RIGHT :
+
+                break;
+            case POPUP_TOP_LEFT :
+                break;
+            case POPUP_TOP_RIGHT :
+                break;
+        }
         if (checkPerformShow(v)) {
             mHelper.setShowAtDown(true);
             tryToShowPopup(v);

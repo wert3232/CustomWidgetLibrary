@@ -123,22 +123,6 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
         public void onAnimationEnd(Animator animation) {
             updateScrollStateIfRequired(SCROLL_STATE_IDLE);
         }
-        onChangeListener onChangeListener = new onChangeListener() {
-            @Override
-            public void onRotationChanged(double radians, int index) {
-
-            }
-
-            @Override
-            public void onScrollStateChanged(int state) {
-
-            }
-
-            @Override
-            public void onTouch() {
-
-            }
-        };
     };
 
 }
