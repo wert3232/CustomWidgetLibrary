@@ -14,6 +14,10 @@ fun MotionEvent.isTouchIn(rect: Rect,offsetX: Int = 0,offsetY: Int = 0) : Boolea
     val y = y + offsetY
     return x in rect.left .. rect.right && y in rect.top .. rect.bottom
 }
+fun MotionEvent.isTouchInX(rect: Rect,offsetX: Int = 0,spreadTouchRange: Int = 0) : Boolean{
+    val x = x + offsetX
+    return x in (rect.left - spreadTouchRange) .. (rect.right + spreadTouchRange)
+}
 fun Drawable.toBitmap(
         width: Int = intrinsicWidth,
         height: Int = intrinsicHeight,

@@ -82,6 +82,7 @@
             <enum name="CW270" value="270" />
         </attr>
         <attr name="onlyTouchThumbCanSlide" format="boolean"/>
+        <attr name="spreadTouchRange" format="integer"/>
     </declare-styleable>
     <declare-styleable name="recycler_swipe_SwipeMenuLayout">
         <attr name="leftViewId" format="reference"/>

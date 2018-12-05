@@ -11,10 +11,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        axis.setValueChangeListener(object : AxisView.OnValueChangeListener{
+        /*axis.setValueChangeListener(object : AxisView.OnValueChangeListener{
             override fun onChange(x: Int, y: Int, axisLength: Int) {
                 Log.e("www2","$x    $y    $axisLength")
             }
-        })
+        })*/
     }
 }

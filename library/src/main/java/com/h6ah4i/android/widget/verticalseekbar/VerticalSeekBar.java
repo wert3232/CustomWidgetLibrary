@@ -38,6 +38,7 @@ package com.h6ah4i.android.widget.verticalseekbar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -45,11 +46,13 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import java.lang.reflect.InvocationTargetException;
@@ -67,6 +70,9 @@ public class VerticalSeekBar extends AppCompatSeekBar {
     private Method mMethodSetProgressFromUser;
     private int mRotationAngle = ROTATION_ANGLE_CW_90;
     private boolean onlyTouchThumbCanSlide = false;
+    private int spreadTouchRange = 0;
+    private WindowManager wm = null;
+    private Point screenSize;
     public VerticalSeekBar(Context context) {
         super(context);
         initialize(context, null, 0, 0);
@@ -89,11 +95,13 @@ public class VerticalSeekBar extends AppCompatSeekBar {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.VerticalSeekBar, defStyleAttr, defStyleRes);
             final int rotationAngle = a.getInteger(R.styleable.VerticalSeekBar_seekBarRotation, 0);
             onlyTouchThumbCanSlide = a.getBoolean(R.styleable.VerticalSeekBar_onlyTouchThumbCanSlide, false);
+            spreadTouchRange = a.getInteger(R.styleable.VerticalSeekBar_spreadTouchRange,0);
             if (isValidRotationAngle(rotationAngle)) {
                 mRotationAngle = rotationAngle;
             }
             a.recycle();
         }
+        wm = (WindowManager) this.getContext().getSystemService(Context.WINDOW_SERVICE);
     }
 
     @Override
@@ -108,9 +116,12 @@ public class VerticalSeekBar extends AppCompatSeekBar {
     public void setDownCallBack(DownCallBack callBack){
         this.callBack = callBack;
     }
+    private Drawable thumb;
+    private int downX = 0;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
+        MotionEvent _event = event;
+        if(_event.getAction() == MotionEvent.ACTION_DOWN){
             if(callBack != null){
                 callBack.onDown(this);
             }
@@ -120,7 +131,7 @@ public class VerticalSeekBar extends AppCompatSeekBar {
                     Drawable thumb = (Drawable) object;
                     Rect rect = thumb.getBounds();
                     int offsetX = - getPaddingStart() + thumb.getIntrinsicWidth() / 2;
-                    if(WidgetExtensionsKt.isTouchIn(event,rect, offsetX ,0)){
+                    if(WidgetExtensionsKt.isTouchInX(_event,rect, offsetX,spreadTouchRange)){
                         //触点和thumb重合
                     }else{
                         return false;
@@ -128,11 +139,13 @@ public class VerticalSeekBar extends AppCompatSeekBar {
                 }
             }
         }
-        if (useViewRotation()) {
+        //add
 
-            return onTouchEventUseViewRotation(event);
+        //
+        if (useViewRotation()) {
+            return onTouchEventUseViewRotation(_event);
         } else {
-            return onTouchEventTraditionalRotation(event);
+            return onTouchEventTraditionalRotation(_event);
         }
     }
 
