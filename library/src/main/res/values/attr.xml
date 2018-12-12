@@ -98,11 +98,17 @@
         <attr name="selectIndex" format="integer"/>
         <attr name="appContent" format="string"/>
         <attr name="appTextSize" format="dimension"/>
-        <attr name="appTextColor" format="color"/>
+        <attr name="appTextColor" format="color|reference"/>
         <attr name="appChecked" format="boolean"/>
         <attr name="zeroLineColor" format="color|reference"/>
         <attr name="actionLineColor" format="color|reference"/>
         <attr name="isAnti" format="boolean"/>
+        <attr name="experiment" format="boolean"/>
+        <attr name="appBackgroundColor" format="color|reference"/>
+        <attr name="appChooseTextColor" format="color|reference"/>
+        <attr name="appHintTextSize" format="dimension"/>
+        <attr name="appRadius" format="dimension"/>
+        <attr name="appCircleRadius" format="dimension"/>
     </declare-styleable>
     <declare-styleable name="NiceSpinner">
         <attr name="arrowTint" format="color" />

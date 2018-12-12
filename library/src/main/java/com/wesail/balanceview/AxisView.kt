@@ -80,43 +80,6 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    /*override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        poi?.apply {
-            if(pointPositionByPrecentMap["isEnable"] == true){
-                val xp = pointPositionByPrecentMap["xp"] as Float
-                val yp = pointPositionByPrecentMap["yp"] as Float
-                offsetX = (xp + 1) / 2f * measuredWidth.toFloat()
-                offsetY = (yp + 1) / 2f * measuredHeight.toFloat()
-            }
-
-            val xLength = canvas.width - width
-            val yLength = canvas.height - height
-            var left = (offsetX -  this.width.toFloat() / 2)
-            if(left < 0){
-                left = 0f
-            }else if (left > xLength){
-                left = xLength.toFloat()
-            }
-            var top = (offsetY -  this.height.toFloat() / 2)
-            if(top < 0){
-                top = 0f
-            }else if (top > yLength){
-                top = yLength.toFloat()
-            }
-            fun owo(){
-                var unitX = (canvas.width - width).toFloat() / (axisLength * 2)
-                var unitY = (canvas.height - height).toFloat() / (axisLength * 2)
-                val axisX = (left / unitX).toInt() - axisLength
-                val axisY = (top / unitY).toInt() - axisLength
-                setAxis(axisX,axisY)
-            }
-            owo()
-            canvas.drawFilter = PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
-            canvas.drawBitmap(this, left , top,null)
-        }
-    }*/
-
     override fun onDraw(canvas: Canvas) {
         poi?.apply {
             val xLength = measuredWidth - width
@@ -151,7 +114,7 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
 
             setAxis(axisX.toInt(), axisY.toInt())
 
-            canvas.translate(measuredWidth.toFloat() / 2,measuredWidth.toFloat() / 2)
+            canvas.translate(measuredWidth.toFloat() / 2,measuredHeight.toFloat() / 2)
             canvas.drawFilter = paintFilter
             canvas.drawBitmap(this, left , top,null)
         }

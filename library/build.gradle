@@ -44,6 +44,8 @@ dependencies {
     implementation deps.rx.rxAndroid
     implementation deps.rx.rxKotlin
 
+    //
+    implementation deps.pinyin4j
     implementation 'com.yanzhenjie:loading:1.0.2'
 }
 repositories {

@@ -142,8 +142,13 @@ public class NiceSpinner extends AppCompatTextView {
 
 //        setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
         setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
-        setPadding(resources.getDimensionPixelSize(R.dimen.three_grid_unit), defaultPadding, defaultPadding,
-                defaultPadding);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+            setPadding(defaultPadding, defaultPadding, defaultPadding,
+                    defaultPadding);
+        }else {
+            setPadding(resources.getDimensionPixelSize(R.dimen.three_grid_unit), defaultPadding, defaultPadding,
+                    defaultPadding);
+        }
         setClickable(true);
         selectedIndex = typedArray.getInteger(R.styleable.NiceSpinner_selectedIndex,0);
         entries = typedArray.getTextArray(R.styleable.NiceSpinner_entries);

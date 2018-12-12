@@ -73,6 +73,7 @@ public class VerticalSeekBar extends AppCompatSeekBar {
     private int spreadTouchRange = 0;
     private WindowManager wm = null;
     private Point screenSize;
+    private boolean experiment = true;
     public VerticalSeekBar(Context context) {
         super(context);
         initialize(context, null, 0, 0);
@@ -93,13 +94,16 @@ public class VerticalSeekBar extends AppCompatSeekBar {
 
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.VerticalSeekBar, defStyleAttr, defStyleRes);
+            TypedArray commonA = context.obtainStyledAttributes(attrs, R.styleable.commonAttr, defStyleAttr, defStyleRes);
             final int rotationAngle = a.getInteger(R.styleable.VerticalSeekBar_seekBarRotation, 0);
             onlyTouchThumbCanSlide = a.getBoolean(R.styleable.VerticalSeekBar_onlyTouchThumbCanSlide, false);
             spreadTouchRange = a.getInteger(R.styleable.VerticalSeekBar_spreadTouchRange,0);
             if (isValidRotationAngle(rotationAngle)) {
                 mRotationAngle = rotationAngle;
             }
+            experiment = commonA.getBoolean(R.styleable.commonAttr_experiment,true);
             a.recycle();
+            commonA.recycle();
         }
         wm = (WindowManager) this.getContext().getSystemService(Context.WINDOW_SERVICE);
     }
@@ -117,7 +121,8 @@ public class VerticalSeekBar extends AppCompatSeekBar {
         this.callBack = callBack;
     }
     private Drawable thumb;
-    private int downX = 0;
+    private int simulateDownX = 0;
+    private float realDownX = 0;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         MotionEvent _event = event;
@@ -125,22 +130,51 @@ public class VerticalSeekBar extends AppCompatSeekBar {
             if(callBack != null){
                 callBack.onDown(this);
             }
-            if(onlyTouchThumbCanSlide){
+            if(onlyTouchThumbCanSlide && !experiment){
                 Object object =  ReflectionUtils.INSTANCE.getFieldValue(this,"mThumb");
                 if(object instanceof Drawable){
                     Drawable thumb = (Drawable) object;
                     Rect rect = thumb.getBounds();
                     int offsetX = - getPaddingStart() + thumb.getIntrinsicWidth() / 2;
-                    if(WidgetExtensionsKt.isTouchInX(_event,rect, offsetX,spreadTouchRange)){
-                        //触点和thumb重合
-                    }else{
+
+                    //触点和thumb重合
+                    if (!WidgetExtensionsKt.isTouchInX(_event, rect, offsetX, spreadTouchRange)) {
                         return false;
                     }
                 }
             }
         }
         //add
-
+        if(experiment && onlyTouchThumbCanSlide){
+            if(thumb == null){
+                Object object =  ReflectionUtils.INSTANCE.getFieldValue(this,"mThumb");
+                if(object instanceof Drawable) {
+                    thumb = (Drawable) object;
+                }
+            }
+            if(thumb != null){
+                Rect rect = thumb.getBounds();
+                rect.centerX();
+                Point size = new Point();
+                wm.getDefaultDisplay().getSize(size);
+                float x = size.y - event.getRawY() - getPaddingStart();
+                float y = event.getRawX();
+                long eventTime = event.getEventTime();
+                long downTime = event.getDownTime();
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    int offsetX = - getPaddingStart() + (rect.right - rect.left) / 2;
+                    simulateDownX = rect.centerX() - offsetX;
+                    realDownX = x;
+//                    _event = MotionEvent.obtain(downTime,eventTime,event.getAction(),x,y,event.getMetaState());
+                    _event = MotionEvent.obtain(downTime,eventTime,event.getAction(),simulateDownX,y,event.getMetaState());
+                }else if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_UP
+                        || event.getAction() == MotionEvent.ACTION_CANCEL
+                        ){
+                    float moveX= simulateDownX + (x - realDownX);
+                    _event = MotionEvent.obtain(downTime, eventTime, event.getAction(), moveX, y, event.getMetaState());
+                }
+            }
+        }
         //
         if (useViewRotation()) {
             return onTouchEventUseViewRotation(_event);
