@@ -1,4 +1,4 @@
-package com.baby.viewtools.SortRecyclerViewList
+package com.baby.viewtools.sortrecyclerviewlist
 
 import android.content.Context
 import android.graphics.Canvas

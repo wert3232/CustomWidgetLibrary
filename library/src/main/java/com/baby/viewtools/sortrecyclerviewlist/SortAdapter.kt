@@ -1,7 +1,6 @@
-package com.baby.viewtools.SortRecyclerViewList
+package com.baby.viewtools.sortrecyclerviewlist
 
 import android.content.Context
-import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -16,8 +15,8 @@ import com.library.R
 class SortAdapter(private val context: Context, private var mData: List<SortModel>) : RecyclerView.Adapter<SortAdapter.ViewHolder>() {
     @LayoutRes
     var itemResLayout = R.layout.item_name
-    private var mOnItemClickListener = {view: View, position: Int ->
-        Toast.makeText(context, mData[position].name, Toast.LENGTH_SHORT).show()
+    private var mOnItemClickListener = { view: View, position: Int, mode: SortModel ->
+        Toast.makeText(context,"id:${mode.id} name:${mData[position].name}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,7 +28,7 @@ class SortAdapter(private val context: Context, private var mData: List<SortMode
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            mOnItemClickListener.invoke(holder.itemView, position)
+            mOnItemClickListener.invoke(holder.itemView, position, getItem(position))
         }
         holder.tvName!!.text = this.mData[position].name
     }
@@ -39,7 +38,7 @@ class SortAdapter(private val context: Context, private var mData: List<SortMode
     }
 
     //**********************itemClick************************
-    fun setOnItemClickListener(onItemClickListener: (view: View, position: Int) -> Unit) {
+    fun setOnItemClickListener(onItemClickListener: (view: View, position: Int, mode: SortModel) -> Unit) {
         this.mOnItemClickListener = onItemClickListener
     }
     //**************************************************************
@@ -57,7 +56,7 @@ class SortAdapter(private val context: Context, private var mData: List<SortMode
         notifyDataSetChanged()
     }
 
-    fun getItem(position: Int): Any {
+    fun getItem(position: Int): SortModel {
         return mData[position]
     }
 

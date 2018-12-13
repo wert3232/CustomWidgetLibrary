@@ -1,6 +1,7 @@
-package com.baby.viewtools.SortRecyclerViewList
+package com.baby.viewtools.sortrecyclerviewlist
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,19 +13,19 @@ import java.util.*
 
 class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : RecyclerView(context, attrs, defStyleAttr) {
     inner class Builder {
-        lateinit var dataList: List<String>
+        lateinit var dataList: List<SortModel>
         var titleClosure: TitleItemDecoration.Params.() -> Unit = {}
             private set
         var adapterClosure: () -> SortAdapter = {
-                SortAdapter(context, SortModel.filledData(dataList.toTypedArray()))
-            }
+            SortAdapter(context, dataList)
+        }
             private set
 
-        fun titleItemDecoration(init: TitleItemDecoration.Params.() -> Unit = {}){
+        fun titleItemDecoration(init: TitleItemDecoration.Params.() -> Unit = {}) {
             titleClosure = init
         }
 
-        fun adapter(sortAdapter: SortAdapter = adapterClosure(),init: SortAdapter.() -> Unit){
+        fun adapter(sortAdapter: SortAdapter = adapterClosure(), init: SortAdapter.() -> Unit) {
             adapterClosure = {
                 sortAdapter.init()
                 sortAdapter
@@ -32,7 +33,6 @@ class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr:
         }
     }
 
-    private val builder = Builder()
     private val manager by lazy {
         LinearLayoutManager(context).apply {
             orientation = LinearLayoutManager.VERTICAL
@@ -46,11 +46,12 @@ class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr:
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     fun build(block: Builder.() -> Unit): SortRecyclerViewList {
+        val builder = Builder()
         builder.block()
-        this.datalist = SortModel.filledData(builder.dataList.toTypedArray())
-        this.sortList.addAll(datalist.also {
+        this.datalist = builder.dataList.also {
             Collections.sort<SortModel>(it, PinyinComparator())
-        })
+        }
+        this.sortList.addAll(datalist)
         this.sortAdapter = builder.adapterClosure()
         adapter = sortAdapter
         layoutManager = manager
@@ -100,7 +101,7 @@ class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr:
     }
 }
 
-data class SortModel(var name: String, var letters: String){
+data class SortModel(val id: Int, var name: String, var letters: String, var bundle: Bundle? = null) {
     companion object {
         fun filledData(date: Array<String>): MutableList<SortModel> {
             val sortList = ArrayList<SortModel>()
@@ -114,10 +115,23 @@ data class SortModel(var name: String, var letters: String){
                 } else {
                     "#"
                 }
-                sortList.add(SortModel(name, letters))
+                sortList.add(SortModel(i, name, letters))
             }
             return sortList
         }
+
+        fun filledData(id: Int, name: String, bundle: Bundle? = null) : SortModel {
+            //汉字转换成拼音
+            val sortString = name.toPingYin().substring(0, 1).toUpperCase()
+            // 正则表达式，判断首字母是否是英文字母
+            val letters = if (sortString.matches("[A-Z]".toRegex())) {
+                sortString.toUpperCase()
+            } else {
+                "#"
+            }
+            return SortModel(id, name,letters, bundle)
+        }
+
     }
 }
 

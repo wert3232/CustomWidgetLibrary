@@ -15,5 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity
+            android:label="@string/wwww"
+            android:name="com.baby.viewtools.sortrecyclerviewList.MainActivity"
+            android:launchMode="singleInstance"
+            android:process=":process.sub">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>-->
     </application>
 </manifest>
