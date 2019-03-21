@@ -1,12 +1,43 @@
 package com.yfz.customwidgetlibrary
 
+import android.app.Dialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import cn.qqtheme.framework.picker.FilePicker
+import cn.qqtheme.framework.util.StorageUtils
+import com.baby.viewtools.ConfirmDialog
 import com.baby.viewtools.sortrecyclerviewlist.SortModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.www2.*
+import org.jetbrains.anko.textView
+import org.jetbrains.anko.verticalLayout
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        test.setOnClickListener {
+            Toast.makeText(this@MainActivity,"111",Toast.LENGTH_LONG).show()
+            FilePicker(this@MainActivity, FilePicker.FILE).apply {
+                setShowHideDir(false)
+                setRootPath(StorageUtils.getExternalRootPath() + "/")
+                setAllowExtensions(arrayOf(".txt"))
+                setItemHeight(30)
+                setFillScreen(true)
+                setOnFilePickListener { currentPath ->
+                    Toast.makeText(this@MainActivity,currentPath,Toast.LENGTH_LONG).show()
+                }
+            }.show()
+        }
+    }
+}
 
 /*class MainActivity : AppCompatActivity() {
 
@@ -21,6 +52,7 @@ import kotlinx.android.synthetic.main.www2.*
     }
 }*/
 
+/*
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +66,10 @@ class MainActivity : AppCompatActivity() {
                 titleTextSize = 16f
             }
             adapter{
-                itemResLayout = R.layout.item_name
+                itemResLayout = R.layout.item_name2
+                setOnItemClickListener { view, position, mode ->
+
+                }
             }
         }
 
@@ -55,3 +90,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+*/

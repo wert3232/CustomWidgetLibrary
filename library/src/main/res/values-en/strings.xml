@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">MyLibrary</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+
     <string name="recycler_swipe_data_empty">There is no data</string>
     <string name="recycler_swipe_more_not">No more data</string>
     <string name="recycler_swipe_click_load_more">Click to load more</string>
     <string name="recycler_swipe_load_error">Error, please try again</string>
     <string name="recycler_swipe_load_more_message">Loading, please wait later</string>
+    <string name="internal_storage">内置存储</string>
+    <string name="internal_sd">存储卡</string>
+    <string name="sd_or_u">SD卡/U盘</string>
 </resources>

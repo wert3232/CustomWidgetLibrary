@@ -28,8 +28,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lineSpaceRatio="0.2"
         app:normalMarkWidth="5"
-        />
-    &lt;!&ndash;<com.yfz.widget.knob.Croller
+        />-->
+    <!--<com.yfz.widget.knob.Croller
         android:layout_width="300dp"
         android:layout_height="300dp"
         style="@style/knob_style"
@@ -39,7 +39,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:sweep_gradient_positions="@array/sweepGradientPositions"
         app:sweep_gradient_colors="@array/sweepGradientColors"
-        />&ndash;&gt;-->
+        />-->
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:text="TEST"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:textSize="36dp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
     <!--<com.wesail.balanceview.AxisView
         android:id="@+id/axis"
         android:background="@color/colorAccent"
@@ -47,10 +62,10 @@
         android:layout_height="500dp"
         app:poiSizePrecent="0.3"
         />-->
-    <!--<com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
         android:id="@+id/seekBarWrap0"
         android:layout_width="0dp"
-        android:layout_height="400dp"
+        android:layout_height="500dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,5 +84,5 @@
             android:background="#222"
             tools:max="254"
             tools:progress="127" />
-    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>-->
+    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 </android.support.constraint.ConstraintLayout>

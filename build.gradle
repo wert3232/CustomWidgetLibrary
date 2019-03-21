@@ -34,6 +34,7 @@ ext.deps = [
         timber      : 'com.jakewharton.timber:timber:4.7.1',
         gson        : 'com.google.code.gson:gson:2.8.4',
         switchbutton: 'com.kyleduo.switchbutton:library:2.0.0',
+        pinyin4j : 'com.belerweb:pinyin4j:2.5.1'
 ]
 def versions = [:]
 versions.lifecycle = "1.1.1"

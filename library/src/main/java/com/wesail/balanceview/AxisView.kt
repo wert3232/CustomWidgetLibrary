@@ -175,9 +175,9 @@ fun Drawable.toBitmap(wrapWidth: Int, wrapHigh: Int, ratio: Float = 1f, deg: Flo
         Bitmap.Config.ARGB_8888
     else
         Bitmap.Config.RGB_565
-    var bitmap1: Bitmap = this.toBitmap(config = config)
+    val bitmap1: Bitmap = this.toBitmap(config = config)
 
-    var bitmap2 = bitmap1.let {
+    val bitmap2 = bitmap1.let {
         if(wrapHigh<= 0 || wrapWidth <= 0 || it.width <= 0 || it.height <= 0) {
             return it
         }

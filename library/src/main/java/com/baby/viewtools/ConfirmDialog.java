@@ -15,6 +15,7 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
     private TextView cancel;
     private TextView title;
     private Callback callback;
+    private Boolean isAutoDismiss = true;
 	public ConfirmDialog(Context context, int theme) {
 		super(context, theme);
 		initView();
@@ -62,10 +63,16 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
 		public void onConfirm(Dialog dialog, TextView confirm, TextView cancel);
 		public void onCancel(Dialog dialog, TextView confirm, TextView cancel);
 	}
+	public ConfirmDialog setAutoDismiss(Boolean isAutoDismiss){
+		this.isAutoDismiss = isAutoDismiss;
+		return this;
+	}
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.textview_confirm){
-			this.dismiss();
+			if(isAutoDismiss){
+				this.dismiss();
+			}
 			if (callback != null) {
 				callback.onConfirm(this, confirm, cancel);
 			}

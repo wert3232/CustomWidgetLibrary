@@ -123,6 +123,9 @@ public class VerticalSeekBar extends AppCompatSeekBar {
     private Drawable thumb;
     private int simulateDownX = 0;
     private float realDownX = 0;
+
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         MotionEvent _event = event;
@@ -154,7 +157,6 @@ public class VerticalSeekBar extends AppCompatSeekBar {
             }
             if(thumb != null){
                 Rect rect = thumb.getBounds();
-                rect.centerX();
                 Point size = new Point();
                 wm.getDefaultDisplay().getSize(size);
                 float x = size.y - event.getRawY() - getPaddingStart();
@@ -420,6 +422,7 @@ public class VerticalSeekBar extends AppCompatSeekBar {
 
     @Override
     protected synchronized void onDraw(Canvas canvas) {
+        final int saveCount = canvas.save();
         if (!useViewRotation()) {
             switch (mRotationAngle) {
                 case ROTATION_ANGLE_CW_90:
@@ -434,6 +437,7 @@ public class VerticalSeekBar extends AppCompatSeekBar {
         }
 
         super.onDraw(canvas);
+        canvas.restoreToCount(saveCount);
     }
 
     public int getRotationAngle() {
