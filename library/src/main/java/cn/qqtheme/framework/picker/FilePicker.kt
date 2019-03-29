@@ -350,8 +350,8 @@ class FilePicker(activity: Activity, @param:Mode private val mode: Int) : Confir
     }
 
     companion object {
-        val DIRECTORY = 0
-        val FILE = 1
+        const val DIRECTORY = 0
+        const val FILE = 1
     }
 
 }

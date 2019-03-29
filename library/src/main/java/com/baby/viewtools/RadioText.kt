@@ -4,13 +4,14 @@ import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.InverseBindingAdapter
 import android.databinding.InverseBindingListener
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.library.R
 
-open class RadioText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : TextView(context, attrs, defStyleAttr) {
+open class RadioText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {
     var inverseBindingListener: InverseBindingListener? = null
     var viewIndex = -2
     var selectIndex = -1

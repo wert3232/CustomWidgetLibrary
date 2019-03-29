@@ -16,10 +16,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 data class EqData(var index: Int ,var gain: Int,var q: Float,var frequency: Int = -1)
-open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr){
+open class EqBezierChart @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr){
     val a = context.obtainStyledAttributes(attrs, R.styleable.eqBezierChartAttr)
+    val coroutineDispatcher = newSingleThreadContext("ctx")
     private var isBuild = false
     val eqPointNum = a.getInteger(R.styleable.eqBezierChartAttr_eqChartPointNum,15)
     var maxY = 100f
@@ -41,10 +44,10 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
             this.add(index,EqData(index,0,defaultQ, frequencies[index]))
         }
     }.toTypedArray()
-    private lateinit var mEqBezierPath: Path
+    private var mEqBezierPath: Path? = null
     private var e: FlowableEmitter<EqData>?= null
     private var frequencyChangeEmitter: FlowableEmitter<Int>?= null
-    private lateinit var eqs: ArrayList<EqObj>
+    private var eqs: ArrayList<EqObj>? = null
     private var xAxisLength  = 0
         set(value) {
             if(field == value){
@@ -52,7 +55,9 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
             }
             else{
                 field = value
-                initBezierPath()
+                GlobalScope.launch(coroutineDispatcher) {
+                    initBezierPath()
+                }
             }
         }
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -91,11 +96,13 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
             canvas != null
         }.observeOn(Schedulers.computation())
                 .map { data ->
-                    if(data.index >= 0 && data.index < eqs.size){
+                    if(data.index >= 0 && data.index < eqs!!.size){
                         val y = maxY * (data.gain.toFloat() / eqSpan)
-                        eqs[data.index].setValue(y = y, q = data.q)
-                        EqObj.buildAndPath(eqs, xAxisLength, maxY)
-                    }else mEqBezierPath
+                        eqs!![data.index].setValue(y = y, q = data.q)
+                        EqObj.buildAndPath(eqs!!, xAxisLength, maxY)
+                    }else {
+                        mEqBezierPath!!
+                    }
                 }.observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onNext = {path ->
@@ -117,12 +124,12 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
                 }
                 .observeOn(Schedulers.computation())
                 .map { index ->
-                    if(index in 0 until  eqs.size){
+                    if(index in 0 until  eqs!!.size){
                         val x = measuredWidth * xPositions[index]
-                        eqs[index].setValue(x = x.toInt())
-                        EqObj.buildAndPath(eqs, xAxisLength, maxY)
+                        eqs!![index].setValue(x = x.toInt())
+                        EqObj.buildAndPath(eqs!!, xAxisLength, maxY)
                     }else{
-                        mEqBezierPath
+                        mEqBezierPath!!
                     }
                 }.observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
@@ -161,13 +168,24 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
     }
 
     override fun onDetachedFromWindow() {
-        eqDataObservable?.dispose()
-        eqFrequencyObservable?.dispose()
-        frequencyChangeEmitter = null
-        e = null
+        release()
         super.onDetachedFromWindow()
     }
-
+    fun release(){
+        eqDataObservable?.dispose()
+        eqFrequencyObservable?.dispose()
+        eqFrequencyObservable = null
+        eqDataObservable = null
+        frequencyChangeEmitter = null
+        mEqBezierPath = null
+        e = null
+        eqs?.forEach {
+            it.clear()
+        }
+        eqs = null
+        coroutineDispatcher.cancel()
+        coroutineDispatcher.close()
+    }
     fun setEqValue(index: Int, gain: Int, q: Float){
         if (index > eqPointNum - 1 || !isBuild) {
             return
@@ -185,26 +203,29 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
             }
         }
     }
-    private lateinit var b:Context
     fun reset(){
-        ::b.isInitialized
-        for(index in 0 until eqs.size){
-            eqDatas[index].let {
-                it.index = index
-                it.gain = 0
-                it.q = defaultQ
+        GlobalScope.launch(coroutineDispatcher) {
+
+            for(index in 0 until eqs!!.size){
+                eqDatas[index].let {
+                    it.index = index
+                    it.gain = 0
+                    it.q = defaultQ
+                }
+                val x = measuredWidth * xPositions[index]
+                eqs!![index].setValue(x = x.toInt(),y = 0f,q = defaultQ)
+                mEqBezierPath!!.set(EqObj.buildAndPath(eqs!!, measuredWidth, maxY))
             }
-            val x = measuredWidth * xPositions[index]
-            eqs[index].setValue(x = x.toInt(),y = 0f,q = defaultQ)
-            mEqBezierPath.set(EqObj.buildAndPath(eqs, measuredWidth, maxY))
+            withContext(Dispatchers.Main){
+                postInvalidate()
+            }
         }
-        invalidate()
     }
     private fun initBezierPath(){
         maxY = (measuredHeight / 2) .toFloat()
 //        Log.e(javaClass.simpleName, "measuredWidth :${measuredWidth}    measuredHeight: ${measuredHeight}")
         eqs = initEqs(measuredWidth,measuredHeight)
-        mEqBezierPath = EqObj.buildAndPath(eqs, measuredWidth, maxY)
+        mEqBezierPath = EqObj.buildAndPath(eqs!!, measuredWidth, maxY)
         isBuild = true
     }
     fun setData(data: List<EqData>) = setData(data.toTypedArray())
@@ -219,8 +240,12 @@ open class EqBezierChart  @JvmOverloads constructor(context: Context, attrs: Att
             }
         }
         if(isBuild){
-            initBezierPath()
-            postInvalidate()
+            GlobalScope.launch(coroutineDispatcher) {
+                initBezierPath()
+                withContext(Dispatchers.Main){
+                    postInvalidate()
+                }
+            }
         }
     }
     private fun initEqs(width: Int, height: Int):  ArrayList<EqObj>{
@@ -409,6 +434,9 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
     init {
         createEqPoint()
     }
+    fun clear(){
+        points.clear()
+    }
     fun setValue(x: Int = this.x, y: Float = this.y, q: Float = this.q){
         this.x = x
         this.y = y
@@ -466,7 +494,7 @@ data class EqObj(var x: Int,var y: Float = 0f,var q: Float = 1f,val width: Int,v
 
     //2.计算贝塞尔曲线
     private fun computeBezier(p0: Point, p1: Point, p2: Point, p3: Point) : ArrayList<Point>{
-        val points = arrayListOf(p0,p1,p2,p3) //控制点
+        var points = arrayListOf(p0,p1,p2,p3) //控制点
         val rPoints = ArrayList<Point>() //途径点集合
         val n = points.size
         val xs = arrayOfNulls<Float>(n - 1)

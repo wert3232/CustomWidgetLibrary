@@ -164,9 +164,10 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
         @BindingAdapter(value = arrayOf("appContent"))
-        @JvmStatic	fun setAppContent(view: LabelView2, appContent: String) {
+        @JvmStatic	fun setAppContent(view: LabelView2, appContent: String?) {
+
             if (view.appContent != appContent) {
-                view.appContent = appContent
+                view.appContent = appContent ?: ""
             }
         }
     }
