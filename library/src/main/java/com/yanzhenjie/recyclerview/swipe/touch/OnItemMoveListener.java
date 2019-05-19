@@ -15,7 +15,7 @@
  */
 package com.yanzhenjie.recyclerview.swipe.touch;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by Yolanda on 2016/4/19.

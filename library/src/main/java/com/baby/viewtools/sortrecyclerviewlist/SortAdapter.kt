@@ -1,8 +1,8 @@
 package com.baby.viewtools.sortrecyclerviewlist
 
 import android.content.Context
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import android.widget.Toast
 
 import com.library.R
 
-open class SortAdapter(private val context: Context, private var mData: List<SortModel>) : RecyclerView.Adapter<SortAdapter.ViewHolder>() {
+open class SortAdapter(private val context: Context, private var mData: List<SortModel>) : androidx.recyclerview.widget.RecyclerView.Adapter<SortAdapter.ViewHolder>() {
     @LayoutRes
     var itemResLayout = R.layout.item_name
     var selectPosition = -1
@@ -58,7 +58,7 @@ open class SortAdapter(private val context: Context, private var mData: List<Sor
     }
     //**************************************************************
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         internal var tvName: TextView? = null
     }
 

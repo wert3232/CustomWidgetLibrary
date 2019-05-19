@@ -1,6 +1,6 @@
 package cn.qqtheme.framework.util;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.webkit.MimeTypeMap;
 
 import java.io.BufferedInputStream;

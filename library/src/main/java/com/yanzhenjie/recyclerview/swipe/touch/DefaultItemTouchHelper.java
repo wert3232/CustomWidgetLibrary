@@ -15,7 +15,7 @@
  */
 package com.yanzhenjie.recyclerview.swipe.touch;
 
-import android.support.v7.widget.helper.CompatItemTouchHelper;
+import androidx.recyclerview.widget.CompatItemTouchHelper;
 
 /**
  * Created by Yolanda on 2016/4/19.

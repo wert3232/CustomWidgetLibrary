@@ -1,9 +1,9 @@
 package com.baby.viewtools
 
 import android.content.Context
-import android.databinding.BindingAdapter
-import android.databinding.InverseBindingAdapter
-import android.databinding.InverseBindingListener
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View

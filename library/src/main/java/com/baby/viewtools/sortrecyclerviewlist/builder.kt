@@ -2,16 +2,16 @@ package com.baby.viewtools.sortrecyclerviewlist
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.util.AttributeSet
 import com.common.getFirstSpell
 import com.common.toPingYin
 import java.util.*
 
-class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : RecyclerView(context, attrs, defStyleAttr) {
+class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : androidx.recyclerview.widget.RecyclerView(context, attrs, defStyleAttr) {
     inner class Builder {
         lateinit var dataList: List<SortModel>
         var titleClosure: TitleItemDecoration.Params.() -> Unit = {}
@@ -35,7 +35,7 @@ class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr:
 
     private val manager by lazy {
         LinearLayoutManager(context).apply {
-            orientation = LinearLayoutManager.VERTICAL
+            orientation = RecyclerView.VERTICAL
         }
     }
     private var sortList = mutableListOf<SortModel>()
@@ -57,7 +57,7 @@ class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr:
         layoutManager = manager
         //如果add两个，那么按照先后顺序，依次渲染。
         addItemDecoration(TitleItemDecoration(context, sortList, builder.titleClosure))
-        addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(context, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL))
         return this
     }
 
@@ -96,7 +96,7 @@ class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr:
             sortList.clear()
             sortList.addAll(filterDateList)
         }
-        adapter.notifyDataSetChanged()
+        adapter?.notifyDataSetChanged()
         return this
     }
 }

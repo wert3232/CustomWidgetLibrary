@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.support.v7.widget.helper;
+package androidx.recyclerview.widget;
 
 /**
  * Created by Yan Zhenjie on 2016/8/1.

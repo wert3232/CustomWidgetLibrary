@@ -1,1 +1,3 @@
-include ':sample',':library', ':eqchart'
+
+//include ':sample',':library', ':eqchart'
+include':library'

@@ -5,10 +5,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Environment
-import android.support.annotation.IntDef
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
-import android.support.v7.content.res.AppCompatResources
+import androidx.annotation.IntDef
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.appcompat.content.res.AppCompatResources
 import android.view.Gravity
 import android.view.View
 import android.widget.*

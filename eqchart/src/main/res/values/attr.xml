@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="eqBezierChartAttr">
-        <attr name="eqChartPointNum" format="integer"/>
-        <attr name="eqChartFrequencies"/>
-        <attr name="eqChartZeroLineColor" format="color|reference"/>
-        <attr name="eqChartActionLineColor" format="color|reference"/>
-    </declare-styleable>
-</resources>
