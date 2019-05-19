@@ -189,13 +189,17 @@ public class Croller extends View {
 
     private void initXMLAttrs(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Croller);
-
+        TypedArray ca = context.obtainStyledAttributes(attrs, R.styleable.commonAttr);
         final int N = a.getIndexCount();
+        for (int i = 0; i < ca.getIndexCount(); i++){
+            int attr = ca.getIndex(i);
+            if (attr == R.styleable.commonAttr_appProgress) {
+                setProgress(ca.getInt(attr, 1));
+            }
+        }
         for (int i = 0; i < N; ++i) {
             int attr = a.getIndex(i);
-            if (attr == R.styleable.Croller_progress) {
-                setProgress(a.getInt(attr, 1));
-            } else if (attr == R.styleable.Croller_label) {
+            if (attr == R.styleable.Croller_label) {
                 setLabel(a.getString(attr));
             } else if (attr == R.styleable.Croller_back_circle_color) {
                 setBackCircleColor(a.getColor(attr, Color.parseColor("#222222")));
@@ -299,6 +303,7 @@ public class Croller extends View {
             }
         }
         a.recycle();
+        ca.recycle();
     }
 
     @Override
@@ -631,8 +636,8 @@ public class Croller extends View {
         return (int) (deg - 2);
     }
 
-    @InverseBindingAdapter(attribute = "progress", event = "progressAttrChanged")
-    public static int getProgress(Croller croller) {
+    @InverseBindingAdapter(attribute = "appProgress", event = "appProgressAttrChanged")
+    public static int getAppProgress(Croller croller) {
         return croller.getProgress();
     }
 
@@ -644,15 +649,15 @@ public class Croller extends View {
         }
     }
 
-    @BindingAdapter(value = {"progress"})
+    @BindingAdapter(value = {"appProgress"})
     public static void setProgress(Croller croller, int progress) {
         if (croller.getProgress() != progress) {
             croller.setProgress(progress);
         }
     }
 
-    @BindingAdapter(value = {"progressAttrChanged"}, requireAll = false)
-    public static void setProgressAttrChanged(Croller croller, InverseBindingListener inverseBindingListener) {
+    @BindingAdapter(value = {"appProgressAttrChanged"}, requireAll = false)
+    public static void setAppProgressAttrChanged(Croller croller, InverseBindingListener inverseBindingListener) {
         if (inverseBindingListener == null) {
             croller.mInverseBindingListener = null;
         } else {

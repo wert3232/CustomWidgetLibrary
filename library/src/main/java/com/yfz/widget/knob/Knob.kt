@@ -12,6 +12,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.library.R
 open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     private val a = context.obtainStyledAttributes(attrs, R.styleable.Croller)
+    private val ca = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
     private val valLabelPaint = Paint().apply {
         isAntiAlias = true
         color = a.getColor(R.styleable.Croller_val_label_color, Color.TRANSPARENT)
@@ -56,7 +57,7 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     private var min = a.getInt(R.styleable.Croller_min,1)
 
     private var currdeg = 0f
-    private var deg = a.getFloat(R.styleable.Croller_progress, 1f) + 2f
+    private var deg = ca.getFloat(R.styleable.commonAttr_appProgress, 1f) + 2f
     private var downdeg = 0f
 
     var isAntiClockwise = a.getBoolean(R.styleable.Croller_anticlockwise, false)

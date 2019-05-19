@@ -34,7 +34,6 @@
         <attr name="index" format="integer"/>
     </declare-styleable>
     <declare-styleable name="Croller">
-        <attr name="progress" format="integer" />
         <attr name="label" format="string" />
         <attr name="min_val_label" format="string"/>
         <attr name="max_val_label" format="string"/>
@@ -110,6 +109,7 @@
         <attr name="appHintTextSize" format="dimension"/>
         <attr name="appRadius" format="dimension"/>
         <attr name="appCircleRadius" format="dimension"/>
+        <attr name="appProgress" format="integer" />
     </declare-styleable>
     <declare-styleable name="NiceSpinner">
         <attr name="arrowTint" format="color" />
