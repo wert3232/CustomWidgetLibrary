@@ -330,26 +330,6 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
                 wheelView.inverseBindingListener = inverseBindingListener
             }
         }
-        /*@JvmStatic @InverseBindingAdapter(attribute = "viewIndex", event = "viewIndexAttrChanged")
-        fun getViewIndex(wheelView: HorizontalWheelView): Int {
-            return wheelView.viewIndex
-        }
-
-       @JvmStatic @BindingAdapter(value = arrayOf("viewIndex"))
-       fun setViewIndex(wheelView: HorizontalWheelView, viewIndex: Int) {
-            if (wheelView.viewIndex != viewIndex) {
-                wheelView.viewIndex = viewIndex
-            }
-        }
-
-        @JvmStatic @BindingAdapter(value = arrayOf("viewIndexAttrChanged"), requireAll = false)
-        fun setIndexAttrChanged(wheelView: HorizontalWheelView, inverseBindingListener: InverseBindingListener?) {
-            if (inverseBindingListener == null) {
-                wheelView.inverseBindingListener = null
-            } else {
-                wheelView.inverseBindingListener = inverseBindingListener
-            }
-        }*/
     }
 
 }
