@@ -1,3 +1,4 @@
-
+include ':viewbinding'
+//include 'android-networking'
 //include ':sample',':library', ':eqchart'
-include':library','android-networking'
+include':library',':sample'

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ui"
+            type="com.yfz.customwidgetlibrary.CrollerTestActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+
+        <com.yfz.widget.knob.Croller
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            style="@style/knob_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:appProgress="@={ui.index}"
+            app:min="-50"
+            app:max="50"
+            app:sweep_angle="180"
+            app:start_offset="0"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

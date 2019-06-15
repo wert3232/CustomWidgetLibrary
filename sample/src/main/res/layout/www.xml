@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true">
-    <com.baby.viewtools.sortrecyclerviewList.ClearEditText
+    <!--<com.baby.viewtools.sortrecyclerviewList.ClearEditText
         android:id="@+id/filter_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,6 +38,6 @@
             app:appHintTextSize="32sp"
             app:appRadius="20dp"
             app:appCircleRadius="24dp"/>
-    </FrameLayout>
+    </FrameLayout>-->
 </LinearLayout>
 

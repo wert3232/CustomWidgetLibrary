@@ -6,19 +6,30 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import cn.qqtheme.framework.picker.FilePicker
-import cn.qqtheme.framework.util.StorageUtils
-import com.baby.viewtools.ConfirmDialog
-import com.baby.viewtools.sortrecyclerviewlist.SortModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.www2.*
-import org.jetbrains.anko.textView
-import org.jetbrains.anko.verticalLayout
+import androidx.databinding.DataBindingUtil
+import com.yfz.customwidgetlibrary.databinding.ActivityMain2Binding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = DataBindingUtil.setContentView<ActivityMain2Binding>(this@MainActivity, R.layout.activity_main_2)
+
+        val factory = CGlibProxyFactory()
+        val testBean = factory.createProxyInstance(this,TestBean(2)) as TestBean
+        testBean.hello()
+        /*val start = System.currentTimeMillis()
+        val printer = MyProxy(this).getProxy(Printer::class.java) as Printer
+        Log.e("Test","take time ${System.currentTimeMillis() - start}")
+        printer.print()*/
+    }
+
+}
+/*class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             }.show()
         }
     }
-}
+}*/
 
 /*class MainActivity : AppCompatActivity() {
 

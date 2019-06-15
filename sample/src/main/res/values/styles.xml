@@ -22,11 +22,11 @@
       <!--  <item name="sweep_gradient_positions">@array/sweepGradientPositions</item>
         <item name="sweep_gradient_colors">@array/sweepGradientColors</item>-->
     </style>
-    <style name="master_adjust_seek_bar_style">
+   <!-- <style name="master_adjust_seek_bar_style">
         <item name="android:thumb">@drawable/thumb_p</item>
         <item name="android:paddingStart">50dp</item>
         <item name="android:paddingEnd">50dp</item>
         <item name="android:maxHeight">20dp</item>
         <item name="onlyTouchThumbCanSlide">true</item>
-    </style>
+    </style>-->
 </resources>
