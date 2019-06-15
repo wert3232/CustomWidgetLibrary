@@ -28,10 +28,7 @@
         <attr name="lineSpaceRatio" format="float"/>
         <attr name="isCursorSpace" format="boolean"/>
         <attr name="isZeroSpace" format="boolean"/>
-        <attr name="startIndex" format="integer"/>
-        <attr name="endIndex" format="integer"/>
         <attr name="scaleSpeedUnit" format="integer"/>
-        <attr name="index" format="integer"/>
     </declare-styleable>
     <declare-styleable name="Croller">
         <attr name="label" format="string" />
@@ -110,6 +107,9 @@
         <attr name="appRadius" format="dimension"/>
         <attr name="appCircleRadius" format="dimension"/>
         <attr name="appProgress" format="integer" />
+        <attr name="startIndex" format="integer"/>
+        <attr name="endIndex" format="integer"/>
+        <attr name="currentIndex" format="integer" />
     </declare-styleable>
     <declare-styleable name="NiceSpinner">
         <attr name="arrowTint" format="color" />

@@ -50,7 +50,7 @@ public class Croller extends View {
     private Paint textPaint, valPaint, circlePaint, circlePaint2, linePaint;
     private float currdeg = 0, deg = 3, downdeg = 0;
 
-    private boolean isContinuous = false;
+    private boolean isContinuous = true;
 
     private int backCircleColor = Color.parseColor("#222222");
     private int mainCircleColor = Color.parseColor("#00000000");
@@ -71,7 +71,9 @@ public class Croller extends View {
     private float backCircleRadiusRatio = (float) 13 / (float) 15;
     private float progressRadiusRatio = 1;
 
-    private int max = 25;
+    private int startIndex = 0;
+    private int endIndex = 100;
+    private int max = 100;
     private int min = 1;
 
     private float indicatorWidth = 7;
@@ -86,9 +88,11 @@ public class Croller extends View {
     private int mValColor = Color.TRANSPARENT;
     private float mValSize = 16;
 
+    //以什么角度为起点
     private int startOffset = 30;
     private int startOffset2 = 0;
-    private int sweepAngle = -1;
+    //进度所占有的角度
+    private int sweepAngle = 300;
 
     private boolean isAntiClockwise = false;
 
@@ -112,6 +116,22 @@ public class Croller extends View {
 
     public void setOnProgressChangedListener(onProgressChangedListener mProgressChangeListener) {
         this.mProgressChangeListener = mProgressChangeListener;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public int getEndIndex() {
+        return endIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
+    public void setEndIndex(int endIndex) {
+        this.endIndex = endIndex;
     }
 
     public void setOnCrollerChangeListener(OnCrollerChangeListener mCrollerChangeListener) {
@@ -197,6 +217,7 @@ public class Croller extends View {
                 setProgress(ca.getInt(attr, 1));
             }
         }
+
         for (int i = 0; i < N; ++i) {
             int attr = a.getIndex(i);
             if (attr == R.styleable.Croller_label) {
@@ -234,7 +255,7 @@ public class Croller extends View {
             } else if (attr == R.styleable.Croller_indicator_width) {
                 setIndicatorWidth(a.getFloat(attr, 7));
             } else if (attr == R.styleable.Croller_is_continuous) {
-                setIsContinuous(a.getBoolean(attr, false));
+                setIsContinuous(a.getBoolean(attr, true));
             } else if (attr == R.styleable.Croller_progress_primary_circle_size) {
                 setProgressPrimaryCircleSize(a.getFloat(attr, -1));
             } else if (attr == R.styleable.Croller_progress_secondary_circle_size) {

@@ -62,7 +62,7 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
     }
 
     void cancelFling() {
-        if (scrollState == SCROLL_STATE_SETTLING) {
+        if(settlingAnimator != null && settlingAnimator.isRunning()){
             settlingAnimator.cancel();
         }
     }
@@ -76,14 +76,6 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
         updateScrollStateIfRequired(SCROLL_STATE_DRAGGING);
         return true;
     }
-
-    private void updateScrollStateIfRequired(int newState) {
-        if (listener != null && scrollState != newState) {
-            scrollState = newState;
-            listener.onScrollStateChanged(newState);
-        }
-    }
-
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         double endAngle = view.getRadiansAngle() - velocityX * FLING_ANGLE_MULTIPLIER;
@@ -93,6 +85,14 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
         playSettlingAnimation(endAngle);
         return true;
     }
+
+    private void updateScrollStateIfRequired(int newState) {
+        if (listener != null && scrollState != newState) {
+            scrollState = newState;
+            listener.onScrollStateChanged(newState);
+        }
+    }
+
 
     private double findNearestMarkAngle(double angle) {
         double step = 2 * PI / view.getMarksCount();

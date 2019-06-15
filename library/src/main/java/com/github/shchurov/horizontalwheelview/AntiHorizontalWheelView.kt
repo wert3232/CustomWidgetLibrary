@@ -25,8 +25,8 @@ class AntiHorizontalWheelView(context: Context, attrs: AttributeSet) : View(cont
 
     val a = context.obtainStyledAttributes(attrs, R.styleable.HorizontalWheelView)
     val commonAttr = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
-    private var startIndex = a.getInt(R.styleable.HorizontalWheelView_startIndex, 0)
-    private var endIndex = a.getInt(R.styleable.HorizontalWheelView_endIndex, 10) + 1
+    private var startIndex = a.getInt(R.styleable.commonAttr_startIndex, 0)
+    private var endIndex = a.getInt(R.styleable.commonAttr_endIndex, 10) + 1
     private var isAnti = commonAttr.getBoolean(R.styleable.commonAttr_isAnti, false)
     private val touchHandler = AntiTouchHandler(this)
     private var angle: Double = 0.toDouble()
@@ -42,7 +42,7 @@ class AntiHorizontalWheelView(context: Context, attrs: AttributeSet) : View(cont
     //值越大越慢
     private var scaleSpeedUnit = a.getInt(R.styleable.HorizontalWheelView_scaleSpeedUnit, 20)
     var inverseBindingListener: InverseBindingListener? = null
-    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_index, startIndex)
+    var viewIndex = a.getInt(R.styleable.commonAttr_currentIndex, startIndex)
         set(value) {
             if (field == value) {
 

@@ -18,8 +18,8 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
 
     val a = context.obtainStyledAttributes(attrs, R.styleable.HorizontalWheelView)
     val commonAttr = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
-    private var startIndex = a.getInt(R.styleable.HorizontalWheelView_startIndex, 0)
-    private var endIndex = a.getInt(R.styleable.HorizontalWheelView_endIndex, 10) + 1
+    private var startIndex = commonAttr.getInt(R.styleable.commonAttr_startIndex, 0)
+    private var endIndex = commonAttr.getInt(R.styleable.commonAttr_endIndex, 10) + 1
     private var isAnti = commonAttr.getBoolean(R.styleable.commonAttr_isAnti,false)
     private val drawer: Drawer = Drawer(this)
     private val touchHandler: TouchHandler
@@ -36,21 +36,20 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     //值越大越慢
     private var scaleSpeedUnit =  a.getInt(R.styleable.HorizontalWheelView_scaleSpeedUnit, 20)
     var inverseBindingListener: InverseBindingListener? = null
-    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_index, startIndex)
+    var viewIndex = commonAttr.getInt(R.styleable.commonAttr_currentIndex, startIndex)
         set(value) {
-            if(field == value){
-
-            }else{
+            if(field != value){
                 field = value
+                val current = value - startIndex
+                val progress = endIndex - startIndex
                 angle = if(isAnti){
-                    -(value * (2 * PI) / (endIndex - startIndex))
+                    -(current * (2 * PI) / progress)
                 }else{
-                    value * (2 * PI) / (endIndex - startIndex)
+                    current * (2 * PI) / progress
                 }
                 invalidate()
                 listener?.onRotationChanged(this.angle, value)
                 inverseBindingListener?.onChange()
-                //Log.e("test","value:${angle}   value:${value}")
             }
         }
     var radiansAngle: Double
@@ -59,16 +58,17 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
             if (!checkEndLock(radians)) {
                 angle = radians % (2 * PI)
             }
+            val progress = endIndex - startIndex
             if(isAnti){
                 if (onlyPositiveValues && angle > 0) {
                     angle -= 2 * PI
                 }
-                viewIndex = -(this.angle * (endIndex - startIndex).toFloat() / (2 * PI)).toInt()
+                viewIndex = -(this.angle * progress.toFloat() / (2 * PI)).toInt() + startIndex
             }else{
                 if (onlyPositiveValues && angle < 0) {
                     angle += 2 * PI
                 }
-                viewIndex = (this.angle * (endIndex - startIndex).toFloat() / (2 * PI)).toInt()
+                viewIndex = (this.angle * progress.toFloat() / (2 * PI)).toInt() + startIndex
             }
         }
 
