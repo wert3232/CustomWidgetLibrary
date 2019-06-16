@@ -42,8 +42,9 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     }
     private val startIndex = a.getInt(R.styleable.Knob_knob_start_index, 0)
     private val endIndex = a.getInt(R.styleable.Knob_knob_end_index, 100)
+
     var index = a.getInt(R.styleable.Knob_knob_index, 0)
-        set(value) {
+       private set(value) {
             if (field != value) {
                 field = value
                 invalidate()
@@ -85,7 +86,10 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     init {
         a.recycle()
     }
-
+    fun bindingIndex(index: Int){
+        progressPercent = (index - startIndex).toFloat() / totalIndex
+        this.index = index
+    }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         super.onTouchEvent(event)
         return gestureDetector.onTouchEvent(event)
@@ -172,7 +176,6 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     private val matrix1 = Matrix()
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val save1 = canvas.saveCount
         val width = width.toFloat()
         val height = height.toFloat()
         val minLength = min(width, height)

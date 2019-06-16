@@ -1,14 +1,15 @@
 package com.yfz.widget.knob
 
+import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.library.R
 
-@BindingAdapter("knob_index")
-fun Knob.setKnobIndex(newValue: Int){
-    if (this.index != newValue) {
-        this.index = newValue
+@BindingAdapter(value = ["knob_index"])
+fun Knob.setKnobIndex(knob_index: Int){
+    if (this.index != knob_index) {
+        this.bindingIndex(knob_index)
     }
 }
 @InverseBindingAdapter(attribute = "knob_index",event = "knobIndexAttrChanged")
