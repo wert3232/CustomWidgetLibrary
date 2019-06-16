@@ -2,7 +2,7 @@
 package com.baby.viewtools.sortrecyclerviewList
 
 import android.content.Context
-import android.graphics.drawable.Drawable
+import android.graphics.controller.Drawable
 import androidx.core.content.ContextCompat
 import androidx.appcompat.widget.AppCompatEditText
 import android.text.Editable
@@ -19,7 +19,7 @@ import com.yfz.customwidgetlibrary.R
 
 class ClearEditText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = android.R.attr.editTextStyle) : AppCompatEditText(context, attrs, defStyle), OnFocusChangeListener, TextWatcher {
     private val mClearDrawable by lazy {
-        (compoundDrawables[2] ?: ContextCompat.getDrawable(context,R.drawable.emotionstore_progresscancelbtn))!!
+        (compoundDrawables[2] ?: ContextCompat.getController(context,R.controller.emotionstore_progresscancelbtn))!!
     }
 
     init {

@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="#000000">
 
-        <com.yfz.widget.knob.Croller
+       <!-- <com.yfz.widget.knob.Croller
             android:layout_width="300dp"
             android:layout_height="300dp"
             style="@style/knob_style"
@@ -24,10 +24,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:appProgress="@={ui.index}"
-            app:min="-50"
-            app:max="50"
-            app:sweep_angle="180"
+            app:startIndex="0"
+            app:endIndex="25"
+            app:sweep_angle="300"
             app:start_offset="0"
+            />-->
+        <com.yfz.widget.knob.Knob
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            style="@style/knob_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:knob_progress_primary_stroke_width="0.1"
+            app:knob_progress_secondary_stroke_width="0.1"
+            app:knob_index="@={ui.index}"
+            app:knob_start_index="-10"
+            app:knob_end_index="60"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

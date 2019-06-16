@@ -79,12 +79,12 @@ fun AppCompatTextView.drawableTop(imgTop: Drawable?, imgHeightPercent: Float?) {
     addOnLayoutChangeListener(onLayoutChangeListener)
 }
 
-/*private fun drawableToBitmap(drawable: Drawable): Bitmap {
+/*private fun drawableToBitmap(controller: Drawable): Bitmap {
     //取drawable的宽高
-    val width = drawable.intrinsicWidth
-    val height = drawable.intrinsicHeight
+    val width = controller.intrinsicWidth
+    val height = controller.intrinsicHeight
     //取drawable的颜色格式
-    val config = if (drawable.opacity != PixelFormat.OPAQUE)
+    val config = if (controller.opacity != PixelFormat.OPAQUE)
         Bitmap.Config.ARGB_8888
     else
         Bitmap.Config.RGB_565
@@ -92,9 +92,9 @@ fun AppCompatTextView.drawableTop(imgTop: Drawable?, imgHeightPercent: Float?) {
     val bitmap = Bitmap.createBitmap(width, height, config)
     //创建对应的bitmap的画布
     val canvas = Canvas(bitmap)
-    drawable.setBounds(0, 0, width, height)
+    controller.setBounds(0, 0, width, height)
     //把drawable内容画到画布中
-    drawable.draw(canvas)
+    controller.draw(canvas)
     return bitmap
 }*/
 

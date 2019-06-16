@@ -67,6 +67,33 @@
         <attr name="sweep_gradient_positions"/>
         <attr name="sweep_gradient_colors"/>
     </declare-styleable>
+
+    <declare-styleable name="Knob">
+        <attr name="knob_back_circle_color" format="color" />
+        <attr name="knob_main_circle_color" format="color" />
+        <attr name="knob_back_circle_drawable" format="reference"/>
+        <attr name="knob_main_circle_drawable" format="reference"/>
+        <attr name="knob_main_circle_drawable_revise_degree" format="integer"/>
+        <attr name="knob_indicator_color" format="color" />
+        <attr name="knob_progress_primary_color" format="color" />
+        <attr name="knob_progress_secondary_color" format="color" />
+        <attr name="knob_indicator_width" format="float" />
+        <attr name="knob_is_continuous" format="boolean" />
+        <attr name="knob_progress_primary_circle_size" format="float" />
+        <attr name="knob_progress_secondary_circle_size" format="float" />
+        <attr name="knob_progress_primary_stroke_width" format="float" />
+        <attr name="knob_progress_secondary_stroke_width" format="float" />
+        <attr name="knob_sweep_angle" format="integer" />
+        <attr name="knob_start_offset" format="integer" />
+        <attr name="knob_start_index" format="integer" />
+        <attr name="knob_end_index" format="integer" />
+        <attr name="knob_index" format="integer" />
+        <attr name="knob_main_circle_radius" format="float" />
+        <attr name="knob_back_circle_radius" format="float" />
+        <attr name="knob_progress_radius" format="float" />
+        <attr name="knob_anticlockwise" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="selectTextView">
         <attr name="selected" format="boolean" />
     </declare-styleable>

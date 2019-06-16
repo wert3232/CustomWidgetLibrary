@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 class CrollerTestActivity : AppCompatActivity() {
     val index by lazy {
         MutableLiveData<Int>().apply {
-            value = 50
+            value = 10
             observe(this@CrollerTestActivity, Observer {
                 Log.e("test","index $it")
             })

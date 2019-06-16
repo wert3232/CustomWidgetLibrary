@@ -56,7 +56,7 @@ public class SwitchButton extends CompoundButton {
     private RectF mThumbMargin;
     private float mThumbRangeRatio;
     private long mAnimationDuration;
-    // fade back drawable or color when dragging or animating
+    // fade back controller or color when dragging or animating
     private boolean mFadeBack;
     private int mTintColor;
     private int mThumbWidth;
@@ -209,7 +209,7 @@ public class SwitchButton extends CompoundButton {
         mTextExtra = textExtra;
         mTextAdjust = textAdjust;
 
-        // thumb drawable and color
+        // thumb controller and color
         mThumbDrawable = thumbDrawable;
         mThumbColor = thumbColor;
         mIsThumbUseDrawable = mThumbDrawable != null;
@@ -232,7 +232,7 @@ public class SwitchButton extends CompoundButton {
         mThumbWidth = ceil(thumbWidth);
         mThumbHeight = ceil(thumbHeight);
 
-        // back drawable and color
+        // back controller and color
         mBackDrawable = backDrawable;
         mBackColor = backColor;
         mIsBackUseDrawable = mBackDrawable != null;

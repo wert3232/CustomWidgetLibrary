@@ -199,9 +199,9 @@ public class NiceSpinner extends AppCompatTextView {
 
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             popupWindow.setElevation(DEFAULT_ELEVATION);
-            popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.spinner_drawable));
+            popupWindow.setBackgroundDrawable(ContextCompat.getController(context, R.controller.spinner_drawable));
         } else {
-            popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.drop_down_shadow));
+            popupWindow.setBackgroundDrawable(ContextCompat.getController(context, R.controller.drop_down_shadow));
         }*/
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {

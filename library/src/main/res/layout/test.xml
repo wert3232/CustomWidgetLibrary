@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    >
+
+    <com.yfz.widget.knob.Knob
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:knob_progress_primary_stroke_width="0.03"
+        app:knob_index="40"
+        app:knob_start_index="20"
+        app:knob_end_index="60"
+        app:knob_main_circle_drawable_revise_degree="0"
+        app:knob_main_circle_radius="0.5"
+        app:knob_progress_radius="0.7"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

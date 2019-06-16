@@ -222,7 +222,7 @@ public class VerticalSeekBar extends AppCompatSeekBar {
                     onStopTrackingTouch();
                     attemptClaimDrag(false);
                 }
-                // ProgressBar doesn't know to repaint the thumb drawable
+                // ProgressBar doesn't know to repaint the thumb controller
                 // in its inactive state when the touch stops (because the
                 // value has not apparently changed)
                 invalidate();

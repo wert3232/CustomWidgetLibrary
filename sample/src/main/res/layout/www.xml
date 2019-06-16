@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:background="#cfcfcf"
-        android:drawableLeft="@drawable/search_bar_icon_normal"
+        android:drawableLeft="@controller/search_bar_icon_normal"
         android:hint="请输入关键字"
         android:maxLines="1"
         android:textSize="15dp" />

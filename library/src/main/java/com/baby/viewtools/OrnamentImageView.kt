@@ -30,11 +30,11 @@ open class OrnamentImageView @JvmOverloads constructor(context: Context, attrs: 
         selectIndex = a.getInt(R.styleable.commonAttr_selectIndex,-1)
         a.recycle()
     }
-    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         return false
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
         return false
     }
     companion object {

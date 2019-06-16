@@ -111,7 +111,7 @@ public class BalanceView extends View {
 		mPoint.setDither(true);//
 		// mPoint.setColor(mCircleColor);
 		// mPoint.setStrokeWidth(mCircleStrokeWidth);
-		// setBackgroundResource(R.drawable.balance_sound_view);
+		// setBackgroundResource(R.controller.balance_sound_view);
 		mPoint.setStyle(Paint.Style.STROKE);
 		mPoint.setStrokeJoin(Paint.Join.ROUND);
 		mPoint.setStrokeCap(Paint.Cap.ROUND);
