@@ -17,10 +17,9 @@ import com.library.R
 class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     val a = context.obtainStyledAttributes(attrs, R.styleable.HorizontalWheelView)
-    val commonAttr = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
-    private var startIndex = commonAttr.getInt(R.styleable.commonAttr_startIndex, 0)
-    private var endIndex = commonAttr.getInt(R.styleable.commonAttr_endIndex, 10) + 1
-    private var isAnti = commonAttr.getBoolean(R.styleable.commonAttr_isAnti,false)
+    private var startIndex = a.getInt(R.styleable.HorizontalWheelView_horizontalWheelView_start_index, 0)
+    private var endIndex = a.getInt(R.styleable.HorizontalWheelView_horizontalWheelView_end_index, 10) + 1
+    private var isAnti = a.getBoolean(R.styleable.HorizontalWheelView_horizontalWheelView_isAnti,false)
     private val drawer: Drawer = Drawer(this)
     private val touchHandler: TouchHandler
     private var angle: Double = 0.toDouble()
@@ -36,7 +35,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     //值越大越慢
     private var scaleSpeedUnit =  a.getInt(R.styleable.HorizontalWheelView_scaleSpeedUnit, 20)
     var inverseBindingListener: InverseBindingListener? = null
-    var viewIndex = commonAttr.getInt(R.styleable.commonAttr_currentIndex, startIndex)
+    var viewIndex = a.getInt(R.styleable.HorizontalWheelView_horizontalWheelView_index, startIndex)
         set(value) {
             if(field != value){
                 field = value
@@ -157,7 +156,6 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         isZeroSpace = a.getBoolean(R.styleable.HorizontalWheelView_isZeroSpace,true)
         drawer.setNormalMarkWidth(a.getInt(R.styleable.HorizontalWheelView_normalMarkWidth,1))
         a.recycle()
-        commonAttr.recycle()
     }
 
     fun setChangeListener(listener: onChangeListener) {
@@ -318,11 +316,11 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         const val SCROLL_STATE_DRAGGING = 1
         const val SCROLL_STATE_SETTLING = 2
 
-        @JvmStatic @InverseBindingAdapter(attribute = "app:viewIndex",event = "viewIndexAttrChanged")
-        fun getViewIndex(wheelView: HorizontalWheelView): Int {
+        @JvmStatic @InverseBindingAdapter(attribute = "app:horizontalWheelView_index",event = "horizontalWheelViewIndexAttrChanged")
+        fun getHorizontalWheelViewIndex(wheelView: HorizontalWheelView): Int {
             return wheelView.viewIndex
         }
-        @JvmStatic @BindingAdapter("viewIndexAttrChanged")
+        @JvmStatic @BindingAdapter("horizontalWheelViewIndexAttrChanged")
         fun setIndexAttrChanged(wheelView: HorizontalWheelView, inverseBindingListener: InverseBindingListener?) {
             if (inverseBindingListener == null) {
                 wheelView.inverseBindingListener = null

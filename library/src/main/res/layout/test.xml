@@ -8,7 +8,7 @@
     android:background="@android:color/black"
     >
 
-    <com.yfz.widget.knob.Knob
+    <!--<com.yfz.widget.knob.Knob
         android:layout_width="300dp"
         android:layout_height="500dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,5 +22,31 @@
         app:knob_main_circle_drawable_revise_degree="0"
         app:knob_main_circle_radius="0.5"
         app:knob_progress_radius="0.7"
-        />
+        />-->
+     <!--<com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+        android:id="@+id/seekBarWrap0"
+        android:layout_width="200dp"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+            android:id="@+id/seekBar0"
+            android:thumb="@drawable/seekbar_point"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:verticalSeekBar_index="50"
+            app:verticalSeekBar_start_index="25"
+            app:verticalSeekBar_end_index="100"
+            app:spreadTouchRange="100"
+            app:seekBarRotation="CW270"
+            android:background="#555"
+            android:minHeight="150dp"
+            android:maxWidth="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:progressDrawable="@drawable/seekbar_progress_test" />
+    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

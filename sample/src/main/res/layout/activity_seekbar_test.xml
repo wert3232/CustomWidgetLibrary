@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ui"
+            type="com.yfz.customwidgetlibrary.SeekBarTestActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:id="@+id/seekBarWrap0"
+            android:layout_width="200dp"
+            android:layout_height="400dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/seekBar0"
+                android:thumb="@drawable/seekbar_point"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:verticalSeekBar_index="@={ui.index,default = 0}"
+                app:verticalSeekBar_start_index="-100"
+                app:verticalSeekBar_end_index="100"
+                app:spreadTouchRange="100"
+                app:seekBarRotation="CW270"
+                android:background="#555"
+                android:minHeight="150dp"
+                android:maxWidth="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:progressDrawable="@drawable/seekbar_progress_test" />
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -29,6 +29,10 @@
         <attr name="isCursorSpace" format="boolean"/>
         <attr name="isZeroSpace" format="boolean"/>
         <attr name="scaleSpeedUnit" format="integer"/>
+        <attr name="horizontalWheelView_start_index" format="integer" />
+        <attr name="horizontalWheelView_end_index" format="integer" />
+        <attr name="horizontalWheelView_index" format="integer" />
+        <attr name="horizontalWheelView_isAnti" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="Croller">
         <attr name="label" format="string" />
@@ -98,6 +102,9 @@
         <attr name="selected" format="boolean" />
     </declare-styleable>
     <declare-styleable name="VerticalSeekBar">
+        <attr name="verticalSeekBar_start_index" format="integer"/>
+        <attr name="verticalSeekBar_end_index" format="integer"/>
+        <attr name="verticalSeekBar_index" format="integer"/>
         <attr name="seekBarRotation">
             <!-- Clock wise - 90 deg; top = min, bottom = max -->
             <enum name="CW90" value="90" />
