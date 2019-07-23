@@ -14,7 +14,7 @@ import android.view.View
  * 有分类title的 ItemDecoration
  */
 
-class TitleItemDecoration(context: Context, private val mData: List<SortModel>,private var paramsBlock: Params.() -> Unit) : RecyclerView.ItemDecoration() {
+class TitleItemDecoration(context: Context, private val mData: List<SortModel>, private var paramsBlock: Params.() -> Unit) : RecyclerView.ItemDecoration() {
     inner class Params {
         var titleHeight = 30f
         var titleTextSize = 16f

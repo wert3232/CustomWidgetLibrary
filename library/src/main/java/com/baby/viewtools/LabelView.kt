@@ -15,7 +15,6 @@ import com.library.R
 import android.graphics.Paint.FontMetricsInt
 
 
-
 open class LabelView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     val textPaint by lazy {
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -30,7 +29,7 @@ open class LabelView @JvmOverloads constructor(context: Context, attrs: Attribut
     var inverseBindingListener: InverseBindingListener? = null
     var selectIndex = -1
         set(value) {
-            if(value != field) {
+            if (value != field) {
                 field = value
                 invalidate()
             }
@@ -55,17 +54,18 @@ open class LabelView @JvmOverloads constructor(context: Context, attrs: Attribut
         }
     var appContent = "1"
         set(value) {
-            if(field != value) {
+            if (field != value) {
                 field = value
                 invalidate()
             }
         }
-    init{
+
+    init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
         textSize = a.getDimensionPixelSize(R.styleable.commonAttr_appTextSize, 15)
         /*textColor = a.getColorStateList(R.styleable.commonAttr_appTextColor)*/
         textColor = a.getColor(R.styleable.commonAttr_appTextColor, Color.parseColor("#FFFFFF"))
-        selectIndex = a.getInt(R.styleable.commonAttr_selectIndex,-1)
+        selectIndex = a.getInt(R.styleable.commonAttr_selectIndex, -1)
         appContent = a.getString(R.styleable.commonAttr_appContent) ?: ""
         a.recycle()
     }
@@ -76,14 +76,17 @@ open class LabelView @JvmOverloads constructor(context: Context, attrs: Attribut
         val baseline = (targetRect.bottom.toFloat() + targetRect.top.toFloat() - fontMetrics.bottom.toFloat() - fontMetrics.top.toFloat()) / 2
         canvas.drawText(appContent, targetRect.centerX().toFloat(), baseline, textPaint)
     }
+
     companion object {
         @InverseBindingAdapter(attribute = "selectIndex", event = "indexAttrChanged")
-        @JvmStatic fun getSelectIndex(view: LabelView): Int {
+        @JvmStatic
+        fun getSelectIndex(view: LabelView): Int {
             return view.selectIndex
         }
 
         @BindingAdapter(value = arrayOf("selectIndex"))
-        @JvmStatic	fun setSelectIndex(view: LabelView, selectIndex: Int) {
+        @JvmStatic
+        fun setSelectIndex(view: LabelView, selectIndex: Int) {
             if (view.selectIndex != selectIndex) {
                 view.selectIndex = selectIndex
             }
@@ -99,7 +102,8 @@ open class LabelView @JvmOverloads constructor(context: Context, attrs: Attribut
         }
 
         @BindingAdapter(value = arrayOf("appContent"))
-        @JvmStatic	fun setAppContent(view: LabelView, appContent: String) {
+        @JvmStatic
+        fun setAppContent(view: LabelView, appContent: String) {
             if (view.appContent != appContent) {
                 view.appContent = appContent
             }

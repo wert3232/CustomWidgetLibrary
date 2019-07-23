@@ -19,10 +19,12 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.ColorInt;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import android.view.View;
 
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
@@ -168,7 +170,8 @@ public class DefaultItemDecoration extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             int childPosition = parent.getChildAdapterPosition(child);
             if (childPosition < 0) continue;
-            if (mViewTypeList.contains(parent.getAdapter().getItemViewType(childPosition))) continue;
+            if (mViewTypeList.contains(parent.getAdapter().getItemViewType(childPosition)))
+                continue;
             if (child instanceof SwipeMenuRecyclerView.LoadMoreView) continue;
             final int left = child.getLeft();
             final int top = child.getBottom();
@@ -187,7 +190,8 @@ public class DefaultItemDecoration extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             int childPosition = parent.getChildAdapterPosition(child);
             if (childPosition < 0) continue;
-            if (mViewTypeList.contains(parent.getAdapter().getItemViewType(childPosition))) continue;
+            if (mViewTypeList.contains(parent.getAdapter().getItemViewType(childPosition)))
+                continue;
             if (child instanceof SwipeMenuRecyclerView.LoadMoreView) continue;
             final int left = child.getRight();
             final int top = child.getTop();

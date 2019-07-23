@@ -8,11 +8,14 @@ import java.lang.reflect.InvocationTargetException
 const val STORAGE_NEITHER = 0
 const val STORAGE_INTERNAL_SD = 1
 const val STORAGE_EXTERNAL_SD = 2
-data class StorageObject(var path: String,var isRemoveAble: Boolean,var isPrimary: Boolean)
-fun checkStorageState(path: String){
+
+data class StorageObject(var path: String, var isRemoveAble: Boolean, var isPrimary: Boolean)
+
+fun checkStorageState(path: String) {
 
 }
-inline fun Context.getStorageList() : List<StorageObject>?{
+
+inline fun Context.getStorageList(): List<StorageObject>? {
     val manager = this.getSystemService(Context.STORAGE_SERVICE) as StorageManager
     var storageVolumeClazz: Class<*>? = null
     try {
@@ -21,7 +24,7 @@ inline fun Context.getStorageList() : List<StorageObject>?{
         val getPath = storageVolumeClazz!!.getMethod("getPath")
         val isPrimary = storageVolumeClazz.getMethod("isPrimary")
         val isRemovable = storageVolumeClazz.getMethod("isRemovable")
-        val result= getVolumeList.invoke(manager) as? Array<*>
+        val result = getVolumeList.invoke(manager) as? Array<*>
         val length = result?.size ?: 0
         return result?.map {
             val storageVolumeElement = it

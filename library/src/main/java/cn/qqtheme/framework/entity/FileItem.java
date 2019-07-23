@@ -15,12 +15,12 @@ public class FileItem extends JavaBean {
     private long size = 0;
     private boolean isDirectory = false;
 
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }
-
     public Drawable getIcon() {
         return icon;
+    }
+
+    public void setIcon(Drawable icon) {
+        this.icon = icon;
     }
 
     public String getName() {

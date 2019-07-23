@@ -2,6 +2,7 @@ package razerdp.basepopup;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.View;
@@ -21,12 +22,12 @@ import razerdp.util.log.PopupLogUtil;
  */
 final class HackWindowManager extends InnerPopupWindowStateListener implements WindowManager {
     private static final String TAG = "HackWindowManager";
+    private static int statusBarHeight;
     private WindowManager mWindowManager;
     private WeakReference<PopupTouchController> mPopupController;
     private WeakReference<HackPopupDecorView> mHackPopupDecorView;
     private WeakReference<BasePopupHelper> mPopupHelper;
     private WeakReference<BlurImageView> mBlurImageView;
-    private static int statusBarHeight;
 
     public HackWindowManager(WindowManager windowManager, PopupTouchController popupTouchController) {
         mWindowManager = windowManager;
@@ -54,7 +55,11 @@ final class HackWindowManager extends InnerPopupWindowStateListener implements W
                 }
             }
             HackPopupDecorView hackPopupDecorView = getHackPopupDecorView();
-            mWindowManager.removeViewImmediate(hackPopupDecorView);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (hackPopupDecorView.isAttachedToWindow()) {
+                    mWindowManager.removeViewImmediate(hackPopupDecorView);
+                }
+            }
             mHackPopupDecorView.clear();
             mHackPopupDecorView = null;
         } else {

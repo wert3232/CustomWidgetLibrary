@@ -1,4 +1,5 @@
 package cn.qqtheme.framework;
+
 public class AppConfig {
 
     /**

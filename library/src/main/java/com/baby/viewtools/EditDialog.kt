@@ -13,7 +13,6 @@ import com.library.R
 import android.text.InputFilter
 
 
-
 class EditDialog @JvmOverloads constructor(context: Context, theme: Int = 0) : Dialog(context, theme), View.OnClickListener {
     var tag = -1
     private val self = this
@@ -30,35 +29,40 @@ class EditDialog @JvmOverloads constructor(context: Context, theme: Int = 0) : D
         findViewById<TextView>(R.id.editText)
     }
 
-    private var callback: Callback ?= null
+    private var callback: Callback? = null
 
     init {
         initView()
         initData()
         setListener()
     }
-    fun setTag(tag : Int) : EditDialog{
+
+    fun setTag(tag: Int): EditDialog {
         this.tag = tag
         return this
     }
-    fun setMaxLength(length : Int) : EditDialog{
-        edit.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(length));
+
+    fun setMaxLength(length: Int): EditDialog {
+        edit.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(length))
         return this
     }
-    fun setCallBack(callback: Callback) : EditDialog{
+
+    fun setCallBack(callback: Callback): EditDialog {
         this.callback = callback
         return this
     }
 
-    fun setTitle(titleText: String) : EditDialog{
+    fun setTitle(titleText: String): EditDialog {
         title.text = titleText
         return this
     }
-    fun setEditContent(titleText: String) : EditDialog{
+
+    fun setEditContent(titleText: String): EditDialog {
         edit.text = titleText
         return this
     }
-    private fun setListener() : EditDialog{
+
+    private fun setListener(): EditDialog {
         confirm.setOnClickListener(this)
         cancel.setOnClickListener(this)
         return this
@@ -76,16 +80,16 @@ class EditDialog @JvmOverloads constructor(context: Context, theme: Int = 0) : D
     }
 
     interface Callback {
-        fun onConfirm(dialog: Dialog, confirm: TextView?, cancel: TextView?, newContent:String, tag: Int)
+        fun onConfirm(dialog: Dialog, confirm: TextView?, cancel: TextView?, newContent: String, tag: Int)
         fun onCancel(dialog: Dialog, confirm: TextView?, cancel: TextView?)
     }
 
     override fun onClick(v: View) {
         if (v.id == R.id.textview_confirm) {
             val newContent = edit.text.toString()
-            if(TextUtils.isEmpty(newContent)) return
+            if (TextUtils.isEmpty(newContent)) return
             this.dismiss()
-            callback?.onConfirm(this, confirm, cancel,newContent,tag)
+            callback?.onConfirm(this, confirm, cancel, newContent, tag)
         } else if (v.id == R.id.textview_cancel) {
             this.dismiss()
             callback?.onCancel(this, confirm, cancel)
@@ -100,13 +104,15 @@ class EditDialog @JvmOverloads constructor(context: Context, theme: Int = 0) : D
         window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
     }
-    fun show(isClear : Boolean){
-        if(isClear){
+
+    fun show(isClear: Boolean) {
+        if (isClear) {
             edit.text = ""
         }
         show()
     }
-    fun show(name : String){
+
+    fun show(name: String) {
         edit.text = name
         show()
     }

@@ -19,7 +19,7 @@ open class SortAdapter(private val context: Context, private var mData: List<Sor
         set(value) {
             val old = field
             field = value
-            if(old != -1){
+            if (old != -1) {
                 notifyItemChanged(old)
             }
         }
@@ -27,7 +27,7 @@ open class SortAdapter(private val context: Context, private var mData: List<Sor
 
     }
     private var mOnItemClickListener = { view: View, position: Int, mode: SortModel ->
-        Toast.makeText(context,"id:${mode.id} name:${mData[position].name}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "id:${mode.id} name:${mData[position].name}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +42,7 @@ open class SortAdapter(private val context: Context, private var mData: List<Sor
             mOnItemClickListener.invoke(holder.itemView, position, getItem(position))
         }
         holder.tvName!!.text = this.mData[position].name
-        onBindListener.invoke(holder,position)
+        onBindListener.invoke(holder, position)
     }
 
     override fun getItemCount(): Int {
@@ -53,7 +53,8 @@ open class SortAdapter(private val context: Context, private var mData: List<Sor
     fun setOnItemClickListener(onItemClickListener: (view: View, position: Int, mode: SortModel) -> Unit) {
         this.mOnItemClickListener = onItemClickListener
     }
-    fun setOnBindListener(onSelect: (holder: ViewHolder, position: Int) -> Unit){
+
+    fun setOnBindListener(onSelect: (holder: ViewHolder, position: Int) -> Unit) {
         this.onBindListener = onSelect
     }
     //**************************************************************

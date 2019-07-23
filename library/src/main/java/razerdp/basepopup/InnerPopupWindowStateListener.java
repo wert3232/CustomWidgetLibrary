@@ -11,7 +11,7 @@ abstract class InnerPopupWindowStateListener {
     public void onTryToShow(boolean hasAnimate) {
     }
 
-    public void onAnimateShowStar(){
+    public void onAnimateShowStar() {
 
     }
 

@@ -48,6 +48,7 @@ class Drawer {
     private RectF cursorRect_bottom = null;
     private boolean isCursorSpace = true;
     private boolean isZeroSpace = true;
+
     Drawer(HorizontalWheelView view) {
         this.view = view;
         initDpSizes();
@@ -62,7 +63,8 @@ class Drawer {
     private int convertToPx(int dp) {
         return Utils.convertToPx(dp, view.getResources());
     }
-    public void setNormalMarkWidth(int dp){
+
+    public void setNormalMarkWidth(int dp) {
         normalMarkWidth = convertToPx(dp);
     }
 
@@ -110,14 +112,6 @@ class Drawer {
         this.zeroMarkColor = zeroMarkColor;
     }
 
-    void setMarksCount(int marksCount) {
-        this.marksCount = marksCount;
-        maxVisibleMarksCount = (marksCount / 2) + 1;
-        gaps = new float[maxVisibleMarksCount];
-        shades = new float[maxVisibleMarksCount];
-        scales = new float[maxVisibleMarksCount];
-    }
-
     void setNormalColor(int color) {
         normalColor = color;
     }
@@ -148,11 +142,11 @@ class Drawer {
         cursorRect.bottom = bottom;
         cursorRect.left = left;
         cursorRect.right = right;
-        if(isCursorSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1){
-            if(cursorRect_top == null){
+        if (isCursorSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1) {
+            if (cursorRect_top == null) {
                 cursorRect_top = new RectF();
             }
-            if(cursorRect_bottom == null){
+            if (cursorRect_bottom == null) {
                 cursorRect_bottom = new RectF();
             }
             float spaceLength = viewportHeight * lineSpaceRatio;
@@ -173,6 +167,14 @@ class Drawer {
         return marksCount;
     }
 
+    void setMarksCount(int marksCount) {
+        this.marksCount = marksCount;
+        maxVisibleMarksCount = (marksCount / 2) + 1;
+        gaps = new float[maxVisibleMarksCount];
+        shades = new float[maxVisibleMarksCount];
+        scales = new float[maxVisibleMarksCount];
+    }
+
     void onDraw(Canvas canvas) {
         this.isZeroShow = isCursorShow;
         double step = 2 * PI / marksCount;
@@ -185,7 +187,7 @@ class Drawer {
         int zeroIndex = calcZeroIndex(step);
         setupColorSwitches(step, offset, zeroIndex);
         drawMarks(canvas, zeroIndex);
-        if(isCursorShow){
+        if (isCursorShow) {
             drawCursor(canvas);
         }
     }
@@ -277,10 +279,9 @@ class Drawer {
             }
             if (i != zeroIndex) {
                 drawNormalMark(canvas, x, scales[i], shades[i], color);
-            }else if(!isZeroShow){
+            } else if (!isZeroShow) {
                 drawNormalMark(canvas, x, scales[i], shades[i], color);
-            }
-            else {
+            } else {
                 drawZeroMark(canvas, x, scales[i], shades[i]);
             }
         }
@@ -292,11 +293,11 @@ class Drawer {
         float bottom = top + height;
         paint.setStrokeWidth(normalMarkWidth);
         paint.setColor(applyShade(color, shade));
-        if(lineSpaceRatio > 0 && lineSpaceRatio <= 1){
+        if (lineSpaceRatio > 0 && lineSpaceRatio <= 1) {
             float spaceLength = viewportHeight * lineSpaceRatio;
             canvas.drawLine(x, top, x, (viewportHeight - spaceLength) / 2, paint);
-            canvas.drawLine(x, (viewportHeight + spaceLength) / 2, x ,bottom,  paint);
-        }else {
+            canvas.drawLine(x, (viewportHeight + spaceLength) / 2, x, bottom, paint);
+        } else {
             canvas.drawLine(x, top, x, bottom, paint);
         }
     }
@@ -314,11 +315,11 @@ class Drawer {
         float bottom = top + height;
         paint.setStrokeWidth(zeroMarkWidth);
         paint.setColor(applyShade(zeroMarkColor == -1 ? activeColor : zeroMarkColor, shade));
-        if(isZeroSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1){
+        if (isZeroSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1) {
             float spaceLength = viewportHeight * lineSpaceRatio;
             canvas.drawLine(x, top, x, (viewportHeight - spaceLength) / 2, paint);
-            canvas.drawLine(x, (viewportHeight + spaceLength) / 2, x ,bottom,  paint);
-        }else {
+            canvas.drawLine(x, (viewportHeight + spaceLength) / 2, x, bottom, paint);
+        } else {
             canvas.drawLine(x, top, x, bottom, paint);
         }
     }
@@ -326,10 +327,10 @@ class Drawer {
     private void drawCursor(Canvas canvas) {
         paint.setStrokeWidth(0);
         paint.setColor(zeroMarkColor == -1 ? activeColor : zeroMarkColor);
-        if(isCursorSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1){
+        if (isCursorSpace && lineSpaceRatio > 0 && lineSpaceRatio <= 1) {
             canvas.drawRoundRect(cursorRect_top, cursorCornersRadius, cursorCornersRadius, paint);
             canvas.drawRoundRect(cursorRect_bottom, cursorCornersRadius, cursorCornersRadius, paint);
-        }else {
+        } else {
             canvas.drawRoundRect(cursorRect, cursorCornersRadius, cursorCornersRadius, paint);
         }
     }

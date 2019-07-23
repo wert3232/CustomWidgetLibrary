@@ -20,6 +20,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
@@ -48,15 +49,6 @@ public class SwipeMenuItem {
         mContext = context;
     }
 
-    public SwipeMenuItem setBackground(@DrawableRes int resId) {
-        return setBackground(ContextCompat.getDrawable(mContext, resId));
-    }
-
-    public SwipeMenuItem setBackground(Drawable background) {
-        this.background = background;
-        return this;
-    }
-
     public SwipeMenuItem setBackgroundColorResource(@ColorRes int color) {
         return setBackgroundColor(ContextCompat.getColor(mContext, color));
     }
@@ -70,6 +62,19 @@ public class SwipeMenuItem {
         return background;
     }
 
+    public SwipeMenuItem setBackground(@DrawableRes int resId) {
+        return setBackground(ContextCompat.getDrawable(mContext, resId));
+    }
+
+    public SwipeMenuItem setBackground(Drawable background) {
+        this.background = background;
+        return this;
+    }
+
+    public Drawable getImage() {
+        return icon;
+    }
+
     public SwipeMenuItem setImage(@DrawableRes int resId) {
         return setImage(ContextCompat.getDrawable(mContext, resId));
     }
@@ -79,8 +84,8 @@ public class SwipeMenuItem {
         return this;
     }
 
-    public Drawable getImage() {
-        return icon;
+    public String getText() {
+        return title;
     }
 
     public SwipeMenuItem setText(@StringRes int resId) {
@@ -90,10 +95,6 @@ public class SwipeMenuItem {
     public SwipeMenuItem setText(String title) {
         this.title = title;
         return this;
-    }
-
-    public String getText() {
-        return title;
     }
 
     public SwipeMenuItem setTextColorResource(@ColorRes int titleColor) {
@@ -109,17 +110,12 @@ public class SwipeMenuItem {
         return titleColor;
     }
 
-    public SwipeMenuItem setTextSize(int titleSize) {
-        this.titleSize = titleSize;
-        return this;
-    }
-
     public int getTextSize() {
         return titleSize;
     }
 
-    public SwipeMenuItem setTextAppearance(@StyleRes int textAppearance) {
-        this.textAppearance = textAppearance;
+    public SwipeMenuItem setTextSize(int titleSize) {
+        this.titleSize = titleSize;
         return this;
     }
 
@@ -127,8 +123,8 @@ public class SwipeMenuItem {
         return textAppearance;
     }
 
-    public SwipeMenuItem setTextTypeface(Typeface textTypeface) {
-        this.textTypeface = textTypeface;
+    public SwipeMenuItem setTextAppearance(@StyleRes int textAppearance) {
+        this.textAppearance = textAppearance;
         return this;
     }
 
@@ -136,8 +132,8 @@ public class SwipeMenuItem {
         return textTypeface;
     }
 
-    public SwipeMenuItem setWidth(int width) {
-        this.width = width;
+    public SwipeMenuItem setTextTypeface(Typeface textTypeface) {
+        this.textTypeface = textTypeface;
         return this;
     }
 
@@ -145,8 +141,8 @@ public class SwipeMenuItem {
         return width;
     }
 
-    public SwipeMenuItem setHeight(int height) {
-        this.height = height;
+    public SwipeMenuItem setWidth(int width) {
+        this.width = width;
         return this;
     }
 
@@ -154,12 +150,17 @@ public class SwipeMenuItem {
         return height;
     }
 
-    public SwipeMenuItem setWeight(int weight) {
-        this.weight = weight;
+    public SwipeMenuItem setHeight(int height) {
+        this.height = height;
         return this;
     }
 
     public int getWeight() {
         return weight;
+    }
+
+    public SwipeMenuItem setWeight(int weight) {
+        this.weight = weight;
+        return this;
     }
 }

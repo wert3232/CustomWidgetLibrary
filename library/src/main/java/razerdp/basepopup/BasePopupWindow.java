@@ -243,8 +243,9 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     public static final int POPUP_TOP_RIGHT = 4;
     private static final String TAG = "BasePopupWindow";
     private static final int MAX_RETRY_SHOW_TIME = 3;
+    protected View mAnimateApplyView;
+    protected View mDismissView;
     private BasePopupHelper mHelper;
-
     //元素定义
     private PopupWindowProxy mPopupWindow;
     //popup视图
@@ -252,27 +253,77 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     private WeakReference<Context> mContext;
     private int mWidth;
     private int mHeight;
-    protected View mAnimateApplyView;
-    protected View mDismissView;
-
     private volatile boolean isExitAnimaPlaying = false;
 
     //重试次数
     private volatile int retryCounter;
 
     private InnerPopupWindowStateListener mStateListener;
+    private Animator.AnimatorListener mAnimatorListener = new AnimatorListenerAdapter() {
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+            isExitAnimaPlaying = true;
+            if (mStateListener != null) {
+                mStateListener.onAnimateDismissStart();
+            }
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            mPopupView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPopupWindow.callSuperDismiss();
+                    isExitAnimaPlaying = false;
+                }
+            });
+
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            isExitAnimaPlaying = false;
+        }
+
+    };
+    private Animation.AnimationListener mAnimationListener = new SimpleAnimationUtils.AnimationListenerAdapter() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            isExitAnimaPlaying = true;
+            if (mStateListener != null) {
+                mStateListener.onAnimateDismissStart();
+            }
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            mPopupView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPopupWindow.callSuperDismiss();
+                    isExitAnimaPlaying = false;
+                }
+            });
+        }
+    };
 
     public BasePopupWindow(View view, Context context, int w, int h) {
         mWidth = w;
         mHeight = h;
         mContext = new WeakReference<>(context);
     }
+
     public BasePopupWindow(Context context) {
         initView(context, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
     public BasePopupWindow(Context context, int w, int h) {
         initView(context, w, h);
+    }
+
+    public static void debugLog(boolean printLog) {
+        PopupLogUtil.setOpenLog(printLog);
     }
 
     private void initView(Context context, int w, int h) {
@@ -325,12 +376,17 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
                 .setExitAnimation(initExitAnimation())
                 .setExitAnimator(initExitAnimator());
     }
-    protected BasePopupWindow build(){
-        if(getContext() != null){
+
+
+    //------------------------------------------抽象-----------------------------------------------
+
+    protected BasePopupWindow build() {
+        if (getContext() != null) {
             initView(getContext(), mWidth, mHeight);
         }
         return this;
     }
+
     private void checkPopupAnimaView() {
         //处理popupview与animateview相同的情况
         //当popupView与animateView相同的时候，处理位置信息会出问题，因此这里需要对mAnimaView再包裹一层
@@ -367,9 +423,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
             mPopupView.setFocusableInTouchMode(true);
         }
     }
-
-
-    //------------------------------------------抽象-----------------------------------------------
 
     /**
      * PopupWindow展示出来后，需要执行动画的View.一般为蒙层之上的View
@@ -418,16 +471,18 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return null;
     }
 
+    //------------------------------------------showPopup-----------------------------------------------
+
+    public boolean isNeedPopupFade() {
+        return mHelper.isNeedPopupFadeAnima();
+    }
+
     /**
      * popupwindow是否需要淡入淡出
      */
     public BasePopupWindow setNeedPopupFade(boolean needPopupFadeAnima) {
         mHelper.setNeedPopupFadeAnima(mPopupWindow, needPopupFadeAnima);
         return this;
-    }
-
-    public boolean isNeedPopupFade() {
-        return mHelper.isNeedPopupFadeAnima();
     }
 
     /**
@@ -437,8 +492,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         mPopupWindow.setAnimationStyle(animationStyleRes);
         return this;
     }
-
-    //------------------------------------------showPopup-----------------------------------------------
 
     /**
      * 调用此方法时，PopupWindow将会显示在DecorView
@@ -477,17 +530,18 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
             tryToShowPopup(v);
         }
     }
-    public void showPopupWindow(View v,int popupType) {
-        switch (popupType){
-            case POPUP_DOWN_LEFT :
+
+    public void showPopupWindow(View v, int popupType) {
+        switch (popupType) {
+            case POPUP_DOWN_LEFT:
 
                 break;
-            case POPUP_DOWN_RIGHT :
+            case POPUP_DOWN_RIGHT:
 
                 break;
-            case POPUP_TOP_LEFT :
+            case POPUP_TOP_LEFT:
                 break;
-            case POPUP_TOP_RIGHT :
+            case POPUP_TOP_RIGHT:
                 break;
         }
         if (checkPerformShow(v)) {
@@ -499,7 +553,9 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     //------------------------------------------Methods-----------------------------------------------
     private void tryToShowPopup(View v) {
         try {
-            if (isShowing()) return;
+            if (isShowing()) {
+                return;
+            }
             int[] offset;
             //传递了view
             if (v != null) {
@@ -555,7 +611,9 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     private void retryToShowPopup(final View v) {
         if (retryCounter > MAX_RETRY_SHOW_TIME) return;
         Log.e(TAG, "catch an exception on showing popupwindow ...now retrying to show ... retry count  >>  " + retryCounter);
-        if (isShowing()) mPopupWindow.callSuperDismiss();
+        if (isShowing()) {
+            mPopupWindow.callSuperDismiss();
+        }
         Context context = getContext();
         if (context instanceof Activity) {
             Activity act = (Activity) context;
@@ -579,7 +637,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         }
 
     }
-
 
     /**
      * 计算popupwindow的偏移量
@@ -692,6 +749,8 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return setBlurBackgroundEnable(blur, null);
     }
 
+    //------------------------------------------Getter/Setter-----------------------------------------------
+
     /**
      * 应用模糊脚本...默认模糊背景
      *
@@ -746,8 +805,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         }
     }
 
-    //------------------------------------------Getter/Setter-----------------------------------------------
-
     /**
      * PopupWindow是否处于展示状态
      */
@@ -773,17 +830,12 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return this;
     }
 
-    public BasePopupWindow setShowAnimation(Animation showAnimation) {
-        mHelper.setShowAnimation(showAnimation);
-        return this;
-    }
-
     public Animation getShowAnimation() {
         return mHelper.getShowAnimation();
     }
 
-    public BasePopupWindow setShowAnimator(Animator showAnimator) {
-        mHelper.setShowAnimator(showAnimator);
+    public BasePopupWindow setShowAnimation(Animation showAnimation) {
+        mHelper.setShowAnimation(showAnimation);
         return this;
     }
 
@@ -791,8 +843,8 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return mHelper.getShowAnimator();
     }
 
-    public BasePopupWindow setExitAnimation(Animation exitAnimation) {
-        mHelper.setExitAnimation(exitAnimation);
+    public BasePopupWindow setShowAnimator(Animator showAnimator) {
+        mHelper.setShowAnimator(showAnimator);
         return this;
     }
 
@@ -800,13 +852,18 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return mHelper.getExitAnimation();
     }
 
-    public BasePopupWindow setExitAnimator(Animator exitAnimator) {
-        mHelper.setExitAnimator(exitAnimator);
+    public BasePopupWindow setExitAnimation(Animation exitAnimation) {
+        mHelper.setExitAnimation(exitAnimation);
         return this;
     }
 
     public Animator getExitAnimator() {
         return mHelper.getExitAnimator();
+    }
+
+    public BasePopupWindow setExitAnimator(Animator exitAnimator) {
+        mHelper.setExitAnimator(exitAnimator);
+        return this;
     }
 
     public Context getContext() {
@@ -901,6 +958,12 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return mPopupWindow.getWidth() <= 0 ? mHelper.getPreMeasureWidth() : mPopupWindow.getWidth();
     }
 
+    public boolean isDismissWhenTouchOutside() {
+        return mHelper.isDismissWhenTouchOutside();
+    }
+
+    //------------------------------------------状态控制-----------------------------------------------
+
     /**
      * 点击外部是否消失
      * <p>
@@ -913,6 +976,10 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return this;
     }
 
+    public boolean isInterceptTouchEvent() {
+        return mHelper.isInterceptTouchEvent();
+    }
+
     /**
      * popupwindow是否拦截事件，这会影响到返回键dismiss的问题
      *
@@ -923,17 +990,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         mHelper.setInterceptTouchEvent(mPopupWindow, touchable);
         return this;
     }
-
-    public boolean isDismissWhenTouchOutside() {
-        return mHelper.isDismissWhenTouchOutside();
-    }
-
-    public boolean isInterceptTouchEvent() {
-        return mHelper.isInterceptTouchEvent();
-    }
-
-    //------------------------------------------状态控制-----------------------------------------------
-
 
     /**
      * 内部状态监听
@@ -1007,7 +1063,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         }
     }
 
-
     private boolean checkPerformDismiss() {
         boolean callDismiss = true;
         if (mHelper.getOnDismissListener() != null) {
@@ -1035,6 +1090,8 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     public boolean onDispatchKeyEvent(KeyEvent event) {
         return false;
     }
+
+    //------------------------------------------Anima-----------------------------------------------
 
     /**
      * 捕捉touchevent
@@ -1078,58 +1135,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return result;
     }
 
-    //------------------------------------------Anima-----------------------------------------------
-
-    private Animator.AnimatorListener mAnimatorListener = new AnimatorListenerAdapter() {
-
-        @Override
-        public void onAnimationStart(Animator animation) {
-            isExitAnimaPlaying = true;
-            if (mStateListener != null) {
-                mStateListener.onAnimateDismissStart();
-            }
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            mPopupView.post(new Runnable() {
-                @Override
-                public void run() {
-                    mPopupWindow.callSuperDismiss();
-                    isExitAnimaPlaying = false;
-                }
-            });
-
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-            isExitAnimaPlaying = false;
-        }
-
-    };
-
-    private Animation.AnimationListener mAnimationListener = new SimpleAnimationUtils.AnimationListenerAdapter() {
-        @Override
-        public void onAnimationStart(Animation animation) {
-            isExitAnimaPlaying = true;
-            if (mStateListener != null) {
-                mStateListener.onAnimateDismissStart();
-            }
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            mPopupView.post(new Runnable() {
-                @Override
-                public void run() {
-                    mPopupWindow.callSuperDismiss();
-                    isExitAnimaPlaying = false;
-                }
-            });
-        }
-    };
-
     /**
      * 生成TranslateAnimation
      *
@@ -1151,6 +1156,7 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     protected Animation getTranslateVerticalAnimation(float start, float end, int durationMillis) {
         return SimpleAnimationUtils.getTranslateVerticalAnimation(start, end, durationMillis);
     }
+
     protected Animation getTranslateHorizontalAnimation(float start, float end, int durationMillis) {
         return SimpleAnimationUtils.getTranslateHorizontalAnimation(start, end, durationMillis);
     }
@@ -1171,7 +1177,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return SimpleAnimationUtils.getScaleAnimation(fromX, toX, fromY, toY, pivotXType, pivotXValue, pivotYType, pivotYValue);
     }
 
-
     /**
      * 生成自定义ScaleAnimation
      */
@@ -1187,7 +1192,6 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
     protected Animation getDefaultScaleAnimation(boolean in) {
         return SimpleAnimationUtils.getDefaultScaleAnimation(in);
     }
-
 
     /**
      * 生成默认的AlphaAnimation
@@ -1219,15 +1223,15 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         return getContext().getResources().getDisplayMetrics().heightPixels;
     }
 
+
+    //------------------------------------------callback-----------------------------------------------
+
     /**
      * 获取屏幕宽度(px)
      */
     public int getScreenWidth() {
         return getContext().getResources().getDisplayMetrics().widthPixels;
     }
-
-
-    //------------------------------------------callback-----------------------------------------------
 
     /**
      * 在anchorView上方显示，autoLocatePopup为true时适用
@@ -1249,6 +1253,9 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
 
     }
 
+
+    //------------------------------------------tools-----------------------------------------------
+
     @Override
     public void onDismiss() {
         if (mHelper.getOnDismissListener() != null) {
@@ -1257,16 +1264,9 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         isExitAnimaPlaying = false;
     }
 
-
-    //------------------------------------------tools-----------------------------------------------
-
     protected float dipToPx(float dip) {
         if (getContext() == null) return dip;
         return dip * getContext().getResources().getDisplayMetrics().density + 0.5f;
-    }
-
-    public static void debugLog(boolean printLog) {
-        PopupLogUtil.setOpenLog(printLog);
     }
 
     //------------------------------------------Interface-----------------------------------------------
@@ -1274,9 +1274,9 @@ public abstract class BasePopupWindow implements BasePopup, PopupWindow.OnDismis
         /**
          * <b>return true for perform show</b>
          *
-         * @param popupRootView The rootView of popup,it's usually be your layout
-         * @param anchorView    The anchorView whitch popup show
-         * @param hasShowAnimate  Check if show your popup with animate?
+         * @param popupRootView  The rootView of popup,it's usually be your layout
+         * @param anchorView     The anchorView whitch popup show
+         * @param hasShowAnimate Check if show your popup with animate?
          * @return
          */
         boolean onBeforeShow(View popupRootView, View anchorView, boolean hasShowAnimate);

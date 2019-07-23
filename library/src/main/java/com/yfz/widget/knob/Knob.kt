@@ -44,7 +44,7 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     private val endIndex = a.getInt(R.styleable.Knob_knob_end_index, 100)
 
     var index = a.getInt(R.styleable.Knob_knob_index, 0)
-       private set(value) {
+        private set(value) {
             if (field != value) {
                 field = value
                 invalidate()
@@ -86,10 +86,12 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     init {
         a.recycle()
     }
-    fun bindingIndex(index: Int){
+
+    fun bindingIndex(index: Int) {
         progressPercent = (index - startIndex).toFloat() / totalIndex
         this.index = index
     }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         super.onTouchEvent(event)
         return gestureDetector.onTouchEvent(event)
@@ -100,11 +102,7 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         return true
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-    }
-
-    private fun makeStyleTools(width: Float, height: Float)  = run{
+    private fun makeStyleTools(width: Float, height: Float) = run {
         val midX = width / 2
         val midY = height / 2
         val minLength = min(width, height)
@@ -153,7 +151,7 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        setStyleTools = makeStyleTools(w.toFloat(),h.toFloat())
+        setStyleTools = makeStyleTools(w.toFloat(), h.toFloat())
         setStyleTools?.invoke()
     }
 
@@ -281,7 +279,7 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
                 }
             }
         }
-        downTouchDeg = currentTouchDeg;
+        downTouchDeg = currentTouchDeg
         return false
     }
 

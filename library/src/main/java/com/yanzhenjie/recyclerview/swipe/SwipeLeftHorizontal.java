@@ -52,10 +52,7 @@ class SwipeLeftHorizontal extends SwipeHorizontal {
     public Checker checkXY(int x, int y) {
         mChecker.x = x;
         mChecker.y = y;
-        mChecker.shouldResetSwipe = false;
-        if (mChecker.x == 0) {
-            mChecker.shouldResetSwipe = true;
-        }
+        mChecker.shouldResetSwipe = mChecker.x == 0;
         if (mChecker.x >= 0) {
             mChecker.x = 0;
         }

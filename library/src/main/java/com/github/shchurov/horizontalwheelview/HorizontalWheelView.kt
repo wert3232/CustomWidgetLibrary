@@ -14,36 +14,37 @@ import android.view.View
 
 import java.lang.Math.PI
 import com.library.R
+
 class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     val a = context.obtainStyledAttributes(attrs, R.styleable.HorizontalWheelView)
     private var startIndex = a.getInt(R.styleable.HorizontalWheelView_horizontalWheelView_start_index, 0)
     private var endIndex = a.getInt(R.styleable.HorizontalWheelView_horizontalWheelView_end_index, 10) + 1
-    private var isAnti = a.getBoolean(R.styleable.HorizontalWheelView_horizontalWheelView_isAnti,false)
+    private var isAnti = a.getBoolean(R.styleable.HorizontalWheelView_horizontalWheelView_isAnti, false)
     private val drawer: Drawer = Drawer(this)
     private val touchHandler: TouchHandler
     private var angle: Double = 0.toDouble()
-                    set(value) {
-                        if(field == value){
-                        }else{
-                            field = value
-                        }
-                    }
+        set(value) {
+            if (field == value) {
+            } else {
+                field = value
+            }
+        }
     var onlyPositiveValues: Boolean = false
     var endLock: Boolean = false
-    private var listener: onChangeListener ? = null
+    private var listener: onChangeListener? = null
     //值越大越慢
-    private var scaleSpeedUnit =  a.getInt(R.styleable.HorizontalWheelView_scaleSpeedUnit, 20)
+    private var scaleSpeedUnit = a.getInt(R.styleable.HorizontalWheelView_scaleSpeedUnit, 20)
     var inverseBindingListener: InverseBindingListener? = null
     var viewIndex = a.getInt(R.styleable.HorizontalWheelView_horizontalWheelView_index, startIndex)
         set(value) {
-            if(field != value){
+            if (field != value) {
                 field = value
                 val current = value - startIndex
                 val progress = endIndex - startIndex
-                angle = if(isAnti){
+                angle = if (isAnti) {
                     -(current * (2 * PI) / progress)
-                }else{
+                } else {
                     current * (2 * PI) / progress
                 }
                 invalidate()
@@ -58,12 +59,12 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
                 angle = radians % (2 * PI)
             }
             val progress = endIndex - startIndex
-            if(isAnti){
+            if (isAnti) {
                 if (onlyPositiveValues && angle > 0) {
                     angle -= 2 * PI
                 }
                 viewIndex = -(this.angle * progress.toFloat() / (2 * PI)).toInt() + startIndex
-            }else{
+            } else {
                 if (onlyPositiveValues && angle < 0) {
                     angle += 2 * PI
                 }
@@ -96,7 +97,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
             drawer.isCursorShow = value
             field = value
         }
-    var scaleAction : (Int) -> Unit = {}
+    var scaleAction: (Int) -> Unit = {}
     var normalMarkLengthRatio = 0.6f
         set(value) {
             drawer.normalMarkHeightRatio = value
@@ -127,6 +128,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
             drawer.setZeroSpace(value)
             field = value
         }
+
     init {
         touchHandler = TouchHandler(this)
         readAttrs(attrs)
@@ -148,13 +150,13 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         endLock = a.getBoolean(R.styleable.HorizontalWheelView_endLock, DEFAULT_END_LOCK)
         onlyPositiveValues = a.getBoolean(R.styleable.HorizontalWheelView_onlyPositiveValues,
                 DEFAULT_ONLY_POSITIVE_VALUES)
-        isCursorShow = a.getBoolean(R.styleable.HorizontalWheelView_isCursorShow,true)
-        normalMarkLengthRatio = a.getFloat(R.styleable.HorizontalWheelView_normalMarkLengthRatio,0.6f)
-        zeroMarkHeightRatio = a.getFloat(R.styleable.HorizontalWheelView_zeroMarkLengthRatio,0.8f)
-        lineSpaceRatio = a.getFloat(R.styleable.HorizontalWheelView_lineSpaceRatio,0f)
-        isCursorSpace = a.getBoolean(R.styleable.HorizontalWheelView_isCursorSpace,true)
-        isZeroSpace = a.getBoolean(R.styleable.HorizontalWheelView_isZeroSpace,true)
-        drawer.setNormalMarkWidth(a.getInt(R.styleable.HorizontalWheelView_normalMarkWidth,1))
+        isCursorShow = a.getBoolean(R.styleable.HorizontalWheelView_isCursorShow, true)
+        normalMarkLengthRatio = a.getFloat(R.styleable.HorizontalWheelView_normalMarkLengthRatio, 0.6f)
+        zeroMarkHeightRatio = a.getFloat(R.styleable.HorizontalWheelView_zeroMarkLengthRatio, 0.8f)
+        lineSpaceRatio = a.getFloat(R.styleable.HorizontalWheelView_lineSpaceRatio, 0f)
+        isCursorSpace = a.getBoolean(R.styleable.HorizontalWheelView_isCursorSpace, true)
+        isZeroSpace = a.getBoolean(R.styleable.HorizontalWheelView_isZeroSpace, true)
+        drawer.setNormalMarkWidth(a.getInt(R.styleable.HorizontalWheelView_normalMarkWidth, 1))
         a.recycle()
     }
 
@@ -162,19 +164,21 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         this.listener = listener
         touchHandler.setChangeListener(listener)
     }
-    fun setChangeListener(onRotationChanged:(radians: Double, index: Int) -> Unit,
-                                 onScrollStateChanged:(state: Int) -> Unit = {},
-                                 onTouch:() -> Unit ={}
-                          )
-    {
+
+    fun setChangeListener(onRotationChanged: (radians: Double, index: Int) -> Unit,
+                          onScrollStateChanged: (state: Int) -> Unit = {},
+                          onTouch: () -> Unit = {}
+    ) {
         setChangeListener(
-                object : onChangeListener{
+                object : onChangeListener {
                     override fun onRotationChanged(radians: Double, index: Int) {
-                        onRotationChanged(radians,index)
+                        onRotationChanged(radians, index)
                     }
+
                     override fun onScrollStateChanged(state: Int) {
                         onScrollStateChanged(state)
                     }
+
                     override fun onTouch() {
                         onTouch()
                     }
@@ -197,7 +201,7 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         } else if (onlyPositiveValues && isAnti && radians > 0) {
             angle = 0.0
             hit = true
-        }  else if (radians <= -2 * PI) {
+        } else if (radians <= -2 * PI) {
             angle = Math.nextAfter(-2 * PI, java.lang.Double.POSITIVE_INFINITY)
             hit = true
         }
@@ -228,33 +232,34 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
     }
 
     private var scale = 0f
-    fun onDistanceChange(distanceX: Float,distanceY: Float){
-        if(isAnti){
-            if(Math.abs(distanceX) < scaleSpeedUnit){
+    fun onDistanceChange(distanceX: Float, distanceY: Float) {
+        if (isAnti) {
+            if (Math.abs(distanceX) < scaleSpeedUnit) {
                 scale += distanceX
-                if(Math.abs(scale) > scaleSpeedUnit){
+                if (Math.abs(scale) > scaleSpeedUnit) {
                     scaleAction(-(scale / scaleSpeedUnit).toInt())
                     scale = 0f
                 }
-            }else{
+            } else {
                 scaleAction(-(distanceX / scaleSpeedUnit).toInt())
                 scale = 0f
             }
-        }else{
-            if(Math.abs(distanceX) < scaleSpeedUnit){
+        } else {
+            if (Math.abs(distanceX) < scaleSpeedUnit) {
                 scale += distanceX
-                if(Math.abs(scale) > scaleSpeedUnit){
+                if (Math.abs(scale) > scaleSpeedUnit) {
                     scaleAction((scale / scaleSpeedUnit).toInt())
                     scale = 0f
                 }
-            }else{
+            } else {
                 scaleAction((distanceX / scaleSpeedUnit).toInt())
                 scale = 0f
             }
         }
     }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if(event.action == MotionEvent.ACTION_MOVE){
+        if (event.action == MotionEvent.ACTION_MOVE) {
             listener?.onTouch()
         }
         return touchHandler.onTouchEvent(event)
@@ -315,22 +320,10 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         const val SCROLL_STATE_IDLE = 0
         const val SCROLL_STATE_DRAGGING = 1
         const val SCROLL_STATE_SETTLING = 2
-
-        @JvmStatic @InverseBindingAdapter(attribute = "app:horizontalWheelView_index",event = "horizontalWheelViewIndexAttrChanged")
-        fun getHorizontalWheelViewIndex(wheelView: HorizontalWheelView): Int {
-            return wheelView.viewIndex
-        }
-        @JvmStatic @BindingAdapter("horizontalWheelViewIndexAttrChanged")
-        fun setIndexAttrChanged(wheelView: HorizontalWheelView, inverseBindingListener: InverseBindingListener?) {
-            if (inverseBindingListener == null) {
-                wheelView.inverseBindingListener = null
-            } else {
-                wheelView.inverseBindingListener = inverseBindingListener
-            }
-        }
     }
 
 }
+
 interface onChangeListener {
     fun onRotationChanged(radians: Double, index: Int)
     fun onScrollStateChanged(state: Int)

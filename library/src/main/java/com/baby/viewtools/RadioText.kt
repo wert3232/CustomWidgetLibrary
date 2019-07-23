@@ -20,20 +20,24 @@ open class RadioText @JvmOverloads constructor(context: Context, attrs: Attribut
             this@RadioText.isSelected = value == viewIndex
             field = value
         }
-    init{
+
+    init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
-        viewIndex =  a.getInt(R.styleable.commonAttr_viewIndex,-2)
-        selectIndex = a.getInt(R.styleable.commonAttr_selectIndex,-1)
+        viewIndex = a.getInt(R.styleable.commonAttr_viewIndex, -2)
+        selectIndex = a.getInt(R.styleable.commonAttr_selectIndex, -1)
         a.recycle()
     }
+
     companion object {
         @InverseBindingAdapter(attribute = "selectIndex", event = "indexAttrChanged")
-        @JvmStatic fun getSelectIndex(radioText: RadioText): Int {
+        @JvmStatic
+        fun getSelectIndex(radioText: RadioText): Int {
             return radioText.selectIndex
         }
 
         @BindingAdapter(value = arrayOf("selectIndex"))
-        @JvmStatic	fun setSelectIndex(radioText: RadioText, selectIndex: Int) {
+        @JvmStatic
+        fun setSelectIndex(radioText: RadioText, selectIndex: Int) {
             if (radioText.selectIndex != selectIndex) {
                 radioText.selectIndex = selectIndex
             }

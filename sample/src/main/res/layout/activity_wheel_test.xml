@@ -25,14 +25,14 @@
             app:lineSpaceRatio="0.2"
             app:isCursorShow="true"
             app:onlyPositiveValues="true"
-            app:isAnti="true"
+            app:horizontalWheelView_end_index="100"
             app:normalMarkLengthRatio="1.0"
             app:normalMarkWidth="5"
             app:zeroMarkLengthRatio="1.0"
-            app:viewIndex="@={ui.index}"
+            app:horizontalWheelView_index="@={ui.index}"
             app:endLock="true"
-            app:startIndex="50"
-            app:endIndex="100"
+            app:horizontalWheelView_isAnti="true"
+            app:horizontalWheelView_start_index="50"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

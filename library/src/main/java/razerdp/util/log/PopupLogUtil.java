@@ -123,17 +123,16 @@ public class PopupLogUtil {
         return mIsDebugMode[0];
     }
 
-    public static void setOpenLog(boolean openLog) {
-        mIsDebugMode[0] = openLog;
-    }
-
     public static boolean isOpenLog() {
         return mIsDebugMode[0];
     }
 
+    public static void setOpenLog(boolean openLog) {
+        mIsDebugMode[0] = openLog;
+    }
+
 
     //-----------------------------------------tool-----------------------------------------
-
 
     /**
      * 代码定位

@@ -18,7 +18,9 @@ package com.yanzhenjie.recyclerview.swipe.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+
 import androidx.core.widget.NestedScrollView;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,13 +34,6 @@ import java.util.List;
  * Created by YanZhenjie on 2017/7/20.
  */
 public class StickyNestedScrollView extends NestedScrollView {
-
-    public interface OnViewStickyListener {
-
-        void onSticky(View view);
-
-        void onUnSticky(View view);
-    }
 
     /**
      * Tag for views that should stick and have constant drawing. e.g. TextViews, ImageViews etc
@@ -79,7 +74,6 @@ public class StickyNestedScrollView extends NestedScrollView {
     private int mShadowHeight = DEFAULT_SHADOW_HEIGHT;
     private Drawable mShadowDrawable;
     private boolean hasNotDoneActionDown = true;
-
     private List<OnViewStickyListener> mOnViewStickyListeners;
 
     public StickyNestedScrollView(Context context) {
@@ -402,6 +396,13 @@ public class StickyNestedScrollView extends NestedScrollView {
 
     private void showView(View v) {
         v.setAlpha(1);
+    }
+
+    public interface OnViewStickyListener {
+
+        void onSticky(View view);
+
+        void onUnSticky(View view);
     }
 
 }

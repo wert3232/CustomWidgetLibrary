@@ -43,20 +43,6 @@ public final class FileUtils {
     public static final int BY_EXTENSION_ASC = 6;
     public static final int BY_EXTENSION_DESC = 7;
 
-    @IntDef(value = {
-            BY_NAME_ASC,
-            BY_NAME_DESC,
-            BY_TIME_ASC,
-            BY_TIME_DESC,
-            BY_SIZE_ASC,
-            BY_SIZE_DESC,
-            BY_EXTENSION_ASC,
-            BY_EXTENSION_DESC
-    })
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface SortType {
-    }
-
     /**
      * 将目录分隔符统一为平台默认的分隔符，并为目录结尾添加分隔符
      */
@@ -566,7 +552,7 @@ public final class FileUtils {
         if (0 <= pos) {
             return pathOrUrl.substring(pos + 1);
         } else {
-            return String.valueOf(System.currentTimeMillis()) + "." + getExtension(pathOrUrl);
+            return System.currentTimeMillis() + "." + getExtension(pathOrUrl);
         }
     }
 
@@ -674,6 +660,20 @@ public final class FileUtils {
      */
     public static boolean makeDirs(File file) {
         return file.mkdirs();
+    }
+
+    @IntDef(value = {
+            BY_NAME_ASC,
+            BY_NAME_DESC,
+            BY_TIME_ASC,
+            BY_TIME_DESC,
+            BY_SIZE_ASC,
+            BY_SIZE_DESC,
+            BY_EXTENSION_ASC,
+            BY_EXTENSION_DESC
+    })
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface SortType {
     }
 
     public static class SortByExtension implements Comparator<File> {

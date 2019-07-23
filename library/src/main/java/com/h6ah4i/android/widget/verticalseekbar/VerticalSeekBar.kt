@@ -74,20 +74,20 @@ class VerticalSeekBar : AppCompatSeekBar {
     var startIndex = 0
         set(value) {
             field = value
-            if(max != total){
+            if (max != total) {
                 max = total
             }
         }
     var endIndex = 100
         set(value) {
             field = value
-            if(max != total){
+            if (max != total) {
                 max = total
             }
         }
-    val total get() =  endIndex - startIndex
+    val total get() = endIndex - startIndex
     var index
-        set(value){
+        set(value) {
             progress = value - startIndex
         }
         get() = progress + startIndex
@@ -139,6 +139,7 @@ class VerticalSeekBar : AppCompatSeekBar {
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
         initialize(context, attrs, defStyle, 0)
     }
+
     private fun initialize(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
         ViewCompat.setLayoutDirection(this, ViewCompat.LAYOUT_DIRECTION_LTR)
         if (attrs != null) {
@@ -174,8 +175,8 @@ class VerticalSeekBar : AppCompatSeekBar {
         this.callBack = callBack
     }
 
-    fun setOnIndexChangeCallBack(callBack: VerticalSeekBar.(index: Int) -> Unit){
-        setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
+    fun setOnIndexChangeCallBack(callBack: VerticalSeekBar.(index: Int) -> Unit) {
+        setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 seekBar as VerticalSeekBar
                 seekBar.callBack(index)

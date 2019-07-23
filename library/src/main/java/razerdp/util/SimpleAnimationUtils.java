@@ -49,7 +49,7 @@ public class SimpleAnimationUtils {
     public static Animation getTranslateHorizontalAnimation(float start, float end, int durationMillis) {
         Animation translateAnimation = new TranslateAnimation
                 (Animation.RELATIVE_TO_PARENT, start, Animation.RELATIVE_TO_PARENT, end,
-                Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0);
+                        Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0);
         translateAnimation.setDuration(durationMillis);
         return translateAnimation;
     }

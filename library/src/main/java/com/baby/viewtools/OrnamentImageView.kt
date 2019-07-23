@@ -15,21 +15,22 @@ open class OrnamentImageView @JvmOverloads constructor(context: Context, attrs: 
     var viewIndex = -2
     var selectIndex = -1
         set(value) {
-            this@OrnamentImageView.visibility = if(value == viewIndex){
+            this@OrnamentImageView.visibility = if (value == viewIndex) {
                 View.VISIBLE
-            }
-            else {
+            } else {
                 View.GONE
             }
             field = value
         }
+
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
         isClickable = false
-        viewIndex =  a.getInt(R.styleable.commonAttr_viewIndex,-2)
-        selectIndex = a.getInt(R.styleable.commonAttr_selectIndex,-1)
+        viewIndex = a.getInt(R.styleable.commonAttr_viewIndex, -2)
+        selectIndex = a.getInt(R.styleable.commonAttr_selectIndex, -1)
         a.recycle()
     }
+
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         return false
     }
@@ -37,14 +38,17 @@ open class OrnamentImageView @JvmOverloads constructor(context: Context, attrs: 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return false
     }
+
     companion object {
         @InverseBindingAdapter(attribute = "selectIndex", event = "indexAttrChanged")
-        @JvmStatic fun getSelectIndex(view: OrnamentImageView): Int {
+        @JvmStatic
+        fun getSelectIndex(view: OrnamentImageView): Int {
             return view.selectIndex
         }
 
         @BindingAdapter(value = arrayOf("selectIndex"))
-        @JvmStatic	fun setSelectIndex(view: OrnamentImageView, selectIndex: Int) {
+        @JvmStatic
+        fun setSelectIndex(view: OrnamentImageView, selectIndex: Int) {
             if (view.selectIndex != selectIndex) {
                 view.selectIndex = selectIndex
             }

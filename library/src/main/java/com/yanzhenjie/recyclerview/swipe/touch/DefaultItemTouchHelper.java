@@ -40,15 +40,6 @@ public class DefaultItemTouchHelper extends CompatItemTouchHelper {
     }
 
     /**
-     * Set OnItemMoveListener.
-     *
-     * @param onItemMoveListener {@link OnItemMoveListener}.
-     */
-    public void setOnItemMoveListener(OnItemMoveListener onItemMoveListener) {
-        mDefaultItemTouchHelperCallback.setOnItemMoveListener(onItemMoveListener);
-    }
-
-    /**
      * Get OnItemMoveListener.
      *
      * @return {@link OnItemMoveListener}.
@@ -58,12 +49,12 @@ public class DefaultItemTouchHelper extends CompatItemTouchHelper {
     }
 
     /**
-     * Set OnItemMovementListener.
+     * Set OnItemMoveListener.
      *
-     * @param onItemMovementListener {@link OnItemMovementListener}.
+     * @param onItemMoveListener {@link OnItemMoveListener}.
      */
-    public void setOnItemMovementListener(OnItemMovementListener onItemMovementListener) {
-        mDefaultItemTouchHelperCallback.setOnItemMovementListener(onItemMovementListener);
+    public void setOnItemMoveListener(OnItemMoveListener onItemMoveListener) {
+        mDefaultItemTouchHelperCallback.setOnItemMoveListener(onItemMoveListener);
     }
 
     /**
@@ -76,12 +67,12 @@ public class DefaultItemTouchHelper extends CompatItemTouchHelper {
     }
 
     /**
-     * Set can long press drag.
+     * Set OnItemMovementListener.
      *
-     * @param canDrag drag true, otherwise is can't.
+     * @param onItemMovementListener {@link OnItemMovementListener}.
      */
-    public void setLongPressDragEnabled(boolean canDrag) {
-        mDefaultItemTouchHelperCallback.setLongPressDragEnabled(canDrag);
+    public void setOnItemMovementListener(OnItemMovementListener onItemMovementListener) {
+        mDefaultItemTouchHelperCallback.setOnItemMovementListener(onItemMovementListener);
     }
 
     /**
@@ -93,14 +84,13 @@ public class DefaultItemTouchHelper extends CompatItemTouchHelper {
         return mDefaultItemTouchHelperCallback.isLongPressDragEnabled();
     }
 
-
     /**
-     * Set can long press swipe.
+     * Set can long press drag.
      *
-     * @param canSwipe swipe true, otherwise is can't.
+     * @param canDrag drag true, otherwise is can't.
      */
-    public void setItemViewSwipeEnabled(boolean canSwipe) {
-        mDefaultItemTouchHelperCallback.setItemViewSwipeEnabled(canSwipe);
+    public void setLongPressDragEnabled(boolean canDrag) {
+        mDefaultItemTouchHelperCallback.setLongPressDragEnabled(canDrag);
     }
 
     /**
@@ -113,12 +103,12 @@ public class DefaultItemTouchHelper extends CompatItemTouchHelper {
     }
 
     /**
-     * Set OnItemStateChangedListener.
+     * Set can long press swipe.
      *
-     * @param onItemStateChangedListener {@link OnItemStateChangedListener}.
+     * @param canSwipe swipe true, otherwise is can't.
      */
-    public void setOnItemStateChangedListener(OnItemStateChangedListener onItemStateChangedListener) {
-        this.mDefaultItemTouchHelperCallback.setOnItemStateChangedListener(onItemStateChangedListener);
+    public void setItemViewSwipeEnabled(boolean canSwipe) {
+        mDefaultItemTouchHelperCallback.setItemViewSwipeEnabled(canSwipe);
     }
 
     /**
@@ -128,6 +118,15 @@ public class DefaultItemTouchHelper extends CompatItemTouchHelper {
      */
     public OnItemStateChangedListener getOnItemStateChangedListener() {
         return this.mDefaultItemTouchHelperCallback.getOnItemStateChangedListener();
+    }
+
+    /**
+     * Set OnItemStateChangedListener.
+     *
+     * @param onItemStateChangedListener {@link OnItemStateChangedListener}.
+     */
+    public void setOnItemStateChangedListener(OnItemStateChangedListener onItemStateChangedListener) {
+        this.mDefaultItemTouchHelperCallback.setOnItemStateChangedListener(onItemStateChangedListener);
     }
 
 }

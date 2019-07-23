@@ -16,6 +16,7 @@
 package com.yanzhenjie.recyclerview.swipe.touch;
 
 import android.graphics.Canvas;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,17 +40,13 @@ public class DefaultItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public DefaultItemTouchHelperCallback() {
     }
 
-    public void setLongPressDragEnabled(boolean canDrag) {
-        this.isLongPressDragEnabled = canDrag;
-    }
-
     @Override
     public boolean isLongPressDragEnabled() {
         return isLongPressDragEnabled;
     }
 
-    public void setItemViewSwipeEnabled(boolean canSwipe) {
-        this.isItemViewSwipeEnabled = canSwipe;
+    public void setLongPressDragEnabled(boolean canDrag) {
+        this.isLongPressDragEnabled = canDrag;
     }
 
     @Override
@@ -57,28 +54,32 @@ public class DefaultItemTouchHelperCallback extends ItemTouchHelper.Callback {
         return isItemViewSwipeEnabled;
     }
 
-    public void setOnItemMoveListener(OnItemMoveListener onItemMoveListener) {
-        this.onItemMoveListener = onItemMoveListener;
+    public void setItemViewSwipeEnabled(boolean canSwipe) {
+        this.isItemViewSwipeEnabled = canSwipe;
     }
 
     public OnItemMoveListener getOnItemMoveListener() {
         return onItemMoveListener;
     }
 
-    public void setOnItemMovementListener(OnItemMovementListener onItemMovementListener) {
-        this.onItemMovementListener = onItemMovementListener;
+    public void setOnItemMoveListener(OnItemMoveListener onItemMoveListener) {
+        this.onItemMoveListener = onItemMoveListener;
     }
 
     public OnItemMovementListener getOnItemMovementListener() {
         return onItemMovementListener;
     }
 
-    public void setOnItemStateChangedListener(OnItemStateChangedListener onItemStateChangedListener) {
-        this.onItemStateChangedListener = onItemStateChangedListener;
+    public void setOnItemMovementListener(OnItemMovementListener onItemMovementListener) {
+        this.onItemMovementListener = onItemMovementListener;
     }
 
     public OnItemStateChangedListener getOnItemStateChangedListener() {
         return onItemStateChangedListener;
+    }
+
+    public void setOnItemStateChangedListener(OnItemStateChangedListener onItemStateChangedListener) {
+        this.onItemStateChangedListener = onItemStateChangedListener;
     }
 
     @Override

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:orientation="vertical"
     android:background="@color/ksw_md_solid_checked"
+    android:orientation="vertical"
     android:paddingLeft="15dp">
 
     <TextView

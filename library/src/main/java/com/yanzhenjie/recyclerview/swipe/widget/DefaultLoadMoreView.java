@@ -16,8 +16,10 @@
 package com.yanzhenjie.recyclerview.swipe.widget;
 
 import android.content.Context;
+
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -57,8 +59,8 @@ public class DefaultLoadMoreView extends LinearLayout implements SwipeMenuRecycl
         setMinimumHeight(minHeight);
 
         inflate(getContext(), R.layout.recycler_swipe_view_load_more, this);
-        mLoadingView = (LoadingView) findViewById(R.id.loading_view);
-        mTvMessage = (TextView) findViewById(R.id.tv_load_more_message);
+        mLoadingView = findViewById(R.id.loading_view);
+        mTvMessage = findViewById(R.id.tv_load_more_message);
 
         int color1 = ContextCompat.getColor(getContext(), android.R.color.holo_blue_light);
         int color2 = ContextCompat.getColor(getContext(), android.R.color.holo_red_light);

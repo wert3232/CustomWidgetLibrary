@@ -22,7 +22,7 @@ import java.util.Arrays
  * 波浪侧边栏
  */
 class WaveSideBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : View(context, attrs, defStyle) {
-    private var lettersOnChangeListener = { letter: String ->}
+    private var lettersOnChangeListener = { letter: String -> }
 
     // 渲染字母表
     private var mLetters: List<String>? = null

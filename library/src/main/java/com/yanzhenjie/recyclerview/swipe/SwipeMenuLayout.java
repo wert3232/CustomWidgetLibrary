@@ -17,7 +17,9 @@ package com.yanzhenjie.recyclerview.swipe;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+
 import androidx.core.view.ViewCompat;
+
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -112,15 +114,6 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
     }
 
     /**
-     * Set whether open swipe. Default is true.
-     *
-     * @param swipeEnable true open, otherwise false.
-     */
-    public void setSwipeEnable(boolean swipeEnable) {
-        this.swipeEnable = swipeEnable;
-    }
-
-    /**
      * Open the swipe function of the Item?
      *
      * @return open is true, otherwise is false.
@@ -130,12 +123,12 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
     }
 
     /**
-     * Set open percentage.
+     * Set whether open swipe. Default is true.
      *
-     * @param openPercent such as 0.5F.
+     * @param swipeEnable true open, otherwise false.
      */
-    public void setOpenPercent(float openPercent) {
-        this.mOpenPercent = openPercent;
+    public void setSwipeEnable(boolean swipeEnable) {
+        this.swipeEnable = swipeEnable;
     }
 
     /**
@@ -145,6 +138,15 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
      */
     public float getOpenPercent() {
         return mOpenPercent;
+    }
+
+    /**
+     * Set open percentage.
+     *
+     * @param openPercent such as 0.5F.
+     */
+    public void setOpenPercent(float openPercent) {
+        this.mOpenPercent = openPercent;
     }
 
     /**

@@ -16,11 +16,13 @@
 package com.yanzhenjie.recyclerview.swipe;
 
 import android.content.Context;
+
 import androidx.annotation.IntDef;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,34 +54,69 @@ public class SwipeMenuRecyclerView extends RecyclerView {
      * Right menu.
      */
     public static final int RIGHT_DIRECTION = -1;
-
-    @IntDef({LEFT_DIRECTION, RIGHT_DIRECTION})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface DirectionMode {
-    }
-
     /**
      * Invalid position.
      */
     private static final int INVALID_POSITION = -1;
-
     protected int mScaleTouchSlop;
     protected SwipeMenuLayout mOldSwipedLayout;
     protected int mOldTouchedPosition = INVALID_POSITION;
-
     private int mDownX;
     private int mDownY;
-
     private boolean allowSwipeDelete = false;
-
     private DefaultItemTouchHelper mDefaultItemTouchHelper;
-
     private SwipeMenuCreator mSwipeMenuCreator;
     private SwipeMenuItemClickListener mSwipeMenuItemClickListener;
     private SwipeItemClickListener mSwipeItemClickListener;
     private SwipeItemLongClickListener mSwipeItemLongClickListener;
-
     private SwipeAdapterWrapper mAdapterWrapper;
+    private AdapterDataObserver mAdapterDataObserver = new AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            mAdapterWrapper.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount) {
+            positionStart += getHeaderItemCount();
+            mAdapterWrapper.notifyItemRangeChanged(positionStart, itemCount);
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+            positionStart += getHeaderItemCount();
+            mAdapterWrapper.notifyItemRangeChanged(positionStart, itemCount, payload);
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            positionStart += getHeaderItemCount();
+            mAdapterWrapper.notifyItemRangeInserted(positionStart, itemCount);
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+            positionStart += getHeaderItemCount();
+            mAdapterWrapper.notifyItemRangeRemoved(positionStart, itemCount);
+        }
+
+        @Override
+        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+            fromPosition += getHeaderItemCount();
+            toPosition += getHeaderItemCount();
+            mAdapterWrapper.notifyItemMoved(fromPosition, toPosition);
+        }
+    };
+    private List<View> mHeaderViewList = new ArrayList<>();
+    private List<View> mFooterViewList = new ArrayList<>();
+    private int mScrollState = -1;
+    private boolean isLoadMore = false;
+    private boolean isAutoLoadMore = true;
+    private boolean isLoadError = false;
+    private boolean mDataEmpty = true;
+    private boolean mHasMore = false;
+    private LoadMoreView mLoadMoreView;
+    private LoadMoreListener mLoadMoreListener;
 
     public SwipeMenuRecyclerView(Context context) {
         this(context, null);
@@ -132,6 +169,16 @@ public class SwipeMenuRecyclerView extends RecyclerView {
     }
 
     /**
+     * Get can long press drag.
+     *
+     * @return drag true, otherwise is can't.
+     */
+    public boolean isLongPressDragEnabled() {
+        initializeItemTouchHelper();
+        return this.mDefaultItemTouchHelper.isLongPressDragEnabled();
+    }
+
+    /**
      * Set can long press drag.
      *
      * @param canDrag drag true, otherwise is can't.
@@ -142,15 +189,14 @@ public class SwipeMenuRecyclerView extends RecyclerView {
     }
 
     /**
-     * Get can long press drag.
+     * Get can long press swipe.
      *
-     * @return drag true, otherwise is can't.
+     * @return swipe true, otherwise is can't.
      */
-    public boolean isLongPressDragEnabled() {
+    public boolean isItemViewSwipeEnabled() {
         initializeItemTouchHelper();
-        return this.mDefaultItemTouchHelper.isLongPressDragEnabled();
+        return this.mDefaultItemTouchHelper.isItemViewSwipeEnabled();
     }
-
 
     /**
      * Set can swipe delete.
@@ -161,16 +207,6 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         initializeItemTouchHelper();
         allowSwipeDelete = canSwipe; // swipe and menu conflict.
         this.mDefaultItemTouchHelper.setItemViewSwipeEnabled(canSwipe);
-    }
-
-    /**
-     * Get can long press swipe.
-     *
-     * @return swipe true, otherwise is can't.
-     */
-    public boolean isItemViewSwipeEnabled() {
-        initializeItemTouchHelper();
-        return this.mDefaultItemTouchHelper.isItemViewSwipeEnabled();
     }
 
     /**
@@ -211,24 +247,6 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         return this;
     }
 
-    private static class ItemClick implements SwipeItemClickListener {
-
-        private SwipeMenuRecyclerView mRecyclerView;
-        private SwipeItemClickListener mCallback;
-
-        public ItemClick(SwipeMenuRecyclerView recyclerView, SwipeItemClickListener callback) {
-            this.mRecyclerView = recyclerView;
-            this.mCallback = callback;
-        }
-
-        @Override
-        public void onItemClick(View itemView, int position) {
-            position = position - mRecyclerView.getHeaderItemCount();
-            if (position >= 0)
-                mCallback.onItemClick(itemView, position);
-        }
-    }
-
     /**
      * Set item click listener.
      */
@@ -236,23 +254,6 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         if (itemLongClickListener == null) return;
         checkAdapterExist("Cannot set item long click listener, setAdapter has already been called.");
         this.mSwipeItemLongClickListener = new ItemLongClick(this, itemLongClickListener);
-    }
-
-    private static class ItemLongClick implements SwipeItemLongClickListener {
-        private SwipeMenuRecyclerView mRecyclerView;
-        private SwipeItemLongClickListener mCallback;
-
-        public ItemLongClick(SwipeMenuRecyclerView recyclerView, SwipeItemLongClickListener callback) {
-            this.mRecyclerView = recyclerView;
-            this.mCallback = callback;
-        }
-
-        @Override
-        public void onItemLongClick(View itemView, int position) {
-            position = position - mRecyclerView.getHeaderItemCount();
-            if (position >= 0)
-                mCallback.onItemLongClick(itemView, position);
-        }
     }
 
     /**
@@ -273,27 +274,6 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         checkAdapterExist("Cannot set menu item click listener, setAdapter has already been called.");
         this.mSwipeMenuItemClickListener = new MenuItemClick(this, menuItemClickListener);
         return this;
-    }
-
-    private static class MenuItemClick implements SwipeMenuItemClickListener {
-
-        private SwipeMenuRecyclerView mRecyclerView;
-        private SwipeMenuItemClickListener mCallback;
-
-        public MenuItemClick(SwipeMenuRecyclerView recyclerView, SwipeMenuItemClickListener callback) {
-            this.mRecyclerView = recyclerView;
-            this.mCallback = callback;
-        }
-
-        @Override
-        public void onItemClick(SwipeMenuBridge menuBridge) {
-            int position = menuBridge.getAdapterPosition();
-            position = position - mRecyclerView.getHeaderItemCount();
-            if (position >= 0) {
-                menuBridge.mAdapterPosition = position;
-                mCallback.onItemClick(menuBridge);
-            }
-        }
     }
 
     @Override
@@ -355,51 +335,11 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         }
         super.setAdapter(mAdapterWrapper);
     }
-    public SwipeMenuRecyclerView setAdapterX(Adapter adapter){
+
+    public SwipeMenuRecyclerView setAdapterX(Adapter adapter) {
         setAdapter(adapter);
         return this;
     }
-
-    private AdapterDataObserver mAdapterDataObserver = new AdapterDataObserver() {
-        @Override
-        public void onChanged() {
-            mAdapterWrapper.notifyDataSetChanged();
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount) {
-            positionStart += getHeaderItemCount();
-            mAdapterWrapper.notifyItemRangeChanged(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
-            positionStart += getHeaderItemCount();
-            mAdapterWrapper.notifyItemRangeChanged(positionStart, itemCount, payload);
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            positionStart += getHeaderItemCount();
-            mAdapterWrapper.notifyItemRangeInserted(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            positionStart += getHeaderItemCount();
-            mAdapterWrapper.notifyItemRangeRemoved(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            fromPosition += getHeaderItemCount();
-            toPosition += getHeaderItemCount();
-            mAdapterWrapper.notifyItemMoved(fromPosition, toPosition);
-        }
-    };
-
-    private List<View> mHeaderViewList = new ArrayList<>();
-    private List<View> mFooterViewList = new ArrayList<>();
 
     /**
      * Add view at the headers.
@@ -649,18 +589,6 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         return itemView;
     }
 
-    private int mScrollState = -1;
-
-    private boolean isLoadMore = false;
-    private boolean isAutoLoadMore = true;
-    private boolean isLoadError = false;
-
-    private boolean mDataEmpty = true;
-    private boolean mHasMore = false;
-
-    private LoadMoreView mLoadMoreView;
-    private LoadMoreListener mLoadMoreListener;
-
     @Override
     public void onScrollStateChanged(int state) {
         this.mScrollState = state;
@@ -785,6 +713,11 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         }
     }
 
+    @IntDef({LEFT_DIRECTION, RIGHT_DIRECTION})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface DirectionMode {
+    }
+
     public interface LoadMoreView {
 
         /**
@@ -814,6 +747,62 @@ public class SwipeMenuRecyclerView extends RecyclerView {
          * More data should be requested.
          */
         void onLoadMore();
+    }
+
+    private static class ItemClick implements SwipeItemClickListener {
+
+        private SwipeMenuRecyclerView mRecyclerView;
+        private SwipeItemClickListener mCallback;
+
+        public ItemClick(SwipeMenuRecyclerView recyclerView, SwipeItemClickListener callback) {
+            this.mRecyclerView = recyclerView;
+            this.mCallback = callback;
+        }
+
+        @Override
+        public void onItemClick(View itemView, int position) {
+            position = position - mRecyclerView.getHeaderItemCount();
+            if (position >= 0)
+                mCallback.onItemClick(itemView, position);
+        }
+    }
+
+    private static class ItemLongClick implements SwipeItemLongClickListener {
+        private SwipeMenuRecyclerView mRecyclerView;
+        private SwipeItemLongClickListener mCallback;
+
+        public ItemLongClick(SwipeMenuRecyclerView recyclerView, SwipeItemLongClickListener callback) {
+            this.mRecyclerView = recyclerView;
+            this.mCallback = callback;
+        }
+
+        @Override
+        public void onItemLongClick(View itemView, int position) {
+            position = position - mRecyclerView.getHeaderItemCount();
+            if (position >= 0)
+                mCallback.onItemLongClick(itemView, position);
+        }
+    }
+
+    private static class MenuItemClick implements SwipeMenuItemClickListener {
+
+        private SwipeMenuRecyclerView mRecyclerView;
+        private SwipeMenuItemClickListener mCallback;
+
+        public MenuItemClick(SwipeMenuRecyclerView recyclerView, SwipeMenuItemClickListener callback) {
+            this.mRecyclerView = recyclerView;
+            this.mCallback = callback;
+        }
+
+        @Override
+        public void onItemClick(SwipeMenuBridge menuBridge) {
+            int position = menuBridge.getAdapterPosition();
+            position = position - mRecyclerView.getHeaderItemCount();
+            if (position >= 0) {
+                menuBridge.mAdapterPosition = position;
+                mCallback.onItemClick(menuBridge);
+            }
+        }
     }
 
 }

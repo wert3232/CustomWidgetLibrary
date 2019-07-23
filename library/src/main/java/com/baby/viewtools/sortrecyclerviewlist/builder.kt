@@ -120,7 +120,7 @@ data class SortModel(val id: Int, var name: String, var letters: String, var bun
             return sortList
         }
 
-        fun filledData(id: Int, name: String, bundle: Bundle? = null) : SortModel {
+        fun filledData(id: Int, name: String, bundle: Bundle? = null): SortModel {
             //汉字转换成拼音
             val sortString = name.toPingYin().substring(0, 1).toUpperCase()
             // 正则表达式，判断首字母是否是英文字母
@@ -129,7 +129,7 @@ data class SortModel(val id: Int, var name: String, var letters: String, var bun
             } else {
                 "#"
             }
-            return SortModel(id, name,letters, bundle)
+            return SortModel(id, name, letters, bundle)
         }
 
     }

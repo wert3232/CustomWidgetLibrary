@@ -11,15 +11,17 @@ import android.view.MotionEvent
 import android.view.View
 import com.baby.viewtools.ConfirmDialog
 
-fun MotionEvent.isTouchIn(rect: Rect,offsetX: Int = 0,offsetY: Int = 0) : Boolean{
+fun MotionEvent.isTouchIn(rect: Rect, offsetX: Int = 0, offsetY: Int = 0): Boolean {
     val x = x + offsetX
     val y = y + offsetY
-    return x in rect.left .. rect.right && y in rect.top .. rect.bottom
+    return x in rect.left..rect.right && y in rect.top..rect.bottom
 }
-fun MotionEvent.isTouchInX(rect: Rect,offsetX: Int = 0,spreadTouchRange: Int = 0) : Boolean{
+
+fun MotionEvent.isTouchInX(rect: Rect, offsetX: Int = 0, spreadTouchRange: Int = 0): Boolean {
     val x = x + offsetX
-    return x in (rect.left - spreadTouchRange) .. (rect.right + spreadTouchRange)
+    return x in (rect.left - spreadTouchRange)..(rect.right + spreadTouchRange)
 }
+
 fun Drawable.toBitmap(
         width: Int = intrinsicWidth,
         height: Int = intrinsicHeight,
@@ -39,7 +41,7 @@ fun Drawable.toBitmap(
     val oldLeft = bounds.left
     val oldTop = bounds.top
     val oldRight = bounds.right
-    val oldBottom =bounds.bottom
+    val oldBottom = bounds.bottom
 
     val bitmap = Bitmap.createBitmap(width, height, config ?: Bitmap.Config.ARGB_8888)
     setBounds(0, 0, width, height)
@@ -50,7 +52,7 @@ fun Drawable.toBitmap(
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun View.setCompatElevation(elevation : Float){
+inline fun View.setCompatElevation(elevation: Float) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         this.elevation = elevation
     }

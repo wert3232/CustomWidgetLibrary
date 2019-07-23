@@ -17,6 +17,22 @@ final class PopupCompatManager {
 
     private static final PopupWindowImpl IMPL;
 
+    static {
+        int buildVersion = Build.VERSION.SDK_INT;
+        /*if (buildVersion == 24) {
+            IMPL = new Impl24();
+        } else if (buildVersion > 24) {
+            IMPL = new ImplOver24();
+        } else {
+            IMPL = new ImplBefore24();
+        }*/
+        if (buildVersion > 24) {
+            IMPL = new ImplOver24();
+        } else {
+            IMPL = new Impl24();
+        }
+    }
+
     public static void showAsDropDown(BasePopupWindowProxy popupWindow, View anchor, int xoff, int yoff, int gravity) {
         if (IMPL != null) {
             IMPL.showAsDropDown(popupWindow, anchor, xoff, yoff, gravity);
@@ -29,23 +45,11 @@ final class PopupCompatManager {
         }
     }
 
-
     //-----------------------------------------compat-----------------------------------------
     interface PopupWindowImpl {
         void showAsDropDown(BasePopupWindowProxy popupWindow, View anchor, int xoff, int yoff, int gravity);
 
         void showAtLocation(BasePopupWindowProxy popupWindow, View parent, int gravity, int x, int y);
-    }
-
-    static {
-        int buildVersion = Build.VERSION.SDK_INT;
-        if (buildVersion == 24) {
-            IMPL = new Impl24();
-        } else if (buildVersion > 24) {
-            IMPL = new ImplOver24();
-        } else {
-            IMPL = new ImplBefore24();
-        }
     }
 
     //base impl
