@@ -205,15 +205,20 @@ public class VerticalSeekBar extends AppCompatSeekBar {
 
             case MotionEvent.ACTION_UP:
                 if (mIsDragging) {
-                    trackTouchEvent(event);
+                    if(!onlyTouchThumbCanSlide){
+                        trackTouchEvent(event);
+                    }
                     onStopTrackingTouch();
                     setPressed(false);
                 } else {
                     // Touch up when we never crossed the touch slop threshold
                     // should
                     // be interpreted as a tap-seek to that location.
+
                     onStartTrackingTouch();
-                    trackTouchEvent(event);
+                    if(!onlyTouchThumbCanSlide){
+                        trackTouchEvent(event);
+                    }
                     onStopTrackingTouch();
                     attemptClaimDrag(false);
                 }

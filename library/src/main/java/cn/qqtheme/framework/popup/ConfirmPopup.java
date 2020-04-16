@@ -406,7 +406,7 @@ public abstract class ConfirmPopup<V extends View> extends BasicPopup<View> {
     }
 
     @NonNull
-    protected abstract V makeCenterView();
+    protected abstract View makeCenterView();
 
     @Nullable
     protected View makeFooterView() {

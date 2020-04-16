@@ -31,7 +31,7 @@ dependencies {
     implementation deps.support.appcompatV7
     implementation deps.support.supportV4
     implementation deps.view.constraintLayout
-    implementation deps.pinyin4j
+    implementation 'com.belerweb:pinyin4j:2.5.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

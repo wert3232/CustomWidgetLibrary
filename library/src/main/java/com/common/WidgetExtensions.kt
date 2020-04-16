@@ -5,8 +5,10 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import com.baby.viewtools.ConfirmDialog
 
 fun MotionEvent.isTouchIn(rect: Rect,offsetX: Int = 0,offsetY: Int = 0) : Boolean{
@@ -45,4 +47,11 @@ fun Drawable.toBitmap(
 
     setBounds(oldLeft, oldTop, oldRight, oldBottom)
     return bitmap
+}
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun View.setCompatElevation(elevation : Float){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        this.elevation = elevation
+    }
 }

@@ -106,6 +106,7 @@
         <attr name="experiment" format="boolean"/>
         <attr name="appBackgroundColor" format="color|reference"/>
         <attr name="appChooseTextColor" format="color|reference"/>
+        <attr name="appPlateColor" format="color|reference"/>
         <attr name="appHintTextSize" format="dimension"/>
         <attr name="appRadius" format="dimension"/>
         <attr name="appCircleRadius" format="dimension"/>

@@ -12,9 +12,20 @@ import android.widget.Toast
 
 import com.library.R
 
-class SortAdapter(private val context: Context, private var mData: List<SortModel>) : RecyclerView.Adapter<SortAdapter.ViewHolder>() {
+open class SortAdapter(private val context: Context, private var mData: List<SortModel>) : RecyclerView.Adapter<SortAdapter.ViewHolder>() {
     @LayoutRes
     var itemResLayout = R.layout.item_name
+    var selectPosition = -1
+        set(value) {
+            val old = field
+            field = value
+            if(old != -1){
+                notifyItemChanged(old)
+            }
+        }
+    private var onBindListener = { holder: ViewHolder, position: Int ->
+
+    }
     private var mOnItemClickListener = { view: View, position: Int, mode: SortModel ->
         Toast.makeText(context,"id:${mode.id} name:${mData[position].name}", Toast.LENGTH_SHORT).show()
     }
@@ -31,6 +42,7 @@ class SortAdapter(private val context: Context, private var mData: List<SortMode
             mOnItemClickListener.invoke(holder.itemView, position, getItem(position))
         }
         holder.tvName!!.text = this.mData[position].name
+        onBindListener.invoke(holder,position)
     }
 
     override fun getItemCount(): Int {
@@ -40,6 +52,9 @@ class SortAdapter(private val context: Context, private var mData: List<SortMode
     //**********************itemClick************************
     fun setOnItemClickListener(onItemClickListener: (view: View, position: Int, mode: SortModel) -> Unit) {
         this.mOnItemClickListener = onItemClickListener
+    }
+    fun setOnBindListener(onSelect: (holder: ViewHolder, position: Int) -> Unit){
+        this.onBindListener = onSelect
     }
     //**************************************************************
 

@@ -45,7 +45,7 @@ dependencies {
     implementation deps.rx.rxKotlin
 
     //
-    implementation deps.pinyin4j
+    implementation 'com.belerweb:pinyin4j:2.5.1'
     implementation 'com.yanzhenjie:loading:1.0.2'
 }
 repositories {
