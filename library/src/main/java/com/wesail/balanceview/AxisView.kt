@@ -39,7 +39,7 @@ open class AxisView @JvmOverloads constructor(context: Context, attrs: Attribute
         axisY = a.getInt(R.styleable.axisView_axisY, 0)
         poiSizePrecent = a.getFloat(R.styleable.axisView_poiSizePrecent, 0.2f)
         point = a.getDrawable(R.styleable.axisView_pointDrawable)
-                ?: ContextCompat.getDrawable(context, R.drawable.sound_point)
+            ?: ContextCompat.getDrawable(context, R.drawable.sound_point)
         a.recycle()
     }
 

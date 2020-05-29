@@ -11,7 +11,8 @@ import android.view.View
 import android.widget.TextView
 import com.library.R
 
-open class RadioText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {
+open class RadioText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    AppCompatTextView(context, attrs, defStyleAttr) {
     var inverseBindingListener: InverseBindingListener? = null
     var viewIndex = -2
     var selectIndex = -1

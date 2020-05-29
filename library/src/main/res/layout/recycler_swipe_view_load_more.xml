@@ -13,20 +13,23 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <com.yanzhenjie.loading.LoadingView
-        android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:id="@+id/tv_load_more_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:textColor="@android:color/darker_gray"
-        android:visibility="gone" />
+            android:id="@+id/tv_load_more_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/darker_gray"
+            android:visibility="gone"
+            />
+
+    <com.yanzhenjie.loading.LoadingView
+            android:id="@+id/loading_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
 
 </merge>

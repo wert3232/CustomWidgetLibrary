@@ -12,7 +12,8 @@ import android.widget.Toast
 
 import com.library.R
 
-open class SortAdapter(private val context: Context, private var mData: List<SortModel>) : androidx.recyclerview.widget.RecyclerView.Adapter<SortAdapter.ViewHolder>() {
+open class SortAdapter(private val context: Context, private var mData: List<SortModel>) :
+    androidx.recyclerview.widget.RecyclerView.Adapter<SortAdapter.ViewHolder>() {
     @LayoutRes
     var itemResLayout = R.layout.item_name
     var selectPosition = -1

@@ -231,9 +231,17 @@ class VerticalSeekBar : AppCompatSeekBar {
                     simulateDownX = rect.centerX() - offsetX
                     realDownX = x
                     //                    _event = MotionEvent.obtain(downTime,eventTime,event.getAction(),x,y,event.getMetaState());
-                    _event = MotionEvent.obtain(downTime, eventTime, event.action, simulateDownX.toFloat(), y, event.metaState)
+                    _event = MotionEvent.obtain(
+                        downTime,
+                        eventTime,
+                        event.action,
+                        simulateDownX.toFloat(),
+                        y,
+                        event.metaState
+                    )
                 } else if (event.action == MotionEvent.ACTION_MOVE || event.action == MotionEvent.ACTION_UP
-                        || event.action == MotionEvent.ACTION_CANCEL) {
+                    || event.action == MotionEvent.ACTION_CANCEL
+                ) {
                     val moveX = simulateDownX + (x - realDownX)
                     _event = MotionEvent.obtain(downTime, eventTime, event.action, moveX, y, event.metaState)
                 }
@@ -420,7 +428,11 @@ class VerticalSeekBar : AppCompatSeekBar {
         if (mMethodSetProgressFromUser == null) {
             try {
                 val m: Method
-                m = ProgressBar::class.java.getDeclaredMethod("setProgress", Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType)
+                m = ProgressBar::class.java.getDeclaredMethod(
+                    "setProgress",
+                    Int::class.javaPrimitiveType,
+                    Boolean::class.javaPrimitiveType
+                )
                 m.isAccessible = true
                 mMethodSetProgressFromUser = m
             } catch (e: NoSuchMethodException) {

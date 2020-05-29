@@ -165,12 +165,13 @@ class HorizontalWheelView(context: Context, attrs: AttributeSet) : View(context,
         touchHandler.setChangeListener(listener)
     }
 
-    fun setChangeListener(onRotationChanged: (radians: Double, index: Int) -> Unit,
-                          onScrollStateChanged: (state: Int) -> Unit = {},
-                          onTouch: () -> Unit = {}
+    fun setChangeListener(
+        onRotationChanged: (radians: Double, index: Int) -> Unit,
+        onScrollStateChanged: (state: Int) -> Unit = {},
+        onTouch: () -> Unit = {}
     ) {
         setChangeListener(
-                object : onChangeListener {
+            object : onChangeListener {
                     override fun onRotationChanged(radians: Double, index: Int) {
                         onRotationChanged(radians, index)
                     }

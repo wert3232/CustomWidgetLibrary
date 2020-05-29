@@ -11,7 +11,8 @@ import com.common.getFirstSpell
 import com.common.toPingYin
 import java.util.*
 
-class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : androidx.recyclerview.widget.RecyclerView(context, attrs, defStyleAttr) {
+class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+    androidx.recyclerview.widget.RecyclerView(context, attrs, defStyleAttr) {
     inner class Builder {
         lateinit var dataList: List<SortModel>
         var titleClosure: TitleItemDecoration.Params.() -> Unit = {}
@@ -57,7 +58,12 @@ class SortRecyclerViewList(context: Context, attrs: AttributeSet?, defStyleAttr:
         layoutManager = manager
         //如果add两个，那么按照先后顺序，依次渲染。
         addItemDecoration(TitleItemDecoration(context, sortList, builder.titleClosure))
-        addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(context, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL))
+        addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                context,
+                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+            )
+        )
         return this
     }
 

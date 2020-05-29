@@ -6,18 +6,18 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size" />
-                    <solid android:color="@android:color/transparent" />
+                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size"/>
+                    <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_shadow_inset_bottom" android:gravity="center" android:left="@dimen/ksw_md_thumb_shadow_inset" android:right="@dimen/ksw_md_thumb_shadow_inset" android:top="@dimen/ksw_md_thumb_shadow_inset_top">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_shadow" />
+                    <solid android:color="@color/ksw_md_solid_shadow"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_solid_inset" android:gravity="center" android:left="@dimen/ksw_md_thumb_solid_inset" android:right="@dimen/ksw_md_thumb_solid_inset" android:top="@dimen/ksw_md_thumb_solid_inset">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_checked_disable" />
+                    <solid android:color="@color/ksw_md_solid_checked_disable"/>
                 </shape>
             </item>
         </layer-list>
@@ -28,18 +28,18 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size" />
-                    <solid android:color="@android:color/transparent" />
+                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size"/>
+                    <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_shadow_inset_bottom" android:gravity="center" android:left="@dimen/ksw_md_thumb_shadow_inset" android:right="@dimen/ksw_md_thumb_shadow_inset" android:top="@dimen/ksw_md_thumb_shadow_inset_top">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_shadow" />
+                    <solid android:color="@color/ksw_md_solid_shadow"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_solid_inset" android:gravity="center" android:left="@dimen/ksw_md_thumb_solid_inset" android:right="@dimen/ksw_md_thumb_solid_inset" android:top="@dimen/ksw_md_thumb_solid_inset">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_disable" />
+                    <solid android:color="@color/ksw_md_solid_disable"/>
                 </shape>
             </item>
         </layer-list>
@@ -50,18 +50,18 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size" />
-                    <solid android:color="@color/ksw_md_ripple_checked" />
+                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size"/>
+                    <solid android:color="@color/ksw_md_ripple_checked"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_shadow_inset_bottom" android:gravity="center" android:left="@dimen/ksw_md_thumb_shadow_inset" android:right="@dimen/ksw_md_thumb_shadow_inset" android:top="@dimen/ksw_md_thumb_shadow_inset_top">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_shadow" />
+                    <solid android:color="@color/ksw_md_solid_shadow"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_solid_inset" android:gravity="center" android:left="@dimen/ksw_md_thumb_solid_inset" android:right="@dimen/ksw_md_thumb_solid_inset" android:top="@dimen/ksw_md_thumb_solid_inset">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_checked" />
+                    <solid android:color="@color/ksw_md_solid_checked"/>
                 </shape>
             </item>
         </layer-list>
@@ -72,18 +72,18 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size" />
-                    <solid android:color="@color/ksw_md_ripple_normal" />
+                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size"/>
+                    <solid android:color="@color/ksw_md_ripple_normal"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_shadow_inset_bottom" android:gravity="center" android:left="@dimen/ksw_md_thumb_shadow_inset" android:right="@dimen/ksw_md_thumb_shadow_inset" android:top="@dimen/ksw_md_thumb_shadow_inset_top">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_shadow" />
+                    <solid android:color="@color/ksw_md_solid_shadow"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_solid_inset" android:gravity="center" android:left="@dimen/ksw_md_thumb_solid_inset" android:right="@dimen/ksw_md_thumb_solid_inset" android:top="@dimen/ksw_md_thumb_solid_inset">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_normal" />
+                    <solid android:color="@color/ksw_md_solid_normal"/>
                 </shape>
             </item>
         </layer-list>
@@ -94,18 +94,18 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size" />
-                    <solid android:color="@android:color/transparent" />
+                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size"/>
+                    <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_shadow_inset_bottom" android:gravity="center" android:left="@dimen/ksw_md_thumb_shadow_inset" android:right="@dimen/ksw_md_thumb_shadow_inset" android:top="@dimen/ksw_md_thumb_shadow_inset_top">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_shadow" />
+                    <solid android:color="@color/ksw_md_solid_shadow"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_solid_inset" android:gravity="center" android:left="@dimen/ksw_md_thumb_solid_inset" android:right="@dimen/ksw_md_thumb_solid_inset" android:top="@dimen/ksw_md_thumb_solid_inset">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_checked" />
+                    <solid android:color="@color/ksw_md_solid_checked"/>
                 </shape>
             </item>
         </layer-list>
@@ -116,18 +116,18 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size" />
-                    <solid android:color="@android:color/transparent" />
+                    <size android:width="@dimen/ksw_md_thumb_ripple_size" android:height="@dimen/ksw_md_thumb_ripple_size"/>
+                    <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_shadow_inset_bottom" android:gravity="center" android:left="@dimen/ksw_md_thumb_shadow_inset" android:right="@dimen/ksw_md_thumb_shadow_inset" android:top="@dimen/ksw_md_thumb_shadow_inset_top">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_shadow" />
+                    <solid android:color="@color/ksw_md_solid_shadow"/>
                 </shape>
             </item>
             <item android:bottom="@dimen/ksw_md_thumb_solid_inset" android:gravity="center" android:left="@dimen/ksw_md_thumb_solid_inset" android:right="@dimen/ksw_md_thumb_solid_inset" android:top="@dimen/ksw_md_thumb_solid_inset">
                 <shape android:shape="oval">
-                    <solid android:color="@color/ksw_md_solid_normal" />
+                    <solid android:color="@color/ksw_md_solid_normal"/>
                 </shape>
             </item>
         </layer-list>

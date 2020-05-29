@@ -14,7 +14,11 @@ import android.view.View
  * 有分类title的 ItemDecoration
  */
 
-class TitleItemDecoration(context: Context, private val mData: List<SortModel>, private var paramsBlock: Params.() -> Unit) : RecyclerView.ItemDecoration() {
+class TitleItemDecoration(
+    context: Context,
+    private val mData: List<SortModel>,
+    private var paramsBlock: Params.() -> Unit
+) : RecyclerView.ItemDecoration() {
     inner class Params {
         var titleHeight = 30f
         var titleTextSize = 16f
@@ -81,7 +85,8 @@ class TitleItemDecoration(context: Context, private val mData: List<SortModel>, 
     }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        val position = (parent.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
+        val position =
+            (parent.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
         if (position == -1) return //在搜索到没有的索引的时候position可能等于-1，所以在这里判断一下
         val lettersTag = mData[position].letters
         val child = parent.findViewHolderForLayoutPosition(position)?.itemView ?: return

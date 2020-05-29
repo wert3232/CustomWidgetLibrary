@@ -14,12 +14,13 @@ import com.library.R
 import kotlin.math.*
 
 
-open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr), GestureDetector.OnGestureListener {
+open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    View(context, attrs, defStyleAttr), GestureDetector.OnGestureListener {
     private val a = context.obtainStyledAttributes(attrs, R.styleable.Knob)
     private var backDrawable: Drawable = a.getDrawable(R.styleable.Knob_knob_back_circle_drawable)
-            ?: ContextCompat.getDrawable(context, R.drawable.knob_back)!!
+        ?: ContextCompat.getDrawable(context, R.drawable.knob_back)!!
     private var mainDrawable: Drawable = a.getDrawable(R.styleable.Knob_knob_main_circle_drawable)
-            ?: ContextCompat.getDrawable(context, R.drawable.knob_controller)!!
+        ?: ContextCompat.getDrawable(context, R.drawable.knob_controller)!!
     private var mainCircleRadius: Float = a.getFloat(R.styleable.Knob_knob_main_circle_radius, 0.85f)
     private var backgroundCircleRadius: Float = a.getFloat(R.styleable.Knob_knob_back_circle_radius, 1f)
     private val progressPrimaryStrokeWidth = a.getFloat(R.styleable.Knob_knob_progress_primary_stroke_width, 0.05f)
@@ -285,9 +286,11 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
     override fun onLongPress(e: MotionEvent) {}
 
-    fun addKnobChangeListener(onStartTracking: (Knob.() -> Unit)? = null,
-                              onStopTracking: (Knob.() -> Unit)? = null,
-                              onIndexChange: (Knob.(index: Int) -> Unit)? = null) {
+    fun addKnobChangeListener(
+        onStartTracking: (Knob.() -> Unit)? = null,
+        onStopTracking: (Knob.() -> Unit)? = null,
+        onIndexChange: (Knob.(index: Int) -> Unit)? = null
+    ) {
         if (onStartTracking != null) {
             onStartTrackingListeners.add(onStartTracking)
         }
@@ -299,9 +302,11 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         }
     }
 
-    fun removeKnobChangeListener(onStartTracking: (Knob.() -> Unit)? = null,
-                                 onStopTracking: (Knob.() -> Unit)? = null,
-                                 onIndexChange: (Knob.(index: Int) -> Unit)? = null) {
+    fun removeKnobChangeListener(
+        onStartTracking: (Knob.() -> Unit)? = null,
+        onStopTracking: (Knob.() -> Unit)? = null,
+        onIndexChange: (Knob.(index: Int) -> Unit)? = null
+    ) {
         if (onStartTracking != null) {
             onStartTrackingListeners.remove(onStartTracking)
         }
