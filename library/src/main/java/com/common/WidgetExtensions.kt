@@ -1,5 +1,6 @@
 package com.common
 
+
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -10,6 +11,8 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.baby.viewtools.ConfirmDialog
+
+
 
 fun MotionEvent.isTouchIn(rect: Rect,offsetX: Int = 0,offsetY: Int = 0) : Boolean{
     val x = x + offsetX
@@ -23,7 +26,7 @@ fun MotionEvent.isTouchInX(rect: Rect,offsetX: Int = 0,spreadTouchRange: Int = 0
 fun Drawable.toBitmap(
         width: Int = intrinsicWidth,
         height: Int = intrinsicHeight,
-        config: android.graphics.Bitmap.Config? = null
+        config: android.graphics.Bitmap.Config?
 ): Bitmap {
     if (this is BitmapDrawable) {
         if (config == null || bitmap.config == config) {

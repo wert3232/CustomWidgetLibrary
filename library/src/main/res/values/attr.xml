@@ -2,7 +2,7 @@
 <resources  xmlns:tools="http://schemas.android.com/tools">
     <declare-styleable name="eqBezierChart">
         <attr name="eqPointNum" format="integer"/>
-        <attr name="frequencies"/>
+        <attr name="frequencies" format="reference"/>
     </declare-styleable>
     <declare-styleable name="axisView">
         <attr name="axisLength" format="integer"/>
@@ -68,8 +68,8 @@
         <attr name="back_circle_radius" format="float" />
         <attr name="progress_radius" format="float" />
         <attr name="anticlockwise" format="boolean" />
-        <attr name="sweep_gradient_positions"/>
-        <attr name="sweep_gradient_colors"/>
+        <attr name="sweep_gradient_positions" format="reference"/>
+        <attr name="sweep_gradient_colors" format="reference"/>
     </declare-styleable>
     <declare-styleable name="selectTextView">
         <attr name="selected" format="boolean" />
@@ -119,7 +119,7 @@
         <attr name="backgroundSelector" format="reference|color"/>
         <attr name="textTint" format="color"/>
         <attr name="selectedIndex" format="integer"/>
-        <attr name="entries" />
+        <attr name="entries" format="reference"/>
     </declare-styleable>
     <declare-styleable name="SwitchButton" tools:ignore="ResourceName">
         <attr name="kswThumbDrawable" format="reference"/>

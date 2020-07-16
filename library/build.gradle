@@ -16,8 +16,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
     /*tasks.withType(JavaCompile) {
         options.compilerArgs << "-Xlint:deprecation"
@@ -31,7 +31,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation deps.kotlin.jdk
-    implementation deps.kotlin.ktx
+    //implementation deps.kotlin.ktx
     implementation deps.kotlin.coroutines
 
     implementation deps.support.recyclerView

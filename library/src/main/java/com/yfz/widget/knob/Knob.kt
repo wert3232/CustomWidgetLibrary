@@ -8,7 +8,7 @@ import android.support.v7.widget.DrawableUtils
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import androidx.core.graphics.drawable.toBitmap
+import com.common.toBitmap
 import com.library.R
 open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     private val a = context.obtainStyledAttributes(attrs, R.styleable.Croller)
@@ -42,8 +42,8 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     }
     private var linePaint = Paint().apply {
         isAntiAlias = true
-        color = a.getColor(R.styleable.Croller_indicator_color, Color.parseColor("#FFA036"));
-        strokeWidth = a.getFloat(R.styleable.Croller_indicator_width, 7f);
+        color = a.getColor(R.styleable.Croller_indicator_color, Color.parseColor("#FFA036"))
+        strokeWidth = a.getFloat(R.styleable.Croller_indicator_width, 7f)
     }
 
     private val SWEEP_GRADIENT_COLORS = intArrayOf(Color.YELLOW, Color.RED, Color.RED, Color.WHITE, Color.WHITE, Color.GREEN, Color.GREEN, Color.YELLOW, Color.YELLOW)
@@ -78,7 +78,7 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        midx =  measuredWidth.toFloat();
+        midx =  measuredWidth.toFloat()
         midy =  measuredHeight.toFloat()
     }
 
@@ -86,8 +86,8 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         when(event.action){
             MotionEvent.ACTION_DOWN ->{
                 isPressed = true
-                val dx = event.getX() - midx
-                val dy = event.getY() - midy
+                val dx = event.x - midx
+                val dy = event.y - midy
                 downdeg = (Math.atan2(dy.toDouble(), dx.toDouble()) * 180 / Math.PI).toFloat()
                 downdeg -= 90f
                 if (downdeg < 0) {
@@ -103,8 +103,8 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             }
             MotionEvent.ACTION_UP ->{
                 isPressed = true
-                val dx = event.getX() - midx
-                val dy = event.getY() - midy
+                val dx = event.x - midx
+                val dy = event.y - midy
                 currdeg = (Math.atan2(dy.toDouble(), dx.toDouble()) * 180 / Math.PI).toFloat()
                 currdeg -= 90f
                 if (currdeg < 0) {
