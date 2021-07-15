@@ -167,10 +167,6 @@ class VerticalSeekBar : AppCompatSeekBar {
         super.setThumb(thumb)
     }
 
-    interface DownCallBack {
-        fun onDown(view: View)
-    }
-
     fun setDownCallBack(callBack: DownCallBack) {
         this.callBack = callBack
     }
@@ -518,4 +514,7 @@ class VerticalSeekBar : AppCompatSeekBar {
             return angle == ROTATION_ANGLE_CW_90 || angle == ROTATION_ANGLE_CW_270
         }
     }
+}
+interface DownCallBack {
+    fun onDown(view: View)
 }

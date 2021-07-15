@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000">
+        android:background="#2B27E6">
 
        <!-- <com.yfz.widget.knob.Croller
             android:layout_width="300dp"
@@ -32,16 +32,20 @@
         <com.yfz.widget.knob.Knob
             android:id="@+id/knob"
             android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:knob_progress_primary_stroke_width="0.1"
-            app:knob_progress_secondary_stroke_width="0.1"
+            app:knob_back_circle_radius="0.0"
+            app:knob_is_progress_drawable="true"
             app:knob_index="@={ui.index}"
+            app:knob_main_circle_radius="0.0"
+            app:knob_progress_primary_drawable="@drawable/test_round_2"
+            app:knob_progress_second_drawable="@drawable/test_round_3"
             app:knob_start_index="-10"
             app:knob_end_index="60"
+            tools:knob_index="10"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

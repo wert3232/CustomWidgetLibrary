@@ -21,6 +21,12 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         ?: ContextCompat.getDrawable(context, R.drawable.knob_back)!!
     private var mainDrawable: Drawable = a.getDrawable(R.styleable.Knob_knob_main_circle_drawable)
         ?: ContextCompat.getDrawable(context, R.drawable.knob_controller)!!
+    private var progressPrimaryDrawable: Drawable? = a.getDrawable(R.styleable.Knob_knob_progress_primary_drawable)?.apply {
+        //关闭硬件加速
+        setLayerType(View.LAYER_TYPE_SOFTWARE,null)
+    }
+    private var progressSecondDrawable: Drawable? = a.getDrawable(R.styleable.Knob_knob_progress_second_drawable)
+    private var isProgressDrawable: Boolean = a.getBoolean(R.styleable.Knob_knob_is_progress_drawable,false)
     private var mainCircleRadius: Float = a.getFloat(R.styleable.Knob_knob_main_circle_radius, 0.85f)
     private var backgroundCircleRadius: Float = a.getFloat(R.styleable.Knob_knob_back_circle_radius, 1f)
     private val progressPrimaryStrokeWidth = a.getFloat(R.styleable.Knob_knob_progress_primary_stroke_width, 0.05f)
@@ -41,6 +47,14 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         strokeCap = Paint.Cap.ROUND
         strokeJoin = Paint.Join.ROUND
     }
+    private val drawablePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val clipPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        isAntiAlias = true
+        style = Paint.Style.FILL_AND_STROKE
+        strokeJoin = Paint.Join.ROUND
+    }
+    private val dstOut = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
+
     private val startIndex = a.getInt(R.styleable.Knob_knob_start_index, 0)
     private val endIndex = a.getInt(R.styleable.Knob_knob_end_index, 100)
 
@@ -180,35 +194,79 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         val minLength = min(width, height)
         val midX = width / 2
         val midY = height / 2
-        kotlin.run {
-            val saveCount = canvas.save()
-            canvas.translate(midX - minLength / 2, midY - minLength / 2)
-            backgroundMatrix.reset()
-            backgroundMatrix.preScale(backgroundCircleRadius, backgroundCircleRadius, minLength / 2, minLength / 2)
-            canvas.concat(backgroundMatrix)
-            backDrawable.setBounds(0, 0, minLength.toInt(), minLength.toInt())
-            backDrawable.draw(canvas)
-            canvas.restoreToCount(saveCount)
+        if (isProgressDrawable and (progressPrimaryDrawable != null)){
+            val progressPrimaryDrawable = progressPrimaryDrawable!!
+            if (progressSecondDrawable != null){
+                val saveCount = canvas.save()
+                canvas.translate(midX - minLength / 2, midY - minLength / 2)
+                progressSecondDrawable!!.setBounds(0, 0, minLength.toInt(), minLength.toInt())
+                progressSecondDrawable!!.draw(canvas)
+                clipPaint.xfermode = dstOut
+                matrix1.reset()
+                matrix1.preRotate(90 + startOffset.toFloat(), minLength / 2, minLength / 2)
+                canvas.concat(matrix1)
+                oval.set(0f, 0f,  minLength,  minLength)
+                canvas.drawArc(oval, 0f, sweepAngle.toFloat() * progressPercent, true, clipPaint)
+                canvas.restoreToCount(saveCount)
+            }
+
+            kotlin.run {
+                val saveCount = canvas.save()
+                canvas.translate(midX - minLength / 2, midY - minLength / 2)
+                backgroundMatrix.reset()
+                backgroundMatrix.preScale(backgroundCircleRadius, backgroundCircleRadius, minLength / 2, minLength / 2)
+                canvas.concat(backgroundMatrix)
+                backDrawable.setBounds(0, 0, minLength.toInt(), minLength.toInt())
+                backDrawable.draw(canvas)
+                canvas.restoreToCount(saveCount)
+            }
+
+            kotlin.run {
+                val saveCount = canvas.saveLayer(midX - minLength / 2 , midY - minLength / 2 , midX + minLength / 2 ,midY + minLength / 2, null)
+                canvas.translate(midX - minLength / 2, midY - minLength / 2)
+                progressPrimaryDrawable.setBounds(0, 0, minLength.toInt(), minLength.toInt())
+                progressPrimaryDrawable.draw(canvas)
+                clipPaint.xfermode = dstOut
+
+                matrix1.reset()
+                matrix1.preRotate(90 + startOffset.toFloat(), minLength / 2, minLength / 2)
+                canvas.concat(matrix1)
+                oval.set(0f, 0f,  minLength,  minLength)
+                canvas.drawArc(oval, sweepAngle.toFloat() * progressPercent, 360 - (sweepAngle.toFloat() * progressPercent), true, clipPaint)
+                canvas.restoreToCount(saveCount)
+            }
         }
-        kotlin.run {
-            val saveCount = canvas.save()
-            matrix1.reset()
-            matrix1.preRotate(90 + startOffset.toFloat(), midX, midY)
-            canvas.concat(matrix1)
-            val radius = if (progressRadius in 0f..1f) progressRadius * minLength else progressRadius
-            oval.set(midX - radius / 2, midY - radius / 2, midX + radius / 2, midY + radius / 2)
-            canvas.drawArc(oval, 0f, sweepAngle.toFloat(), false, progressSecondPaint)
-            canvas.restoreToCount(saveCount)
-        }
-        kotlin.run {
-            val saveCount = canvas.save()
-            matrix1.reset()
-            matrix1.preRotate(90 + startOffset.toFloat(), midX, midY)
-            canvas.concat(matrix1)
-            val radius = if (progressRadius in 0f..1f) progressRadius * minLength else progressRadius
-            oval.set(midX - radius / 2, midY - radius / 2, midX + radius / 2, midY + radius / 2)
-            canvas.drawArc(oval, 0f, sweepAngle.toFloat() * progressPercent, false, progressPrimaryPaint)
-            canvas.restoreToCount(saveCount)
+        else{
+            kotlin.run {
+                val saveCount = canvas.save()
+                canvas.translate(midX - minLength / 2, midY - minLength / 2)
+                backgroundMatrix.reset()
+                backgroundMatrix.preScale(backgroundCircleRadius, backgroundCircleRadius, minLength / 2, minLength / 2)
+                canvas.concat(backgroundMatrix)
+                backDrawable.setBounds(0, 0, minLength.toInt(), minLength.toInt())
+                backDrawable.draw(canvas)
+                canvas.restoreToCount(saveCount)
+            }
+            kotlin.run {
+                val saveCount = canvas.save()
+                matrix1.reset()
+                matrix1.preRotate(90 + startOffset.toFloat(), midX, midY)
+                canvas.concat(matrix1)
+                val radius = if (progressRadius in 0f..1f) progressRadius * minLength else progressRadius
+                oval.set(midX - radius / 2, midY - radius / 2, midX + radius / 2, midY + radius / 2)
+                canvas.drawArc(oval, 0f, sweepAngle.toFloat(), false, progressSecondPaint)
+                canvas.restoreToCount(saveCount)
+            }
+            kotlin.run {
+                val saveCount = canvas.save()
+                matrix1.reset()
+                matrix1.preRotate(90 + startOffset.toFloat(), midX, midY)
+                canvas.concat(matrix1)
+                val radius = if (progressRadius in 0f..1f) progressRadius * minLength else progressRadius
+                oval.set(midX - radius / 2, midY - radius / 2, midX + radius / 2, midY + radius / 2)
+                canvas.drawArc(oval, 0f, sweepAngle.toFloat() * progressPercent, false, progressPrimaryPaint)
+                canvas.restoreToCount(saveCount)
+            }
         }
         kotlin.run {
             val saveCount = canvas.save()

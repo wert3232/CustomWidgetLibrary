@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="warn" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
+  </component>
+  <component name="AvailableLibraryUpdateStorage">
+    <library-updates>
+      <library-update>
+        <group-id>io.reactivex.rxjava2</group-id>
+        <name>rxandroid</name>
+        <version>2.1.1</version>
+        <repository>Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.test.espresso</group-id>
+        <name>espresso-core</name>
+        <version>3.2.0</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>io.reactivex.rxjava2</group-id>
+        <name>rxjava</name>
+        <version>2.2.9</version>
+        <repository>Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.legacy</group-id>
+        <name>legacy-support-v4</name>
+        <version>1.0.0</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>org.jetbrains.kotlin</group-id>
+        <name>kotlin-stdlib-jdk7</name>
+        <version>1.3.31</version>
+        <repository>Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>org.jetbrains.kotlinx</group-id>
+        <name>kotlinx-coroutines-core</name>
+        <version>1.3.0-M1</version>
+        <repository>Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>io.reactivex.rxjava2</group-id>
+        <name>rxkotlin</name>
+        <version>2.3.0</version>
+        <repository>Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>org.jetbrains.kotlinx</group-id>
+        <name>kotlinx-coroutines-android</name>
+        <version>1.3.0-M1</version>
+        <repository>Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.belerweb</group-id>
+        <name>pinyin4j</name>
+        <version>2.5.1</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.test.espresso</group-id>
+        <name>espresso-contrib</name>
+        <version>3.2.0</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.test.espresso</group-id>
+        <name>espresso-intents</name>
+        <version>3.2.0</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.constraintlayout</group-id>
+        <name>constraintlayout</name>
+        <version>2.0.0-beta1</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>junit</group-id>
+        <name>junit</name>
+        <version>4.13-beta-3</version>
+        <repository>JCenter,Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.yanzhenjie</group-id>
+        <name>loading</name>
+        <version>1.0.2</version>
+        <repository>Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.appcompat</group-id>
+        <name>appcompat</name>
+        <version>1.1.0-alpha05</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>org.jetbrains.kotlin</group-id>
+        <name>kotlin-reflect</name>
+        <version>1.3.31</version>
+        <repository>JCenter,Maven Central</repository>
+      </library-update>
+      <library-update>
+        <group-id>org.jetbrains.kotlin</group-id>
+        <name>kotlin-stdlib-jdk8</name>
+        <version>1.3.31</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.test.ext</group-id>
+        <name>junit</name>
+        <version>1.1.1</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>androidx.fragment</group-id>
+        <name>fragment-ktx</name>
+        <version>1.1.0-alpha09</version>
+        <repository>Google</repository>
+      </library-update>
+    </library-updates>
+    <last-search-timestamp>1560010367294</last-search-timestamp>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f7352dc4-9c52-401c-81a2-85db24ef6cd3" name="Default" comment="1.23">
+      <change afterPath="$PROJECT_DIR$/sample/src/test/java/com/yfz/customwidgetlibrary/MyTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/library/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/cn/qqtheme/framework/picker/FilePicker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/cn/qqtheme/framework/picker/FilePicker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/baby/viewtools/spinner/NiceSpinner.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/baby/viewtools/spinner/NiceSpinner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/common/WidgetExtensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/common/WidgetExtensions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/h6ah4i/android/widget/verticalseekbar/VerticalSeekBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/h6ah4i/android/widget/verticalseekbar/VerticalSeekBar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/sample/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample/src/test/java/com/yfz/customwidgetlibrary/ExampleUnitTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/sample/src/test/java/com/yfz/customwidgetlibrary/ExampleUnitTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/viewbinding/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/viewbinding/build.gradle" afterDir="false" />
+    </list>
+    <list id="70e2dd8a-367b-48e8-9f39-27608ad01a15" name="Revert &quot;升级androidx&quot;" comment="Revert &quot;升级androidx&quot;&#10;&#10;This reverts commit 23c8897" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="New_Device_1_Edited_API_19" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/library">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CustomWidgetLibrary" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CustomWidgetLibrary" type="f1a62948:ProjectNode" />
+                <item name="CustomWidgetLibrary" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CustomWidgetLibrary" type="f1a62948:ProjectNode" />
+                <item name="CustomWidgetLibrary" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CustomWidgetLibrary" type="f1a62948:ProjectNode" />
+                <item name="CustomWidgetLibrary" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CustomWidgetLibrary" type="f1a62948:ProjectNode" />
+                <item name=":library" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CustomWidgetLibrary" type="f1a62948:ProjectNode" />
+                <item name=":library" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CustomWidgetLibrary" type="f1a62948:ProjectNode" />
+                <item name=":library" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile" />
+        <option value="Kotlin Class" />
+        <option value="resourceFile" />
+        <option value="Class" />
+        <option value="valueResourceFile" />
+        <option value="mvvmlayout" />
+        <option value="layoutResourceFile_vertical" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="ProjectId" id="1acCuAKXuFVl2noEtUPQigsfron" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DEBUGGABLE_DEVICE" value="huawei-frd_al00-WTK7N16C13010236" />
+    <property name="DEBUGGABLE_PROCESS" value="com.yfz.customwidgetlibrary" />
+    <property name="DEBUGGER_ID" value="Auto" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="android.sdk.path" value="F:/software/android/sdk" />
+    <property name="device.picker.selection" value="WTK7N16C13010236" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="not.eligible.for.single.variant.sync" value="true" />
+    <property name="project.structure.last.edited" value="Suggestions" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.make" />
+    <property name="show.do.not.ask.upgrade.gradle.plugin" value="3.2.0" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+    <property name="sync.plugin.last.upgrade.timestamp" value="1545012294578" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../DSP/build.gradle" />
+    <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$/../DSP/mylibrary/src/main" />
+  </component>
+  <component name="PsdUISettings">
+    <option name="BUILD_VARIANTS_TAB" value="Build Types" />
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.yfz.customwidgetlibrary" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.yfz.customwidgetlibrary" />
+      <recent name="com.baby.viewtools.SortRecyclerViewList" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\workspace\CustomWidgetLibrary\sample\src\main\res\layout" />
+      <recent name="G:\workspace\CustomWidgetLibrary\sample\src\main\res\drawable" />
+      <recent name="G:\workspace\CustomWidgetLibrary\library\src\main\res\drawable" />
+      <recent name="G:\workspace\CustomWidgetLibrary\sample\libs" />
+      <recent name="G:\workspace\CustomWidgetLibrary\sample\src\main\java" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android App.sample">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration name="ExampleUnitTest.closureTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sample" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yfz.customwidgetlibrary.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yfz.customwidgetlibrary" />
+      <option name="MAIN_CLASS_NAME" value="com.yfz.customwidgetlibrary.ExampleUnitTest" />
+      <option name="METHOD_NAME" value="closureTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="sample" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="sample" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CustomWidgetLibrary [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="CustomWidgetLibrary:library [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/library" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="MyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sample" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yfz.customwidgetlibrary.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yfz.customwidgetlibrary" />
+      <option name="MAIN_CLASS_NAME" value="com.yfz.customwidgetlibrary.MyTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyTest.box1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sample" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yfz.customwidgetlibrary.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yfz.customwidgetlibrary" />
+      <option name="MAIN_CLASS_NAME" value="com.yfz.customwidgetlibrary.MyTest" />
+      <option name="METHOD_NAME" value="box1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Android App.sample" />
+      <item itemvalue="Android JUnit.ExampleUnitTest.closureTest" />
+      <item itemvalue="Gradle.CustomWidgetLibrary:library [assemble]" />
+      <item itemvalue="Gradle.CustomWidgetLibrary [assemble]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.CustomWidgetLibrary [assemble]" />
+        <item itemvalue="Gradle.CustomWidgetLibrary:library [assemble]" />
+        <item itemvalue="Android JUnit.ExampleUnitTest.closureTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f7352dc4-9c52-401c-81a2-85db24ef6cd3" name="Default" comment="" />
+      <created>1542270102111</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1542270102111</updated>
+    </task>
+    <task id="LOCAL-00001" summary="修复AxisView">
+      <created>1542273048891</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1542273048891</updated>
+    </task>
+    <task id="LOCAL-00002" summary="修复AxisView">
+      <created>1542274327322</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1542274327322</updated>
+    </task>
+    <task id="LOCAL-00003" summary="升级androidx">
+      <created>1543822646979</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1543822646979</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Revert &quot;升级androidx&quot;&#10;&#10;This reverts commit 23c8897">
+      <created>1543825278322</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1543825278322</updated>
+    </task>
+    <task id="LOCAL-00005" summary="改seekbar">
+      <created>1543993611860</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1543993611860</updated>
+    </task>
+    <task id="LOCAL-00006" summary="完成了轮子:字母排序列表 Alpha 0.0.1">
+      <created>1544602419155</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1544602419155</updated>
+    </task>
+    <task id="LOCAL-00007" summary="main">
+      <created>1544679895887</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1544679895887</updated>
+    </task>
+    <task id="LOCAL-00008" summary="20181218">
+      <created>1545116564283</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1545116564283</updated>
+    </task>
+    <task id="LOCAL-00009" summary="2019/1/18">
+      <created>1547799352848</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1547799352848</updated>
+    </task>
+    <task id="LOCAL-00010" summary="2019/1/22">
+      <created>1548138178420</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1548138178421</updated>
+    </task>
+    <task id="LOCAL-00011" summary="3.21">
+      <created>1553156482001</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1553156482001</updated>
+    </task>
+    <task id="LOCAL-00012" summary="3.29">
+      <created>1553845289991</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1553845289991</updated>
+    </task>
+    <task id="LOCAL-00013" summary="androidx">
+      <created>1558250294318</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1558250294318</updated>
+    </task>
+    <task id="LOCAL-00014" summary="androidx">
+      <created>1558260773568</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1558260773568</updated>
+    </task>
+    <task id="LOCAL-00015" summary="androidx">
+      <created>1560576562582</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1560576562582</updated>
+    </task>
+    <task id="LOCAL-00016" summary="_">
+      <created>1560596883565</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1560596883565</updated>
+    </task>
+    <task id="LOCAL-00017" summary="_">
+      <created>1560596912949</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1560596912949</updated>
+    </task>
+    <task id="LOCAL-00018" summary="_">
+      <created>1560666090472</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1560666090472</updated>
+    </task>
+    <task id="LOCAL-00019" summary="_">
+      <created>1560699776999</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1560699776999</updated>
+    </task>
+    <task id="LOCAL-00020" summary="_">
+      <created>1563805057468</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1563805057468</updated>
+    </task>
+    <task id="LOCAL-00021" summary="_">
+      <created>1563867901732</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1563867901732</updated>
+    </task>
+    <task id="LOCAL-00022" summary="_">
+      <created>1587026558850</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1587026558850</updated>
+    </task>
+    <task id="LOCAL-00023" summary="_">
+      <created>1587026613658</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1587026613658</updated>
+    </task>
+    <task id="LOCAL-00024" summary="1_">
+      <created>1587026912885</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1587026912886</updated>
+    </task>
+    <task id="LOCAL-00025" summary="normal">
+      <created>1587030299416</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1587030299416</updated>
+    </task>
+    <task id="LOCAL-00026" summary="normal">
+      <created>1587031026016</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1587031026016</updated>
+    </task>
+    <task id="LOCAL-00027" summary="1.22">
+      <created>1590727681099</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1590727681099</updated>
+    </task>
+    <task id="LOCAL-00028" summary="1.23">
+      <created>1594873548851</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1594873548851</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="修复AxisView" />
+    <MESSAGE value="升级androidx" />
+    <MESSAGE value="Revert &quot;升级androidx&quot;&#10;&#10;This reverts commit 23c8897" />
+    <MESSAGE value="改seekbar" />
+    <MESSAGE value="完成了轮子:字母排序列表 Alpha 0.0.1" />
+    <MESSAGE value="main" />
+    <MESSAGE value="20181218" />
+    <MESSAGE value="2019/1/18" />
+    <MESSAGE value="2019/1/22" />
+    <MESSAGE value="3.21" />
+    <MESSAGE value="3.29" />
+    <MESSAGE value="androidx" />
+    <MESSAGE value="11111_" />
+    <MESSAGE value="222222222222" />
+    <MESSAGE value="1" />
+    <MESSAGE value="1" />
+    <MESSAGE value="normal" />
+    <MESSAGE value="1.22" />
+    <MESSAGE value="1.23" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.23" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="537" y="168" key="#MyTest.box1" timestamp="1597805780462">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="537" y="168" key="#MyTest.box1/0.0.1920.1040@0.0.1920.1040" timestamp="1597805780462" />
+    <state x="477" y="252" key="#PSD" timestamp="1594875356130">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="477" y="252" key="#PSD/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594875356130" />
+    <state x="211" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597806046715">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594872878305" />
+    <state x="211" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597806046715" />
+    <state x="470" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1594281396876">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="470" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594281396876" />
+    <state x="702" y="411" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1597758539239">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="702" y="411" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1597758539239" />
+    <state x="585" y="112" key="CommitChangelistDialog2" timestamp="1594873546007">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="585" y="112" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594873546007" />
+    <state x="76" y="112" width="1720" height="840" key="DiffContextDialog" timestamp="1594282258268">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="76" y="112" width="1720" height="840" key="DiffContextDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594282258268" />
+    <state x="694" y="281" key="EnvironmentVariablesDialog" timestamp="1594282076891">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="694" y="281" key="EnvironmentVariablesDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594282076891" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1590722901290">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590722901290" />
+    <state width="1419" height="485" key="GridCell.Tab.0.bottom" timestamp="1597807556772">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1419" height="485" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597807556772" />
+    <state width="1419" height="485" key="GridCell.Tab.0.center" timestamp="1597807556772">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1419" height="485" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597807556772" />
+    <state width="1419" height="485" key="GridCell.Tab.0.left" timestamp="1597807556772">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1419" height="485" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597807556772" />
+    <state width="1419" height="485" key="GridCell.Tab.0.right" timestamp="1597807556772">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1419" height="485" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597807556772" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1594875611347">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594875611347" />
+    <state x="552" y="241" key="Vcs.Push.Dialog.v2" timestamp="1590727687044">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="241" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590727687044" />
+    <state x="149" y="291" width="1097" height="532" key="find.popup" timestamp="1597758563503">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="404" y="508" width="1097" height="532" key="find.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594875312353" />
+    <state x="149" y="291" width="1097" height="532" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597758563503" />
+  </component>
+  <component name="gradleExecuteTaskHistory">
+    <option value="$PROJECT_DIR$/sample" />
+    <option value="-Xlint:deprecation" />
+  </component>
+</project>

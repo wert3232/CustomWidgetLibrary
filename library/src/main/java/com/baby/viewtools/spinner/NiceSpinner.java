@@ -78,7 +78,6 @@ public class NiceSpinner extends AppCompatTextView {
     private int displayHeight;
     private int parentVerticalOffset;
     private int dropDownListPaddingBottom;
-    private @DrawableRes
     int arrowDrawableResId;
     private SpinnerTextFormatter spinnerTextFormatter = new SimpleSpinnerTextFormatter();
     private SpinnerTextFormatter selectedTextFormatter = new SimpleSpinnerTextFormatter();
@@ -113,11 +112,7 @@ public class NiceSpinner extends AppCompatTextView {
 
     @BindingAdapter(value = {"selectedIndexAttrChanged"}, requireAll = false)
     public static void setProgressAttrChanged(NiceSpinner niceSpinner, InverseBindingListener inverseBindingListener) {
-        if (inverseBindingListener == null) {
-            niceSpinner.mInverseBindingListener = null;
-        } else {
-            niceSpinner.mInverseBindingListener = inverseBindingListener;
-        }
+        niceSpinner.mInverseBindingListener = inverseBindingListener;
     }
 
     @Override

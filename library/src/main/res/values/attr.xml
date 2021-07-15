@@ -77,6 +77,9 @@
         <attr name="knob_main_circle_color" format="color"/>
         <attr name="knob_back_circle_drawable" format="reference"/>
         <attr name="knob_main_circle_drawable" format="reference"/>
+        <attr name="knob_progress_primary_drawable" format="reference"/>
+        <attr name="knob_progress_second_drawable" format="reference"/>
+        <attr name="knob_is_progress_drawable" format="boolean"/>
         <attr name="knob_main_circle_drawable_revise_degree" format="integer"/>
         <attr name="knob_indicator_color" format="color"/>
         <attr name="knob_progress_primary_color" format="color"/>
