@@ -16,9 +16,11 @@
 package com.yanzhenjie.recyclerview.swipe;
 
 import android.content.Context;
+
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +38,11 @@ public class SwipeAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int BASE_ITEM_TYPE_HEADER = 100000;
     private static final int BASE_ITEM_TYPE_FOOTER = 200000;
 
-    private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
-    private SparseArrayCompat<View> mFootViews = new SparseArrayCompat<>();
+    private final SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
+    private final SparseArrayCompat<View> mFootViews = new SparseArrayCompat<>();
 
-    private RecyclerView.Adapter mAdapter;
-    private LayoutInflater mInflater;
+    private final RecyclerView.Adapter mAdapter;
+    private final LayoutInflater mInflater;
 
     private SwipeMenuCreator mSwipeMenuCreator;
     private SwipeMenuItemClickListener mSwipeMenuItemClickListener;
@@ -138,7 +140,7 @@ public class SwipeAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
 
         int leftMenuCount = swipeLeftMenu.getMenuItems().size();
         if (leftMenuCount > 0) {
-            SwipeMenuView swipeLeftMenuView = (SwipeMenuView) swipeMenuLayout.findViewById(R.id.swipe_left);
+            SwipeMenuView swipeLeftMenuView = swipeMenuLayout.findViewById(R.id.swipe_left);
             // noinspection WrongConstant
             swipeLeftMenuView.setOrientation(swipeLeftMenu.getOrientation());
             swipeLeftMenuView.createMenu(swipeLeftMenu, swipeMenuLayout, mSwipeMenuItemClickListener, SwipeMenuRecyclerView.LEFT_DIRECTION);
@@ -146,13 +148,13 @@ public class SwipeAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
 
         int rightMenuCount = swipeRightMenu.getMenuItems().size();
         if (rightMenuCount > 0) {
-            SwipeMenuView swipeRightMenuView = (SwipeMenuView) swipeMenuLayout.findViewById(R.id.swipe_right);
+            SwipeMenuView swipeRightMenuView = swipeMenuLayout.findViewById(R.id.swipe_right);
             // noinspection WrongConstant
             swipeRightMenuView.setOrientation(swipeRightMenu.getOrientation());
             swipeRightMenuView.createMenu(swipeRightMenu, swipeMenuLayout, mSwipeMenuItemClickListener, SwipeMenuRecyclerView.RIGHT_DIRECTION);
         }
 
-        ViewGroup viewGroup = (ViewGroup) swipeMenuLayout.findViewById(R.id.swipe_content);
+        ViewGroup viewGroup = swipeMenuLayout.findViewById(R.id.swipe_content);
         viewGroup.addView(viewHolder.itemView);
 
         try {
@@ -264,12 +266,6 @@ public class SwipeAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
         return mFootViews.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
     @Override
     public void setHasStableIds(boolean hasStableIds) {
         mAdapter.setHasStableIds(hasStableIds);
@@ -321,5 +317,11 @@ public class SwipeAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         mAdapter.onDetachedFromRecyclerView(recyclerView);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        public ViewHolder(View itemView) {
+            super(itemView);
+        }
     }
 }

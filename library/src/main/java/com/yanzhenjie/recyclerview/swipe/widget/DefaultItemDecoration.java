@@ -19,10 +19,12 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+
 import android.view.View;
 
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
@@ -35,10 +37,10 @@ import java.util.List;
  */
 public class DefaultItemDecoration extends RecyclerView.ItemDecoration {
 
-    private Drawable mDivider;
-    private int mDividerWidth;
-    private int mDividerHeight;
-    private List<Integer> mViewTypeList = new ArrayList<>();
+    private final Drawable mDivider;
+    private final int mDividerWidth;
+    private final int mDividerHeight;
+    private final List<Integer> mViewTypeList = new ArrayList<>();
 
     /**
      * @param color decoration line color.
@@ -168,7 +170,8 @@ public class DefaultItemDecoration extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             int childPosition = parent.getChildAdapterPosition(child);
             if (childPosition < 0) continue;
-            if (mViewTypeList.contains(parent.getAdapter().getItemViewType(childPosition))) continue;
+            if (mViewTypeList.contains(parent.getAdapter().getItemViewType(childPosition)))
+                continue;
             if (child instanceof SwipeMenuRecyclerView.LoadMoreView) continue;
             final int left = child.getLeft();
             final int top = child.getBottom();
@@ -187,7 +190,8 @@ public class DefaultItemDecoration extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             int childPosition = parent.getChildAdapterPosition(child);
             if (childPosition < 0) continue;
-            if (mViewTypeList.contains(parent.getAdapter().getItemViewType(childPosition))) continue;
+            if (mViewTypeList.contains(parent.getAdapter().getItemViewType(childPosition)))
+                continue;
             if (child instanceof SwipeMenuRecyclerView.LoadMoreView) continue;
             final int left = child.getRight();
             final int top = child.getTop();

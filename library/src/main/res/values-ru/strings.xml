@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="inversebindinglistener" translatable="false">inverseBindingListener</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
 

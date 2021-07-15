@@ -16,9 +16,9 @@ import java.util.*
  */
 fun String.toPingYin(): String {
     val format = HanyuPinyinOutputFormat().apply {
-        setCaseType(HanyuPinyinCaseType.LOWERCASE)
-        setToneType(HanyuPinyinToneType.WITHOUT_TONE)
-        setVCharType(HanyuPinyinVCharType.WITH_V)
+        caseType = HanyuPinyinCaseType.LOWERCASE
+        toneType = HanyuPinyinToneType.WITHOUT_TONE
+        vCharType = HanyuPinyinVCharType.WITH_V
     }
     val input = this.trim { it <= ' ' }.toCharArray()
     val output = StringBuilder()

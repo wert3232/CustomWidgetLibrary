@@ -32,12 +32,12 @@ public final class LogUtils {
         return isDebug;
     }
 
-    public static void setDebugTag(String debugTag) {
-        LogUtils.debugTag = debugTag;
-    }
-
     public static String getDebugTag() {
         return debugTag;
+    }
+
+    public static void setDebugTag(String debugTag) {
+        LogUtils.debugTag = debugTag;
     }
 
     /**

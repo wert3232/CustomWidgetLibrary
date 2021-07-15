@@ -35,7 +35,7 @@ import cn.qqtheme.framework.util.LogUtils;
 public class FileAdapter extends BaseAdapter {
     public static final String DIR_ROOT = ".";
     public static final String DIR_PARENT = "..";
-    private ArrayList<FileItem> data = new ArrayList<FileItem>();
+    private final ArrayList<FileItem> data = new ArrayList<FileItem>();
     private String rootPath = null;
     private String currentPath = null;
     private String[] allowExtensions = null;//允许的扩展名
@@ -80,6 +80,10 @@ public class FileAdapter extends BaseAdapter {
         this.allowExtensions = allowExtensions;
     }
 
+    public boolean isOnlyListDir() {
+        return onlyListDir;
+    }
+
     /**
      * 是否仅仅读取目录
      */
@@ -87,8 +91,8 @@ public class FileAdapter extends BaseAdapter {
         this.onlyListDir = onlyListDir;
     }
 
-    public boolean isOnlyListDir() {
-        return onlyListDir;
+    public boolean isShowHomeDir() {
+        return showHomeDir;
     }
 
     /**
@@ -98,8 +102,8 @@ public class FileAdapter extends BaseAdapter {
         this.showHomeDir = showHomeDir;
     }
 
-    public boolean isShowHomeDir() {
-        return showHomeDir;
+    public boolean isShowUpDir() {
+        return showUpDir;
     }
 
     /**
@@ -109,8 +113,8 @@ public class FileAdapter extends BaseAdapter {
         this.showUpDir = showUpDir;
     }
 
-    public boolean isShowUpDir() {
-        return showUpDir;
+    public boolean isShowHideDir() {
+        return showHideDir;
     }
 
     /**
@@ -118,10 +122,6 @@ public class FileAdapter extends BaseAdapter {
      */
     public void setShowHideDir(boolean showHideDir) {
         this.showHideDir = showHideDir;
-    }
-
-    public boolean isShowHideDir() {
-        return showHideDir;
     }
 
     public void setItemHeight(int itemHeight) {

@@ -25,11 +25,6 @@ public class DateUtils extends android.text.format.DateUtils {
     public static final int Hour = 2;
     public static final int Day = 3;
 
-    @IntDef(value = {Second, Minute, Hour, Day})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface DifferenceMode {
-    }
-
     public static long calculateDifferentSecond(Date startDate, Date endDate) {
         return calculateDifference(startDate, endDate, Second);
     }
@@ -225,6 +220,11 @@ public class DateUtils extends android.text.format.DateUtils {
      */
     public static String formatDate(String format) {
         return formatDate(Calendar.getInstance(Locale.CHINA).getTime(), format);
+    }
+
+    @IntDef(value = {Second, Minute, Hour, Day})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface DifferenceMode {
     }
 
 }

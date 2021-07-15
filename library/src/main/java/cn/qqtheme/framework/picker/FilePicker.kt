@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.os.Environment
 import android.support.annotation.IntDef
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
@@ -45,6 +46,7 @@ class FilePicker(activity: Activity, @param:Mode private val mode: Int) : Confir
 
     val currentPath: String
         get() = adapter.currentPath
+
     @IntDef(value = intArrayOf(DIRECTORY, FILE))
     @Retention(RetentionPolicy.SOURCE)
     annotation class Mode
@@ -91,21 +93,31 @@ class FilePicker(activity: Activity, @param:Mode private val mode: Int) : Confir
         }
         side.addView(storageParent)
 
-        activity.storageList()?.also {list ->
+        activity.getStorageList()?.also { list ->
             for (i in list.reversed().indices) {
-                val path = list[i]
+                val path = list[i].path
                 val tx = TextView(activity).apply {
                     setTextColor(AppCompatResources.getColorStateList(activity, R.color.storage_text_color))
                     setBackgroundColor(Color.WHITE)
-                    text = "${i + 1}"
+                    val name = if (!list[i].isRemoveAble) {
+                        val sd = Environment.getExternalStorageDirectory().absolutePath
+                        if (sd.startsWith(list[i].path) || list[i].path.startsWith(sd)) {
+                            context.getString(R.string.internal_sd)
+                        } else {
+                            context.getString(R.string.internal_storage)
+                        }
+                    } else {
+                        context.getString(R.string.sd_or_u)
+                    }
+                    text = "$name"
                     gravity = Gravity.CENTER
                     layoutParams = LinearLayout.LayoutParams(BasicPopup.MATCH_PARENT, BasicPopup.WRAP_CONTENT).apply {
-                        topMargin = if(i == 0) 0  else 10
+                        topMargin = if (i == 0) 0 else 10
                         bottomMargin = 10
                     }
                     setCompatElevation(8f)
                 }
-                AppCompatResources.getDrawable(activity, R.drawable.storage)?.also {img ->
+                AppCompatResources.getDrawable(activity, R.drawable.storage)?.also { img ->
                     img.setBounds(0, 0, 150, 150)
                     tx.setCompoundDrawables(null, img, null, null)
                 }
@@ -264,12 +276,6 @@ class FilePicker(activity: Activity, @param:Mode private val mode: Int) : Confir
         }
     }
 
-    override fun dismiss() {
-        super.dismiss()
-        //adapter.recycleData();
-        //pathAdapter.recycleData();
-    }
-
     /**
      * 响应选择器的列表项点击事件
      */
@@ -323,8 +329,8 @@ class FilePicker(activity: Activity, @param:Mode private val mode: Int) : Confir
         this.onFilePickListener = listener
     }
 
-    fun setOnFilePickListener(block : (String) -> Unit) {
-        this.onFilePickListener = object : OnFilePickListener{
+    fun setOnFilePickListener(block: (String) -> Unit) {
+        this.onFilePickListener = object : OnFilePickListener {
             override fun onFilePicked(currentPath: String) {
                 block(currentPath)
             }

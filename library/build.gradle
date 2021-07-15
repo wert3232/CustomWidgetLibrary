@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -22,6 +22,12 @@ android {
     /*tasks.withType(JavaCompile) {
         options.compilerArgs << "-Xlint:deprecation"
     }*/
+    android.libraryVariants.all { variant ->
+        variant.outputs.all { output->
+            outputFileName  = "${project.name}-v7-${defaultConfig.versionName}-${variant.buildType.name}.aar"
+        }
+    }
+
 }
 
 dependencies {
@@ -37,7 +43,7 @@ dependencies {
     implementation deps.support.recyclerView
     implementation deps.support.appcompatV7
     implementation deps.support.supportV4
-    implementation deps.view.constraintLayout
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 
     // RxJava
     implementation deps.rx.rxJava

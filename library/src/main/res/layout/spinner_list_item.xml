@@ -15,22 +15,24 @@
     tools:textColor="@android:color/black"
     tools:text="Item"/>-->
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/text_view_spinner"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:ellipsize="marquee"
-        android:gravity="center"
-        android:paddingTop="@dimen/one_and_a_half_grid_unit"
-        android:paddingBottom="@dimen/one_and_a_half_grid_unit"
-        android:singleLine="true"
-        android:textSize="12sp"
-        tools:textColor="@android:color/black"
-        tools:text="Item"/>
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/text_view_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:paddingTop="@dimen/one_and_a_half_grid_unit"
+            android:paddingBottom="@dimen/one_and_a_half_grid_unit"
+            android:singleLine="true"
+            android:textSize="12sp"
+            tools:text="Item"
+            tools:textColor="@android:color/black"
+            />
 </FrameLayout>
 

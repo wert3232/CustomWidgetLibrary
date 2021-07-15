@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -458,7 +459,7 @@ public class ConvertUtils {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         canvas.drawBitmap(cacheBitmap, 0, 0, null);
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.save();
         canvas.restore();
         if (!bitmap.isRecycled()) {
             LogUtils.verbose("recycle bitmap: " + bitmap.toString());
@@ -515,7 +516,7 @@ public class ConvertUtils {
 
     public static String toGbk(String str) {
         try {
-            return new String(str.getBytes("utf-8"), "gbk");
+            return new String(str.getBytes(StandardCharsets.UTF_8), "gbk");
         } catch (UnsupportedEncodingException e) {
             LogUtils.warn(e);
             return str;

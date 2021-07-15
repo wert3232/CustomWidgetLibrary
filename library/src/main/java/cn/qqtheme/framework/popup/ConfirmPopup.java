@@ -238,15 +238,15 @@ public abstract class ConfirmPopup<V extends View> extends BasicPopup<View> {
         this.backgroundColor = backgroundColor;
     }
 
-    public void setTitleView(View titleView) {
-        this.titleView = titleView;
-    }
-
     public View getTitleView() {
         if (null == titleView) {
             throw new NullPointerException("please call show at first");
         }
         return titleView;
+    }
+
+    public void setTitleView(View titleView) {
+        this.titleView = titleView;
     }
 
     public TextView getCancelButton() {

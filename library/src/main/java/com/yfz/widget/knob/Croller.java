@@ -2,9 +2,11 @@ package com.yfz.widget.knob;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,7 +17,6 @@ import android.graphics.SweepGradient;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -23,6 +24,9 @@ import com.common.ConvertKt;
 import com.library.R;
 
 public class Croller extends View {
+    //dataBinding
+    public InverseBindingListener mInverseBindingListener;
+    RectF oval;
     /*private static final int[] sweepGradientColors = new int[]{Color.WHITE, Color.GREEN, Color.YELLOW, Color.RED};
     private static final float[] sweepGradientPosition = new float[]{0.25f,0.50f,0.75f,1f};*/
     private int[] sweepGradientColors = new int[]{
@@ -50,74 +54,47 @@ public class Croller extends View {
     private float midx, midy;
     private Paint textPaint, valPaint, circlePaint, circlePaint2, linePaint;
     private float currdeg = 0, deg = 3, downdeg = 0;
-
-    private boolean isContinuous = false;
-
+    private boolean isContinuous = true;
     private int backCircleColor = Color.parseColor("#222222");
     private int mainCircleColor = Color.parseColor("#00000000");
     private int indicatorColor = Color.parseColor("#FFA036");
     private int progressPrimaryColor = Color.parseColor("#FFA036");
     private int progressSecondaryColor = Color.parseColor("#111111");
-
     private float progressPrimaryCircleSize = -1;
     private float progressSecondaryCircleSize = -1;
-
     private float progressPrimaryStrokeWidth = 10;
     private float progressSecondaryStrokeWidth = 10;
-
     private float mainCircleRadius = -1;
     private float backCircleRadius = -1;
     private float progressRadius = -1;
     private float mainCircleRadiusRatio = (float) 11 / (float) 15;
     private float backCircleRadiusRatio = (float) 13 / (float) 15;
     private float progressRadiusRatio = 1;
-
-    private int max = 25;
+    private int startIndex = 0;
+    private int endIndex = 100;
+    private int max = 100;
     private int min = 1;
-
     private float indicatorWidth = 7;
-
     private String label = "Label";
     private int labelSize = 40;
     private int labelColor = Color.TRANSPARENT;
-
     private String mMinLabel = "min";
     private String mMaxLabel = "max";
     private float minBottomRatio = 0, maxBottomRatio = 0, minCenterRatio = -0.1f, maxCenterRatio = 0.1f;
     private int mValColor = Color.TRANSPARENT;
     private float mValSize = 16;
-
+    //以什么角度为起点
     private int startOffset = 30;
     private int startOffset2 = 0;
-    private int sweepAngle = -1;
-
+    //进度所占有的角度
+    private int sweepAngle = 300;
     private boolean isAntiClockwise = false;
-
     private boolean startEventSent = false;
-
-    RectF oval;
-
     private onProgressChangedListener mProgressChangeListener;
     private OnCrollerChangeListener mCrollerChangeListener;
-
     private Bitmap mBackCircle, mMainCircle;
     private Drawable mBackDrawable, mMainDrawable;
     private int mReviseDegree = 0;
-
-    //dataBinding
-    public InverseBindingListener mInverseBindingListener;
-
-    public interface onProgressChangedListener {
-        void onProgressChanged(int progress);
-    }
-
-    public void setOnProgressChangedListener(onProgressChangedListener mProgressChangeListener) {
-        this.mProgressChangeListener = mProgressChangeListener;
-    }
-
-    public void setOnCrollerChangeListener(OnCrollerChangeListener mCrollerChangeListener) {
-        this.mCrollerChangeListener = mCrollerChangeListener;
-    }
 
     public Croller(Context context) {
         this(context, null);
@@ -132,6 +109,47 @@ public class Croller extends View {
         setFocusable(true);
         initXMLAttrs(context, attrs);
         init();
+    }
+
+    @InverseBindingAdapter(attribute = "appProgress", event = "appProgressAttrChanged")
+    public static int getAppProgress(Croller croller) {
+        return croller.getProgress();
+    }
+
+    @BindingAdapter(value = {"appProgress"})
+    public static void setProgress(Croller croller, int progress) {
+        if (croller.getProgress() != progress) {
+            croller.setProgress(progress);
+        }
+    }
+
+    @BindingAdapter(value = {"appProgressAttrChanged"}, requireAll = false)
+    public static void setAppProgressAttrChanged(Croller croller, InverseBindingListener inverseBindingListener) {
+        croller.mInverseBindingListener = inverseBindingListener;
+    }
+
+    public void setOnProgressChangedListener(onProgressChangedListener mProgressChangeListener) {
+        this.mProgressChangeListener = mProgressChangeListener;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
+    public int getEndIndex() {
+        return endIndex;
+    }
+
+    public void setEndIndex(int endIndex) {
+        this.endIndex = endIndex;
+    }
+
+    public void setOnCrollerChangeListener(OnCrollerChangeListener mCrollerChangeListener) {
+        this.mCrollerChangeListener = mCrollerChangeListener;
     }
 
     @Override
@@ -190,13 +208,18 @@ public class Croller extends View {
 
     private void initXMLAttrs(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Croller);
-
+        TypedArray ca = context.obtainStyledAttributes(attrs, R.styleable.commonAttr);
         final int N = a.getIndexCount();
+        for (int i = 0; i < ca.getIndexCount(); i++) {
+            int attr = ca.getIndex(i);
+            if (attr == R.styleable.commonAttr_appProgress) {
+                setProgress(ca.getInt(attr, 1));
+            }
+        }
+
         for (int i = 0; i < N; ++i) {
             int attr = a.getIndex(i);
-            if (attr == R.styleable.Croller_progress) {
-                setProgress(a.getInt(attr, 1));
-            } else if (attr == R.styleable.Croller_label) {
+            if (attr == R.styleable.Croller_label) {
                 setLabel(a.getString(attr));
             } else if (attr == R.styleable.Croller_back_circle_color) {
                 setBackCircleColor(a.getColor(attr, Color.parseColor("#222222")));
@@ -231,7 +254,7 @@ public class Croller extends View {
             } else if (attr == R.styleable.Croller_indicator_width) {
                 setIndicatorWidth(a.getFloat(attr, 7));
             } else if (attr == R.styleable.Croller_is_continuous) {
-                setIsContinuous(a.getBoolean(attr, false));
+                setIsContinuous(a.getBoolean(attr, true));
             } else if (attr == R.styleable.Croller_progress_primary_circle_size) {
                 setProgressPrimaryCircleSize(a.getFloat(attr, -1));
             } else if (attr == R.styleable.Croller_progress_secondary_circle_size) {
@@ -247,13 +270,13 @@ public class Croller extends View {
                 if(array != null){
                     sweepGradientPosition = ConvertKt.toFloat(array);
                 }*/
-                int ResId = a.getResourceId(attr,-1);
-                if(ResId != -1){
+                int ResId = a.getResourceId(attr, -1);
+                if (ResId != -1) {
                     sweepGradientPosition = ConvertKt.toFloat(getResources().getStringArray(ResId));
                 }
             } else if (attr == R.styleable.Croller_sweep_gradient_colors) {
-                int ResId = a.getResourceId(attr,-1);
-                if(ResId != -1){
+                int ResId = a.getResourceId(attr, -1);
+                if (ResId != -1) {
                     sweepGradientColors = getResources().getIntArray(ResId);
                 }
             } else if (attr == R.styleable.Croller_start_offset) {
@@ -300,6 +323,7 @@ public class Croller extends View {
             }
         }
         a.recycle();
+        ca.recycle();
     }
 
     @Override
@@ -632,32 +656,11 @@ public class Croller extends View {
         return (int) (deg - 2);
     }
 
-    @InverseBindingAdapter(attribute = "progress", event = "progressAttrChanged")
-    public static int getProgress(Croller croller) {
-        return croller.getProgress();
-    }
-
     public void setProgress(int x) {
         if (deg == x + 2) {
 
         } else {
             setDeg(x + 2);
-        }
-    }
-
-    @BindingAdapter(value = {"progress"})
-    public static void setProgress(Croller croller, int progress) {
-        if (croller.getProgress() != progress) {
-            croller.setProgress(progress);
-        }
-    }
-
-    @BindingAdapter(value = {"progressAttrChanged"}, requireAll = false)
-    public static void setProgressAttrChanged(Croller croller, InverseBindingListener inverseBindingListener) {
-        if (inverseBindingListener == null) {
-            croller.mInverseBindingListener = null;
-        } else {
-            croller.mInverseBindingListener = inverseBindingListener;
         }
     }
 
@@ -933,5 +936,9 @@ public class Croller extends View {
             }
             invalidate();
         }
+    }
+
+    public interface onProgressChangedListener {
+        void onProgressChanged(int progress);
     }
 }

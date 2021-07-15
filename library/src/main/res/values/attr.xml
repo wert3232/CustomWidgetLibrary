@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources  xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools">
     <declare-styleable name="eqBezierChart">
         <attr name="eqPointNum" format="integer"/>
         <attr name="frequencies" format="reference"/>
@@ -28,13 +28,13 @@
         <attr name="lineSpaceRatio" format="float"/>
         <attr name="isCursorSpace" format="boolean"/>
         <attr name="isZeroSpace" format="boolean"/>
-        <attr name="startIndex" format="integer"/>
-        <attr name="endIndex" format="integer"/>
         <attr name="scaleSpeedUnit" format="integer"/>
-        <attr name="index" format="integer"/>
+        <attr name="horizontalWheelView_start_index" format="integer"/>
+        <attr name="horizontalWheelView_end_index" format="integer"/>
+        <attr name="horizontalWheelView_index" format="integer"/>
+        <attr name="horizontalWheelView_isAnti" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="Croller">
-        <attr name="progress" format="integer" />
         <attr name="label" format="string" />
         <attr name="min_val_label" format="string"/>
         <attr name="max_val_label" format="string"/>
@@ -71,10 +71,43 @@
         <attr name="sweep_gradient_positions" format="reference"/>
         <attr name="sweep_gradient_colors" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="Knob">
+        <attr name="knob_back_circle_color" format="color"/>
+        <attr name="knob_main_circle_color" format="color"/>
+        <attr name="knob_back_circle_drawable" format="reference"/>
+        <attr name="knob_main_circle_drawable" format="reference"/>
+        <attr name="knob_progress_primary_drawable" format="reference"/>
+        <attr name="knob_progress_second_drawable" format="reference"/>
+        <attr name="knob_is_progress_drawable" format="boolean"/>
+        <attr name="knob_main_circle_drawable_revise_degree" format="integer"/>
+        <attr name="knob_indicator_color" format="color"/>
+        <attr name="knob_progress_primary_color" format="color"/>
+        <attr name="knob_progress_secondary_color" format="color"/>
+        <attr name="knob_indicator_width" format="float"/>
+        <attr name="knob_is_continuous" format="boolean"/>
+        <attr name="knob_progress_primary_circle_size" format="float"/>
+        <attr name="knob_progress_secondary_circle_size" format="float"/>
+        <attr name="knob_progress_primary_stroke_width" format="float"/>
+        <attr name="knob_progress_secondary_stroke_width" format="float"/>
+        <attr name="knob_sweep_angle" format="integer"/>
+        <attr name="knob_start_offset" format="integer"/>
+        <attr name="knob_start_index" format="integer"/>
+        <attr name="knob_end_index" format="integer"/>
+        <attr name="knob_index" format="integer"/>
+        <attr name="knob_main_circle_radius" format="float"/>
+        <attr name="knob_back_circle_radius" format="float"/>
+        <attr name="knob_progress_radius" format="float"/>
+        <attr name="knob_anticlockwise" format="boolean"/>
+    </declare-styleable>
+
     <declare-styleable name="selectTextView">
         <attr name="selected" format="boolean" />
     </declare-styleable>
     <declare-styleable name="VerticalSeekBar">
+        <attr name="verticalSeekBar_start_index" format="integer"/>
+        <attr name="verticalSeekBar_end_index" format="integer"/>
+        <attr name="verticalSeekBar_index" format="integer"/>
         <attr name="seekBarRotation">
             <!-- Clock wise - 90 deg; top = min, bottom = max -->
             <enum name="CW90" value="90" />
@@ -110,6 +143,10 @@
         <attr name="appHintTextSize" format="dimension"/>
         <attr name="appRadius" format="dimension"/>
         <attr name="appCircleRadius" format="dimension"/>
+        <attr name="appProgress" format="integer"/>
+        <attr name="startIndex" format="integer"/>
+        <attr name="endIndex" format="integer"/>
+        <attr name="currentIndex" format="integer"/>
     </declare-styleable>
     <declare-styleable name="NiceSpinner">
         <attr name="arrowTint" format="color" />

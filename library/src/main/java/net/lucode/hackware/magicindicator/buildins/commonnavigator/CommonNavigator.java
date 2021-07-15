@@ -10,7 +10,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import net.lucode.hackware.magicindicator.NavigatorHelper;
+
 import com.library.R;
+
 import net.lucode.hackware.magicindicator.ScrollState;
 import net.lucode.hackware.magicindicator.abs.IPagerNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
@@ -34,7 +36,7 @@ public class CommonNavigator extends FrameLayout implements IPagerNavigator, Nav
     private IPagerIndicator mIndicator;
 
     private CommonNavigatorAdapter mAdapter;
-    private NavigatorHelper mNavigatorHelper;
+    private final NavigatorHelper mNavigatorHelper;
 
     /**
      * 提供给外部的参数配置
@@ -53,9 +55,9 @@ public class CommonNavigator extends FrameLayout implements IPagerNavigator, Nav
     /****************************************************/
 
     // 保存每个title的位置信息，为扩展indicator提供保障
-    private List<PositionData> mPositionDataList = new ArrayList<PositionData>();
+    private final List<PositionData> mPositionDataList = new ArrayList<PositionData>();
 
-    private DataSetObserver mObserver = new DataSetObserver() {
+    private final DataSetObserver mObserver = new DataSetObserver() {
 
         @Override
         public void onChanged() {
@@ -124,12 +126,12 @@ public class CommonNavigator extends FrameLayout implements IPagerNavigator, Nav
             root = LayoutInflater.from(getContext()).inflate(R.layout.pager_navigator_layout, this);
         }
 
-        mScrollView = (HorizontalScrollView) root.findViewById(R.id.scroll_view);   // mAdjustMode为true时，mScrollView为null
+        mScrollView = root.findViewById(R.id.scroll_view);   // mAdjustMode为true时，mScrollView为null
 
-        mTitleContainer = (LinearLayout) root.findViewById(R.id.title_container);
+        mTitleContainer = root.findViewById(R.id.title_container);
         mTitleContainer.setPadding(mLeftPadding, 0, mRightPadding, 0);
 
-        mIndicatorContainer = (LinearLayout) root.findViewById(R.id.indicator_container);
+        mIndicatorContainer = root.findViewById(R.id.indicator_container);
         if (mIndicatorOnTop) {
             mIndicatorContainer.getParent().bringChildToFront(mIndicatorContainer);
         }
@@ -149,7 +151,7 @@ public class CommonNavigator extends FrameLayout implements IPagerNavigator, Nav
                 if (mAdjustMode) {
                     lp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
                     //FIXME:设置 item之间的间隔
-                    lp.setMargins(0,0,0,0);
+                    lp.setMargins(0, 0, 0, 0);
                     lp.weight = mAdapter.getTitleWeight(getContext(), i);
                 } else {
                     lp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);

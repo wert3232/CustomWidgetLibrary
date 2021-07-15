@@ -21,6 +21,7 @@ public class HackPopupDecorView extends ViewGroup {
     private PopupTouchController mPopupTouchController;
     private View mPopupDecorView;
     private BasePopupHelper mBasePopupHelper;
+    private OnAttachListener mOnAttachListener;
 
     public HackPopupDecorView(Context context) {
         super(context);
@@ -192,8 +193,6 @@ public class HackPopupDecorView extends ViewGroup {
         PopupLogUtil.trace(LogTag.i, TAG, "PopupWindow窗口的window type >>  " + p.type);
         return p;
     }
-
-    private OnAttachListener mOnAttachListener;
 
     public OnAttachListener getOnAttachListener() {
         return mOnAttachListener;

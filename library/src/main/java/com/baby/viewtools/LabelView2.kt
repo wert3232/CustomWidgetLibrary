@@ -1,4 +1,5 @@
 package com.baby.viewtools
+
 import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.InverseBindingAdapter
@@ -27,7 +28,7 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
     var inverseBindingListener: InverseBindingListener? = null
     var selectIndex = -1
         set(value) {
-            if(value != field) {
+            if (value != field) {
                 field = value
                 invalidate()
             }
@@ -35,7 +36,7 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
 
     var textSize = 40
         set(value) {
-            if(value != field){
+            if (value != field) {
                 textPaint.textSize = value.toFloat()
                 field = value
             }
@@ -54,17 +55,17 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     private var currentTextLength = 0
         set(value) {
-            if(field < value){
+            if (field < value) {
                 field = value
             }
         }
     private var isWidthWrapContent = false
     var appContent: String = ""
         set(value) {
-            if(field != value) {
+            if (field != value) {
                 measureTxt(value)
                 currentTextLength = field.length
-                if(value.length > currentTextLength && isWidthWrapContent){
+                if (value.length > currentTextLength && isWidthWrapContent) {
                     requestLayout()
                 }
                 field = value
@@ -73,32 +74,33 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     private var txtWidth = 20
         set(value) {
-            if(value < 20){
+            if (value < 20) {
                 field = 20
-            }else{
+            } else {
                 field = value
             }
         }
     private var txtHeight = 20
         set(value) {
-            if(value < 20){
+            if (value < 20) {
                 field = 20
-            }else{
+            } else {
                 field = value
             }
         }
-    init{
+
+    init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.commonAttr)
         textSize = a.getDimensionPixelSize(R.styleable.commonAttr_appTextSize, 40)
         /*textColor = a.getColorStateList(R.styleable.commonAttr_appTextColor)*/
         textColor = a.getColor(R.styleable.commonAttr_appTextColor, Color.parseColor("#FFFFFF"))
-        selectIndex = a.getInt(R.styleable.commonAttr_selectIndex,-1)
+        selectIndex = a.getInt(R.styleable.commonAttr_selectIndex, -1)
         appContent = a.getString(R.styleable.commonAttr_appContent) ?: ""
         a.recycle()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-       //Log.e(javaClass.simpleName,"onMeasure")
+        //Log.e(javaClass.simpleName,"onMeasure")
         val widthSpecSize = MeasureSpec.getSize(widthMeasureSpec)
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val heightSpecSize = MeasureSpec.getSize(heightMeasureSpec)
@@ -106,49 +108,54 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
         var w = widthSpecSize   //定义测量宽，高(不包含测量模式),并设置默认值，查看View#getDefaultSize可知
         var h = heightSpecSize
 
-        if(widthMode ==  MeasureSpec.AT_MOST && heightMode ==  MeasureSpec.AT_MOST
+        if (widthMode == MeasureSpec.AT_MOST && heightMode == MeasureSpec.AT_MOST
                 && layoutParams.width == WRAP_CONTENT && layoutParams.height == WRAP_CONTENT
-        ){
+        ) {
             isWidthWrapContent = true
             w = txtWidth
             h = txtHeight
-        }else if(widthMode ==  MeasureSpec.AT_MOST && layoutParams.width == WRAP_CONTENT){
+        } else if (widthMode == MeasureSpec.AT_MOST && layoutParams.width == WRAP_CONTENT) {
             isWidthWrapContent = true
             w = txtWidth
-            h =  getDefaultSize(suggestedMinimumHeight, heightMeasureSpec)
-        }else if(heightMode ==  MeasureSpec.AT_MOST && layoutParams.height == WRAP_CONTENT){
+            h = getDefaultSize(suggestedMinimumHeight, heightMeasureSpec)
+        } else if (heightMode == MeasureSpec.AT_MOST && layoutParams.height == WRAP_CONTENT) {
             isWidthWrapContent = false
-            w =  getDefaultSize(suggestedMinimumWidth, widthMeasureSpec)
+            w = getDefaultSize(suggestedMinimumWidth, widthMeasureSpec)
             h = txtHeight
-        }else{
+        } else {
             isWidthWrapContent = false
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return
         }
-        setMeasuredDimension(w,h)
+        setMeasuredDimension(w, h)
     }
-    private fun measureTxt(txt: String){
+
+    private fun measureTxt(txt: String) {
         val rect = Rect()
-        textPaint.getTextBounds(txt,0,txt.length,rect)
+        textPaint.getTextBounds(txt, 0, txt.length, rect)
         rect.apply {
             txtWidth = this.width() + 10
-            txtHeight = this.height()  + 10
+            txtHeight = this.height() + 10
         }
     }
+
     override fun onDraw(canvas: Canvas) {
         val targetRect = Rect(0, 0, canvas.width, canvas.height)
         val fontMetrics = textPaint.fontMetricsInt
         val baseline = (targetRect.bottom.toFloat() + targetRect.top.toFloat() - fontMetrics.bottom.toFloat() - fontMetrics.top.toFloat()) / 2
         canvas.drawText(appContent, targetRect.centerX().toFloat(), baseline, textPaint)
     }
+
     companion object {
         @InverseBindingAdapter(attribute = "selectIndex", event = "indexAttrChanged")
-        @JvmStatic fun getSelectIndex(view: LabelView2): Int {
+        @JvmStatic
+        fun getSelectIndex(view: LabelView2): Int {
             return view.selectIndex
         }
 
         @BindingAdapter(value = arrayOf("selectIndex"))
-        @JvmStatic	fun setSelectIndex(view: LabelView2, selectIndex: Int) {
+        @JvmStatic
+        fun setSelectIndex(view: LabelView2, selectIndex: Int) {
             if (view.selectIndex != selectIndex) {
                 view.selectIndex = selectIndex
             }
@@ -164,9 +171,11 @@ open class LabelView2 @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
         @BindingAdapter(value = arrayOf("appContent"))
-        @JvmStatic	fun setAppContent(view: LabelView2, appContent: String) {
+        @JvmStatic
+        fun setAppContent(view: LabelView2, appContent: String?) {
+
             if (view.appContent != appContent) {
-                view.appContent = appContent
+                view.appContent = appContent ?: ""
             }
         }
     }

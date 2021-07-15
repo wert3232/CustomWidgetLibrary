@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="vertical"
-    android:background="@color/ksw_md_solid_checked"
-    android:paddingLeft="15dp">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="50dp"
+              android:background="@color/ksw_md_solid_checked"
+              android:orientation="vertical"
+              android:paddingLeft="15dp">
 
     <TextView
         android:id="@+id/tvName"

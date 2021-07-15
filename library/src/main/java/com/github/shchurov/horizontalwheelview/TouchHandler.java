@@ -21,12 +21,24 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
     private static final int SETTLING_DURATION_MULTIPLIER = 1000;
     private static final Interpolator INTERPOLATOR = new DecelerateInterpolator(2.5f);
 
-    private HorizontalWheelView view;
+    private final HorizontalWheelView view;
     private onChangeListener listener;
-    private GestureDetector gestureDetector;
+    private final GestureDetector gestureDetector;
     private ValueAnimator settlingAnimator;
     private boolean snapToMarks;
     private int scrollState = SCROLL_STATE_IDLE;
+    private final ValueAnimator.AnimatorUpdateListener flingAnimatorListener = new ValueAnimator.AnimatorUpdateListener() {
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation) {
+            view.setRadiansAngle((float) animation.getAnimatedValue());
+        }
+    };
+    private final Animator.AnimatorListener animatorListener = new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            updateScrollStateIfRequired(SCROLL_STATE_IDLE);
+        }
+    };
 
     TouchHandler(HorizontalWheelView view) {
         this.view = view;
@@ -62,7 +74,7 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
     }
 
     void cancelFling() {
-        if (scrollState == SCROLL_STATE_SETTLING) {
+        if (settlingAnimator != null && settlingAnimator.isRunning()) {
             settlingAnimator.cancel();
         }
     }
@@ -72,16 +84,9 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
         //Log.e("test","distanceX:" + distanceX + "  distanceY:" + distanceY);
         double newAngle = view.getRadiansAngle() + distanceX * SCROLL_ANGLE_MULTIPLIER;
         view.setRadiansAngle(newAngle);
-        view.onDistanceChange(distanceX,distanceY);
+        view.onDistanceChange(distanceX, distanceY);
         updateScrollStateIfRequired(SCROLL_STATE_DRAGGING);
         return true;
-    }
-
-    private void updateScrollStateIfRequired(int newState) {
-        if (listener != null && scrollState != newState) {
-            scrollState = newState;
-            listener.onScrollStateChanged(newState);
-        }
     }
 
     @Override
@@ -92,6 +97,13 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
         }
         playSettlingAnimation(endAngle);
         return true;
+    }
+
+    private void updateScrollStateIfRequired(int newState) {
+        if (listener != null && scrollState != newState) {
+            scrollState = newState;
+            listener.onScrollStateChanged(newState);
+        }
     }
 
     private double findNearestMarkAngle(double angle) {
@@ -110,19 +122,5 @@ class TouchHandler extends GestureDetector.SimpleOnGestureListener {
         settlingAnimator.addListener(animatorListener);
         settlingAnimator.start();
     }
-
-    private ValueAnimator.AnimatorUpdateListener flingAnimatorListener = new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            view.setRadiansAngle((float) animation.getAnimatedValue());
-        }
-    };
-
-    private Animator.AnimatorListener animatorListener = new AnimatorListenerAdapter() {
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            updateScrollStateIfRequired(SCROLL_STATE_IDLE);
-        }
-    };
 
 }

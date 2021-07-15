@@ -14,7 +14,11 @@ import android.view.View
  * 有分类title的 ItemDecoration
  */
 
-class TitleItemDecoration(context: Context, private val mData: List<SortModel>,private var paramsBlock: Params.() -> Unit) : RecyclerView.ItemDecoration() {
+class TitleItemDecoration(
+    context: Context,
+    private val mData: List<SortModel>,
+    private var paramsBlock: Params.() -> Unit
+) : RecyclerView.ItemDecoration() {
     inner class Params {
         var titleHeight = 30f
         var titleTextSize = 16f
@@ -37,7 +41,7 @@ class TitleItemDecoration(context: Context, private val mData: List<SortModel>,p
 
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
         val left = parent.paddingLeft
         val right = parent.width - parent.paddingRight
@@ -80,17 +84,12 @@ class TitleItemDecoration(context: Context, private val mData: List<SortModel>,p
                 (child.top - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2)).toFloat(), mPaint)
     }
 
-    /**
-     * 最后调用，绘制最上层的title
-     * @param c
-     * @param parent
-     * @param state
-     */
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
-        val position = (parent.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        val position =
+            (parent.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
         if (position == -1) return //在搜索到没有的索引的时候position可能等于-1，所以在这里判断一下
         val lettersTag = mData[position].letters
-        val child = parent.findViewHolderForLayoutPosition(position).itemView
+        val child = parent.findViewHolderForLayoutPosition(position)?.itemView ?: return
         //Canvas是否位移过的标志
         var flag = false
         if (position + 1 < mData.size) {
@@ -129,7 +128,7 @@ class TitleItemDecoration(context: Context, private val mData: List<SortModel>,p
 
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         val position = (view.layoutParams as RecyclerView.LayoutParams).viewLayoutPosition
         if (position > -1) {

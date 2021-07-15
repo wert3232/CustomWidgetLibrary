@@ -18,9 +18,11 @@ package com.yanzhenjie.recyclerview.swipe;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;

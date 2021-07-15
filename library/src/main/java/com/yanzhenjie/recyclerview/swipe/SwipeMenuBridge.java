@@ -16,11 +16,13 @@
 package com.yanzhenjie.recyclerview.swipe;
 
 import android.graphics.drawable.Drawable;
+
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;

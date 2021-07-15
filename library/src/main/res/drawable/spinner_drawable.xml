@@ -7,7 +7,8 @@
                     android:bottomLeftRadius="1dp"
                     android:bottomRightRadius="1dp"
                     android:topLeftRadius="1dp"
-                    android:topRightRadius="1dp" />
+                    android:topRightRadius="1dp"
+                    />
         </shape>
     </item>
 </layer-list>

@@ -6,6 +6,16 @@ import android.view.View;
 
 class SavedState extends View.BaseSavedState {
 
+    public static final Creator<SavedState> CREATOR
+            = new Creator<SavedState>() {
+        public SavedState createFromParcel(Parcel in) {
+            return new SavedState(in);
+        }
+
+        public SavedState[] newArray(int size) {
+            return new SavedState[size];
+        }
+    };
     double angle;
 
     SavedState(Parcelable superState) {
@@ -29,16 +39,5 @@ class SavedState extends View.BaseSavedState {
                 + Integer.toHexString(System.identityHashCode(this))
                 + " angle=" + angle + "}";
     }
-
-    public static final Creator<SavedState> CREATOR
-            = new Creator<SavedState>() {
-        public SavedState createFromParcel(Parcel in) {
-            return new SavedState(in);
-        }
-
-        public SavedState[] newArray(int size) {
-            return new SavedState[size];
-        }
-    };
 
 }
