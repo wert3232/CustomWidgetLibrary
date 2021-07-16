@@ -283,7 +283,6 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             mainDrawable.setBounds(0, 0, minLength.toInt(), minLength.toInt())
             mainDrawable.draw(canvas)
             canvas.restoreToCount(saveCount)
-            canvas.drawText("$progressPercent",minLength / 2,minLength / 2,textPaint)
         }
     }
 
