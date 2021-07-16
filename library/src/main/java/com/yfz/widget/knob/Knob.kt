@@ -38,6 +38,10 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         strokeCap = Paint.Cap.ROUND
         strokeJoin = Paint.Join.ROUND
     }
+    private val textPaint = Paint().apply {
+        color =  Color.parseColor("#FFFFFF")
+        textSize = 20f
+    }
     private val progressSecondStrokeWidth = a.getFloat(R.styleable.Knob_knob_progress_secondary_stroke_width, 0.05f)
     private val progressSecondPaint = Paint().apply {
         isAntiAlias = true
@@ -273,12 +277,13 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             canvas.translate(midX - minLength / 2, midY - minLength / 2)
             crollerMatrix.reset()
             crollerMatrix.preScale(mainCircleRadius, mainCircleRadius, minLength / 2, minLength / 2)
-            val degree = (90f + reviseDegree + startOffset) + sweepAngle * progressPercent
+            val degree = (0f + reviseDegree + startOffset) + sweepAngle * progressPercent
             crollerMatrix.preRotate(degree, minLength / 2, minLength / 2)
             canvas.concat(crollerMatrix)
             mainDrawable.setBounds(0, 0, minLength.toInt(), minLength.toInt())
             mainDrawable.draw(canvas)
             canvas.restoreToCount(saveCount)
+            canvas.drawText("$progressPercent",minLength / 2,minLength / 2,textPaint)
         }
     }
 

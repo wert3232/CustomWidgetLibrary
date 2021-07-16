@@ -40,11 +40,14 @@
             app:knob_back_circle_radius="0.0"
             app:knob_is_progress_drawable="true"
             app:knob_index="@={ui.index}"
-            app:knob_main_circle_radius="0.0"
+            app:knob_main_circle_radius="0.5"
             app:knob_progress_primary_drawable="@drawable/test_round_2"
             app:knob_progress_second_drawable="@drawable/test_round_3"
-            app:knob_start_index="-10"
-            app:knob_end_index="60"
+            app:knob_start_index="0"
+            app:knob_end_index="10"
+            app:knob_main_circle_drawable_revise_degree="90"
+            app:knob_start_offset="45"
+            app:knob_sweep_angle="270"
             tools:knob_index="10"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
