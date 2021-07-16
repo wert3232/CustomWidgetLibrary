@@ -41,7 +41,7 @@ class ClearEditText @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {
         if (hasFocus) {
-            setClearIconVisible(text.length > 0)
+            setClearIconVisible(text!!.length > 0)
         } else {
             setClearIconVisible(false)
         }
