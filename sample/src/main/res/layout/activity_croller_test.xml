@@ -47,7 +47,7 @@
             app:knob_end_index="10"
             app:knob_main_circle_drawable_revise_degree="90"
             app:knob_start_offset="45"
-            app:knob_sweep_angle="270"
+            app:knob_sweep_angle="135"
             tools:knob_index="10"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

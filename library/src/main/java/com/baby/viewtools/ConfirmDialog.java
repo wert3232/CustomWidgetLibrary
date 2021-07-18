@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+
 import com.library.R;
 
 public class ConfirmDialog extends Dialog implements View.OnClickListener {
@@ -19,15 +22,18 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
     private Callback callback;
     private Boolean isAutoDismiss = true;
 
-    public ConfirmDialog(Context context, int theme) {
-        super(context, theme);
-        initView();
-        initData();
-        setListener();
-    }
-
     public ConfirmDialog(Context context) {
         this(context, 0);
+    }
+
+    public ConfirmDialog(Context context, int theme) {
+        this(context, theme,0);
+    }
+    public ConfirmDialog(Context context, int theme, @LayoutRes int layoutId) {
+        super(context, theme);
+        initView(layoutId);
+        initData();
+        setListener();
     }
 
     public ConfirmDialog setCallBack(Callback callback) {
@@ -52,12 +58,16 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
 
     }
 
-    private void initView() {
+    private void initView(@LayoutRes int layoutId) {
         this.window = this.getWindow();
         this.window.requestFeature(Window.FEATURE_NO_TITLE);
         this.window.setBackgroundDrawable(null);
         setCanceledOnTouchOutside(false);
-        setContentView(R.layout.dialog_confirm);
+        if(layoutId == 0){
+            setContentView(R.layout.dialog_confirm);
+        }else {
+            setContentView(layoutId);
+        }
         confirm = findViewById(R.id.textview_confirm);
         cancel = findViewById(R.id.textview_cancel);
         title = findViewById(R.id.textview_title);
