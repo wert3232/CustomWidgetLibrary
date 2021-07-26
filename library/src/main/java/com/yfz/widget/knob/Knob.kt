@@ -1,4 +1,4 @@
-package com.yfz.widget.knob
+ package com.yfz.widget.knob
 
 import android.content.Context
 import android.graphics.*
@@ -209,7 +209,7 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
                 matrix1.reset()
                 matrix1.preRotate(90 + startOffset.toFloat(), minLength / 2, minLength / 2)
                 canvas.concat(matrix1)
-                oval.set(0f, 0f,  minLength,  minLength)
+                oval.set(-0.42f * minLength, -0.42f * minLength,  minLength + 0.42f * minLength,  minLength + 0.42f * minLength)
                 canvas.drawArc(oval, 0f, sweepAngle.toFloat() * progressPercent, true, clipPaint)
                 canvas.restoreToCount(saveCount)
             }
@@ -235,7 +235,7 @@ open class Knob @JvmOverloads constructor(context: Context, attrs: AttributeSet?
                 matrix1.reset()
                 matrix1.preRotate(90 + startOffset.toFloat(), minLength / 2, minLength / 2)
                 canvas.concat(matrix1)
-                oval.set(0f, 0f,  minLength,  minLength)
+                oval.set(-0.42f * minLength, -0.42f * minLength,  minLength + 0.42f * minLength,  minLength + 0.42f * minLength)
                 canvas.drawArc(oval, sweepAngle.toFloat() * progressPercent, 360 - (sweepAngle.toFloat() * progressPercent), true, clipPaint)
                 canvas.restoreToCount(saveCount)
             }
